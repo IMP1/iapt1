@@ -1,4 +1,4 @@
-iapt1
+IAPT Individual Assessment
 =====
 
-Interactive web design project for IAPT module in 3rd year Computer Science degree at Univeristy of York.
+Interactive Applications web design project for IAPT module in 3<sup>rd</sup> year Computer Science degree at the University of York.
