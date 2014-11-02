@@ -1,0 +1,147 @@
+/*
+Layout
+----------------------------------------------*/
+body {
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header h1 {
+    text-align: center;
+}
+header h1.title-big {
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+header h1.title-small {
+    text-align: center;
+}
+
+.proviso {
+    color: #888;
+    font-size: 0.8em;
+}
+
+    /*
+    Features
+    --------------------------------------*/
+    section.feature {
+        margin-left: 3em;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        margin-bottom: 2em;
+    }
+
+    section.feature .feature-info {
+        padding-left: 2em;
+    }
+
+    section.feature .feature-info ul.details {
+        list-style: none;
+        margin-bottom: 1em;
+    }
+
+    section.feature .rating {
+        text-align: center;
+    }
+
+    /*
+    Footer
+    --------------------------------------*/
+    footer {
+        text-align: center;
+        margin-top: 6em;
+        margin-bottom: 2em;
+    }
+
+    footer ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    } 
+
+    footer ul li { 
+        display: inline-block; 
+    }
+    footer ul.dotted li:after { content: " \2022 "; }
+    footer ul.dotted li:last-child:after { content: none; }
+
+    footer li > a {
+        width: 60px;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    footer #links {
+        font-size: 1.5em;
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    footer #credits {
+        margin-top: 3em;
+    }
+
+
+/*
+Style
+----------------------------------------------*/
+
+
+    input[type="search"] {
+        border-top-left-radius: 0.5em;
+        border-bottom-left-radius: 0.5em;
+    }
+    button.search,
+    input[type="submit"].search {
+        border-radius: 0;
+        border-top-right-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+    }
+    /*
+    Footer
+    --------------------------------------*/
+    footer {
+        color: rgba(0, 0, 0, 0.4);
+    }
+    footer #credits h3 {
+        color: rgba(0, 0, 0, 0.4);
+    }
+    footer a {
+        color: rgba(0, 0, 0, 0.5);
+    }
+    footer a:hover { 
+        color: rgba(0, 0, 0, 0.7);
+    }
+    footer #links {
+        color: rgba(0, 0, 0, 0.6);
+    }
+    footer #links a {
+        color: rgba(0, 0, 0, 0.7);
+    }
+    footer #links a:hover {
+        color: rgba(0, 0, 0, 0.85);
+    }
+    footer #links a:hover .fa-facebook-square {
+        color: rgb(59, 89, 152);
+    }
+    footer #links a:hover .fa-envelope-square {
+        color: rgb(255, 167, 26);
+    }
+    footer #links a:hover .fa-square {
+        color: rgb(0, 102, 221);
+    }
+
+    /*
+    Targeted link to fade.
+    --------------------------------------*/
+    @keyframes highlight-yellow {
+        0%   {background: #ffc800;}
+        100% {background: inherit;}
+    }
+
+    :target {
+        animation: highlight-yellow 4s linear;
+    }
