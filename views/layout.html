@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="{{=T.accepted_language or 'en'}}">
+    <head>
+        {{ block head }}
+        <title>{{ =response.title or request.application }}</title>
+        
+        <meta charset="utf-8" />
+        <meta name="application-name" content="{{=request.application}}" />
+        <meta name="google-site-verification" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link type="text/css" href="{{ =URL('static','css/default.css') }}" rel="stylesheet">
+        <link type="text/css" href="{{ =URL('static','css/hug.css') }}" rel="stylesheet">
+        <link type="text/css" href="{{ =URL('static','css/theme.css') }}" rel="stylesheet">
+        {{end}}
+    </head>
+    <body>
+        <header>
+            {{ block title }}
+            <h1 class="title-big">Congo Online Shop</h1>
+            {{ end }}
+            {{ block navbar }}
+            <nav class="horizontal">
+                <ul>
+                    <li><a href="{{=URL('default', 'index')}}" tabindex="1"><span class="fa fa-fw fa-star"></span> Features</a></li>
+                    <li><a href="{{=URL('store', 'books')}}" tabindex="1"><span class="fa fa-fw fa-book"></span> Books</a></li>
+                    <li><a href="{{=URL('store', 'videos')}}" tabindex="1"><span class="fa fa-fw fa-video-camera"></span> Videos</a></li>
+                </ul>
+                <ul class="float-right">
+                    <li><a href="{{=URL('default', 'new')}}" tabindex="3"><span class="fa fa-fw fa-plus"></span> New Product</a></li>
+                    <li><a href="{{=URL('default', 'ammend')}}" tabindex="3"><span class="fa fa-fw fa-refresh"></span> Update Product</a></li>
+                </ul>
+                <form action="{{=URL('default', 'search.html')}}" method="post" class="float-right">
+                    <input type="search" name="navsearch" placeholder="Search Congo" tabindex="2">
+                    <input type="submit" value="Go" class="append search" tabindex="2">
+                </form>
+            </nav>
+            {{ end }}
+        </header>
+        {{ block main }}
+        {{ end }}
+        <footer>
+            <span class="mirrored">&copy;</span> Copyleft Huw Taylor 2014
+        </footer>
+        {{ block scripts }}
+        <script src="{{=URL('static','js/jquery.js')}}"></script>
+        <script src="{{=URL('static','js/hug.js')}}"></script>
+        <script src="{{=URL('static','js/func.js')}}"></script>
+        {{ end }}
+    </body>
+</html>

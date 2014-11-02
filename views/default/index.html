@@ -1,0 +1,50 @@
+{{ extend 'layout.html' }}
+{{ block main }}
+<main>
+    <div>
+        <p>Welcome one and all to the newly released Congo Online Shop. Here you will find books, videos and more all delivered to your door!*</p>
+        <p class="proviso">*Delivery not yet available.</p>
+    </div>
+    <h2>Featured Items</h2>
+    {{ features = [
+        {'title': "Encyclopaedia of Early Earth", 
+         'writer': "Isabel Green", 
+         'price': "£19.95", 
+         'glance': "Some long description...", 
+         'date': 2013, 
+         'rating': 3.5},
+        {'title': "Encyclopaedia of Early Earth", 
+         'writer': "Isabel Green", 
+         'price': "£19.95", 
+         'glance': "Some long description...", 
+         'date': 2013, 
+         'rating': 3.5},
+    ] }}
+    {{ for book in features: }}
+    <section class="feature">
+        <h3>{{ =book['title'] }}</h3>
+        <div class="feature-info">
+            <ul class="details">
+                <li><strong>Author:</strong> {{ =book['writer'] }}</li>
+                <li><strong>Price:</strong> {{ =book['price'] }}</li>
+                <li><strong>Publisher:</strong> Puffin Books</li>
+                <li><strong>Date:</strong> {{ =book['date'] }}</li>
+                <li><strong>Description:</strong> {{ =book['glance'] }}</li>
+            </ul>
+        </div>
+        <div class="rating">
+            {{ for i in range(0, int(book['rating'])): }}
+                <span class="fa fa-star"></span>
+            {{ pass }}
+            {{ if book['rating'] % 1 == 0.5: }}
+                <span class="fa fa-star-half-o"></span>
+                {{ i += 1 }}
+            {{ pass }}
+            {{ for i in range(i+1, 5): }}
+                <span class="fa fa-star-o"></span>
+            {{ pass }}
+        </div>
+    </section>
+    {{ pass }}
+</main>
+{{ end }}

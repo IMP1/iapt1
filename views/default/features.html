@@ -1,0 +1,113 @@
+{{extend 'layout.html'}}
+<section id="features">
+    <h2>Featured Items</h2>
+    <ul>
+        <li id="totoro" class="featured-preview">
+        <a href="#">
+            <h3>My Neighbour Totoro</h3>
+            <span class="info">
+                Studio Ghibli - 1988 
+                <i class="fa fa-film fa-fw fa-lg float-right"></i>
+            </span>
+            <span class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </span>
+            <p class="glance">
+                This superbly animated children's tale is directed by Hayao Miyazaki, one of Japan's most beloved animators. 
+                The story follows Satsuke and Mai, two young girls who find their new country home is in a mystical forest inhabited by a menagerie of mystical creatures called Totoros. 
+                They befriend O Totoro, the biggest and eldest Totoro, who is also the king of the forest. 
+                As their girls' mother lies sick in the hospital, O Totoro brings the sisters on a magical adventure but also helps them to understand the realities of life. 
+                Like most films released by Miyazaki's Studio Ghibli, this family-oriented feature has a powerful ecological theme.
+            </p>
+            <h4 class="price">£2.95</h4>
+        </a>
+        </li>
+        <li id="early-earth" class="featured-preview">
+        <a href="#">
+            <h3>Encyclopedia of Early Earth</h3>
+            <span class="info">
+                Isabel Greenberg - 2013
+                <i class="fa fa-book fa-fw fa-lg float-right"></i>
+            </span>
+            <span class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </span>
+            <p class="glance">
+                Before our history began, another now forgotten civilization thrived. 
+                The people who roamed Early Earth were much like us: curious, emotional, funny, ambitious, and vulnerable. 
+                In this series of illustrated and linked tales, Isabel Greenberg chronicles the explorations of a young man as he paddles from his home in the North Pole to the South Pole. 
+                There, he meets his true love, but their romance is ill-fated. 
+                Early Earth's unusual and finicky polarity means the lovers can never touch.
+            </p>
+            <h4 class="price">£19.99</h4>
+        </a>
+        </li>
+        <li id="early-earth" class="featured-preview">
+        <a href="#">
+            <h3>Lavinia</h3>
+            <span class="info">
+                Ursula K. Le Guin - 2008
+                <i class="fa fa-book fa-fw fa-lg float-right"></i>
+            </span>
+            <span class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </span>
+            <p class="glance">
+                Before our history began, another now forgotten civilization thrived. 
+                The people who roamed Early Earth were much like us: curious, emotional, funny, ambitious, and vulnerable. 
+                In this series of illustrated and linked tales, Isabel Greenberg chronicles the explorations of a young man as he paddles from his home in the North Pole to the South Pole. 
+                There, he meets his true love, but their romance is ill-fated. 
+                Early Earth's unusual and finicky polarity means the lovers can never touch.
+            </p>
+            <h4 class="price">£2.95</h4>
+        </a>
+        </li>
+        <li id="kiki" class="featured-preview">
+        <a href="#">
+            <h3>Kiki's Delivery Service</h3>
+            <span class="info">
+                <i class="fa fa-film fa-fw fa-lg float-right"></i>
+                Studio Ghibli - 1989
+            </span>
+            <span class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </span>
+            <p class="glance">
+                Veteran animator Hayao Miyazaki directs this buoyant children's adventure yarn about a young witch striking out on her own. 
+                At her mother's behest, 13-year-old Kiki sets out on a year-long apprenticeship with her black cat in tow. 
+                With a shaky command of her broom, she ends up in a charming little coastal town that looks like a cross between the French provincial and San Francisco. 
+                Unfortunately, the local hotels have a strict no witches policy and the police have taken a dim view of her recent aerial mischief making. 
+                She's saved from the street by a kindly baker's wife who offers her room and board in exchange for her delivering by broom the baker's wares. 
+                Soon she befriends a college-aged artist, an old women who fusses over her, and a boy her same age who is nursing a massive crush. 
+                All is well until she wakes up one day and realizes that she can't make her broom levitate nor can she talk to her cat. 
+                What will Kiki do?
+            </p>
+            <h4 class="price">£4.00</h4>
+        </a>
+        </li>
+    </ul>
+</section>
+{{block scripts}}
+{{super}}
+<script type="text/javascript">
+    var activeLink = document.getElementsByTagName("header")[0].getElementsByTagName("nav")[0].getElementsByTagName("ul")[0].getElementsByTagName("li")[0];
+    activeLink.className += " active";
+    activeLink.getElementsByTagName("a")[0].removeAttribute("tabindex");
+</script>
+{{end}}
