@@ -114,8 +114,9 @@ a[onclick] {
     cursor: pointer;
 }
 a:active,
-a:hover {
-    outline: 0;
+a:hover,
+a:focus {
+    outline:none;
 }
 /* To prevent some browsers from inserting quotes on q and p */
 blockquote,
