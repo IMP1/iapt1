@@ -283,7 +283,7 @@ a:visited {
 a:focus,
 a:hover {
     color: #de2c3b;
-    border-bottom: 1px solid #de2c3b;
+    border-bottom: 1px solid rgba(222, 44, 59, 0.4);
 }
 /* Headings */
 h1,
@@ -552,11 +552,12 @@ input[type="color"],
 input[type="time"],
 input[type="search"],
 input[type="datetime-local"] {
-  background: #ffffff;
-  border: 1px solid #cccccc;
-  position: relative;
-  z-index: 2;
-  -webkit-appearance: none;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    position: relative;
+    z-index: 2;
+    -webkit-appearance: none;
+    margin-bottom: 0.5em;
 }
 textarea,
 select {
@@ -786,6 +787,16 @@ nav.tags > ul > li {
     margin-bottom: none;
 }
 
+nav form {
+    margin-bottom: 0;
+    position: relative;
+    top: 0.2em;
+}
+nav form.float-left, nav form.float-right {
+    position: relative;
+    top: -0.1em;
+}
+
 /*-----------------------------
     DROPDOWN MENUS
 -------------------------------*/
@@ -857,6 +868,7 @@ input[type="search"] {
     vertical-align: text-bottom;
     font-size: 1em;
     line-height: 1.2rem;
+    margin-bottom: 0;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
 }
