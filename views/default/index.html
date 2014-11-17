@@ -1,54 +1,23 @@
 {{ extend 'layout.html' }}
-{{ block main }}
-<main>
-    <div>
-        <p>Welcome one and all to the newly released Congo Online Shop. Here you will find books, videos and more<sup>&dagger;</sup> all delivered to your door!*</p>
-        <p class="proviso">
-            <sup>&dagger;</sup>It's just books and videos. There is nothing more.
-            <br>
-            *Delivery not yet available. And won't ever be.
-        </p>
-    </div>
-    <h2>Featured Items</h2>
-    {{ features = [
-        {'title': "Encyclopaedia of Early Earth", 
-         'writer': "Isabel Green", 
-         'price': "£19.95", 
-         'glance': "Some long description...", 
-         'date': 2013, 
-         'rating': 3.5},
-        {'title': "Encyclopaedia of Early Earth", 
-         'writer': "Isabel Green", 
-         'price': "£19.95", 
-         'glance': "Some long description...", 
-         'date': 2013, 
-         'rating': 3.5},
-    ] }}
-    {{ for book in features: }}
-    <section class="feature">
-        <h3>{{ =book['title'] }}</h3>
-        <div class="feature-info">
-            <ul class="details">
-                <li><strong>Author:</strong> {{ =book['writer'] }}</li>
-                <li><strong>Price:</strong> {{ =book['price'] }}</li>
-                <li><strong>Publisher:</strong> Puffin Books</li>
-                <li><strong>Date:</strong> {{ =book['date'] }}</li>
-                <li><strong>Description:</strong> {{ =book['glance'] }}</li>
-            </ul>
-        </div>
-        <div class="rating">
-            {{ for i in range(0, int(book['rating'])): }}
-                <span class="fa fa-star"></span>
-            {{ pass }}
-            {{ if book['rating'] % 1 == 0.5: }}
-                <span class="fa fa-star-half-o"></span>
-                {{ i += 1 }}
-            {{ pass }}
-            {{ for i in range(i+1, 5): }}
-                <span class="fa fa-star-o"></span>
-            {{ pass }}
-        </div>
-    </section>
-    {{ pass }}
-</main>
-{{ end }}
+<section class="featured">
+    <h2>Newest Bootables</h2>
+    <ol>
+        <li>
+            <a href="{{ ='' }}"><img src="{{ ='https://s3.amazonaws.com/ksr/projects/1312817/photo-full.jpg?1414347813' }}"></a>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="Vertical City : A Solution for Sustainable Living" }}</h3></a>
+                <div class="feature-author">by {{ ="Raymond King" }}</div>
+                <div class="feature-description">{{ ="A groundbreaking 619-page, full-color book that envisions a sustainable future through the emerging technologies of Vertical Cities." }}</div>
+                <div class="feature-completion">{{ ="100" }}% Completed</div>
+            </div>
+        </li>
+    </ol>
+</section>
+<section class="featured">
+    <h2>Closest Bootables to Funding</h2>
+    <ol>
+        <li>
+
+        </li>
+    </ol>
+</section>
