@@ -23,28 +23,88 @@ header h1.title-small {
     font-size: 0.8em;
 }
 
+section > h2 {
+    text-align: center;
+}
+
+input[type="date"].date-long {
+    width: 4em;
+}
+input[type="date"].date-short {
+    width: 2.5em;
+}
+input[type="text"].name-long {
+    width: 16em;
+}
+input[type="text"].name-short {
+    width: 12em;
+}
+input[type="text"].address-long {
+    width: 16em;
+}
+input[type="text"].address-short {
+    width: 12em;
+}
+input[type="text"].postcode-short {
+    width: 3.5em;
+}
+input[type="text"].postcode-long {
+    width: 4.5em;
+}
+input[type="text"].cc-long {
+    width: 12em;
+}
+input[type="text"].cc-short {
+    width: 3.5em;
+}
+        
+
     /*
     Features
     --------------------------------------*/
-    section.feature {
-        margin-left: 3em;
-        padding: 1em;
-        border: 1px solid #ccc;
-        border-radius: 1em;
+    section.featured h2 {
         margin-bottom: 2em;
     }
 
-    section.feature .feature-info {
-        padding-left: 2em;
-    }
-
-    section.feature .feature-info ul.details {
+    section.featured > ol {
         list-style: none;
+        margin-left: 4em;
+    }
+    
+    section.featured > ol > li {
+        display: block;
         margin-bottom: 1em;
     }
 
-    section.feature .rating {
-        text-align: center;
+    section.featured > ol > li img {
+        display: inline-block;
+        height: 12em;
+        width: 18em;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin-right: 1em;
+    }
+
+    section.featured div.feature-info {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    section.featured div.feature-info a {
+        width: 100%;
+    }
+
+    section.featured div.feature-info h3 {
+        margin-top: 0;
+        margin-bottom: 0.3em;
+    }
+
+    section.featured div.feature-info .feature-author {
+        font-size: 90%;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 2.5em;
+    }
+    section.featured div.feature-info .feature-description {
+        margin-bottom: 1em;
     }
 
     /*
