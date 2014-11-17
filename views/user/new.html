@@ -1,0 +1,21 @@
+{{ extend 'layout.html' }}
+<section>
+    <h2>Register</h2>
+    <p>
+        In order to pledge to a project, or start a project of your own, you'll need to create an account with us.
+        Just fill in the following information and you're set!
+        None of the information we keep about you will be sold to anyone (advertisers) or given away. 
+        We cannot, however, guarantee that it won't be stolen.
+    </p>
+    {{=form.custom.begin}}
+    <h4>Username</h4>
+    {{=form.custom.widget.username}}
+    <h4>Full Name</h4>
+    {{=form.custom.widget.real_name}}
+    <h4>Date of Birth</h4>
+    {{=form.custom.widget.birthdate}}
+    
+    <br><br>
+    {{=form.custom.submit}}
+    {{=form.custom.end}}
+</section>
