@@ -380,6 +380,10 @@ em,
 i {
     font-style: italic;
 }
+small {
+    font-size: 0.8em;
+    line-height: 1;
+}
 sub,
 sup {
     font-size: 0.7em;
@@ -640,6 +644,10 @@ button.append,
 input[type="submit"].append {
     float: right;
     border-left: 1px solid #e0e3e5;
+}
+button.append:hover,
+input[type="submit"].append:hover {
+    border-left: 1px solid #c1c1c1;
 }
 button.append:focus,
 input[type="submit"].append:focus {
