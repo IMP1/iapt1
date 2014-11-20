@@ -1,8 +1,8 @@
-<form id="user-registration" onsubmit="return calculateHidden();" action="#" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="#" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Basic Info</h3>
         <div class="indented">
-            <input name="username" id="no_table_username" class="string clarified" placeholder="Username" type="text" value="" >
+            <input name="username" id="username" class="string clarified" placeholder="Username" type="text" value="" >
             <br>
             <small>Your username must be unique to you.</small>
 
@@ -19,14 +19,14 @@
     <section>
         <h3>Address</h3>
         <div class="indented">
-            <input name="street_address" class="string address-long" id="no_table_street_address" placeholder="Street Address" type="text" value="">
+            <input name="street_address" id="street_address" class="string address-long" placeholder="Street Address" type="text" value="">
             <br>
-            <input name="city" class="string address-short" id="no_table_city" placeholder="City" type="text" value="">
+            <input name="city" id="city" class="string address-short" placeholder="City" type="text" value="">
             <br>
             <input name="postcode1" id="postcode1" class="string postcode-long" placeholder="Post" type="text" value="">
             <input name="postcode2" id="postcode2" class="string postcode-short" placeholder="Code" type="text" value="">
             <br>
-            <input name="country" class="string address-short" id="no_table_country" placeholder="Country" type="text" value="">
+            <input name="country" id="country" class="string address-short" placeholder="Country" type="text" value="">
         </div>
     </section>
     
@@ -34,15 +34,11 @@
     
     <div style="display:none;">
         <!-- Calculated Values -->
-        <!-- User -->
-        <input name="real_name" class="string" id="no_table_real_name" type="text" value="" >
-        <input name="birthdate" class="date" id="no_table_birthdate" type="text" value="" >
-        <!-- Address -->
-        <input name="postcode" class="string" id="no_table_postcode" type="text" value="">
-        <!-- Credit Card -->
-        <input name="expiry_date" class="date" id="no_table_expiry_date" type="text" value="" >
-        <input name="billing_address" class="string" id="billing_address" type="text" value="">
-
+            <!-- User -->
+            <input name="real_name" id="real_name" class="string" type="text" value="" >
+            <input name="birthdate" id="birthdate" class="date" type="text" value="" >
+            <!-- Address -->
+            <input name="postcode" class="string" id="postcode" type="text" value="">
         <!-- Form Variables -->
         <input name="_formkey" type="hidden" value="{{ =forms[stage].formkey }}" >
         <input name="_formname" type="hidden" value="no_table/create" >
