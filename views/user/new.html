@@ -7,15 +7,26 @@
         None of the information we keep about you will be sold to anyone (advertisers) or given away. 
         We cannot, however, guarantee that it won't be stolen.
     </p>
-    {{=form.custom.begin}}
-    <h4>Username</h4>
-    {{=form.custom.widget.username}}
-    <h4>Full Name</h4>
-    {{=form.custom.widget.real_name}}
-    <h4>Date of Birth</h4>
-    {{=form.custom.widget.birthdate}}
+    <div class="form-progression">
+        <ul class="progress-steps">
+            {{ if stage == 0: }}
+            <li>Basic Info</li>
+            <li class="progress-inactive">Credit Card Info</li>
+            {{ else: }}
+            <li class="progress-inactive">Basic Info</li>
+            <li>Credit Card Info</li>
+            {{ pass }}
+        </ul>
+        <div class="progress-container"><div id="registration-progress" class="progress-bar" style="width:{{ =max(1, min((stage) * 50, 99)) }}%;"></div></div>
+    </div>
     
-    <br><br>
-    {{=form.custom.submit}}
-    {{=form.custom.end}}
+    {{ =response.flash }}
+    
+    {{ include 'user/register_' + str(stage+1) + '.html' }}
+    
+    <h3>Session Vars</h3>
+    {{ =session }}
+    <h3>Form Errors</h3>
+    {{ =forms[stage].errors }}
+    
 </section>
