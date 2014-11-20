@@ -1,23 +1,84 @@
 {{ extend 'layout.html' }}
-<section class="featured">
-    <h2>Newest Bootables</h2>
+<ul class="header-tabs">
+    <li><h3><a href="#featured-new">Newest Bootables</a></h3></li>
+    <li><h3><a href="#featured-close">Closest Bootables to Funding</a></h3></li>
+    <li><h3><a href="#featured-funded">Recently Funded Bootables</a></h3></li>
+</ul>
+<section id="featured-new" class="featured">
     <ol>
         <li>
-            <a href="{{ ='' }}"><img src="{{ ='https://s3.amazonaws.com/ksr/projects/1312817/photo-full.jpg?1414347813' }}"></a>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1312817/photo-full.jpg?1414347813' }}">
+                </a>
+            </div>
             <div class="feature-info">
                 <a href="{{ ='' }}"><h3>{{ ="Vertical City : A Solution for Sustainable Living" }}</h3></a>
                 <div class="feature-author">by {{ ="Raymond King" }}</div>
                 <div class="feature-description">{{ ="A groundbreaking 619-page, full-color book that envisions a sustainable future through the emerging technologies of Vertical Cities." }}</div>
-                <div class="feature-completion">{{ ="100" }}% Completed</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(80, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="80% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Technology" }}</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/876287/photo-full.jpg?1408338461' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="Sorcery 101 Omnibus Vol 1 of 2" }}</h3></a>
+                <div class="feature-author">by {{ ="Kel McDonald " }}</div>
+                <div class="feature-description">{{ ="Danny is an inept chain-smoking sorcerer learning magic from a grumpy vampire. This omnibus will be 750 pages, covering 5 years of work " }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(31, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="31% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Comic" }}</div>
             </div>
         </li>
     </ol>
 </section>
-<section class="featured">
-    <h2>Closest Bootables to Funding</h2>
+<section id="featured-close" class="featured">
     <ol>
         <li>
-
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="Wired, Wild and Alive" }}</h3></a>
+                <div class="feature-author">by {{ ="Amanda Beck-McKim" }}</div>
+                <div class="feature-description">{{ ="A textile environment installation, animated with storytelling, puppetry and digital projections that children aged 4 - 11 can explore." }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(161, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="161% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Art" }}</div>
+            </div>
         </li>
     </ol>
 </section>
+<section id="featured-funded" class="featured">
+    <ol>
+        <li>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="Wired, Wild and Alive" }}</h3></a>
+                <div class="feature-author">by {{ ="Amanda Beck-McKim" }}</div>
+                <div class="feature-description">{{ ="A textile environment installation, animated with storytelling, puppetry and digital projections that children aged 4 - 11 can explore." }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(161, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="161% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Art" }}</div>
+            </div>
+        </li>
+    </ol>
+</section>
+<!-- Show, by default, the newest features bootables (rather than nothing). -->
+<script type="text/javascript">
+    if(!window.location.hash) {
+        document.getElementById("featured-new").classList.add("active");
+    }
+</script>

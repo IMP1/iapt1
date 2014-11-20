@@ -53,14 +53,17 @@ section > h2 {
         color: #888;
     }
     .progress-container {
+        width: 100%;
         height: 0.4em;
         border: 1px solid #134DA5;
         border-radius: 2px;
-        margin-bottom: 4em;
     }
     .progress-bar {
         height: 100%;
         background-color: #134DA5;
+    }
+    .form-progression {
+        margin-bottom: 4em;
     }
 
     /*
@@ -113,42 +116,65 @@ section > h2 {
     /*
     Features
     --------------------------------------*/
+    ul.header-tabs {
+        list-style: none;
+        text-align: center;
+    }
+    ul.header-tabs > li {
+        display: inline-block;
+        text-align: center;
+        padding-left: 2em;
+        padding-right: 2em;
+        width: 30%;
+    }
+    ul.header-tabs > li > h3 {
+        font-size: 100%;
+    }
+    section.featured {
+        display: none;
+    }
+    section.featured:target,
+    section.featured.active {
+        display: block;
+    }
     section.featured h2 {
         margin-bottom: 2em;
     }
-
     section.featured > ol {
         list-style: none;
-        margin-left: 4em;
     }
-    
     section.featured > ol > li {
         display: block;
         margin-bottom: 1em;
+        border: 1px solid #888;
+        border-radius: 8px;
+        padding: 0;
     }
-
-    section.featured > ol > li img {
+    section.featured div.feature-image {
         display: inline-block;
-        height: 12em;
-        width: 18em;
-        border: 1px solid rgba(0, 0, 0, 0.2);
+        width: 30%;
         margin-right: 1em;
     }
-
+    section.featured div.feature-image img {
+        height: 14em;
+        width: 18em;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        filter: brightness(0.7);
+        -webkit-filter: brightness(0.7);
+    }
     section.featured div.feature-info {
         display: inline-block;
         vertical-align: top;
+        width: 65%;
     }
-
     section.featured div.feature-info a {
         width: 100%;
     }
-
     section.featured div.feature-info h3 {
         margin-top: 0;
         margin-bottom: 0.3em;
     }
-
     section.featured div.feature-info .feature-author {
         font-size: 90%;
         color: rgba(0, 0, 0, 0.5);
@@ -156,6 +182,23 @@ section > h2 {
     }
     section.featured div.feature-info .feature-description {
         margin-bottom: 1em;
+    }
+    section.featured div.feature-info .progress-container {
+        border-color: #888;
+        margin-bottom: 0.5em;
+    }
+    section.featured div.feature-info .progress-bar {
+        background-color: #888;
+    }
+    section.featured div.feature-info .feature-completion {
+        color: #888;
+        display: inline-block;
+        width: 30%;
+    }
+    section.featured div.feature-info .feature-category {
+        color: #888;
+        display: inline-block;
+        width: 30%;
     }
 
     /*
@@ -199,7 +242,6 @@ section > h2 {
 /*
 Style
 ----------------------------------------------*/
-
 
     input[type="search"] {
         border-top-left-radius: 0.5em;
@@ -253,6 +295,6 @@ Style
         100% {background: inherit;}
     }
 
-    :target {
+    .highlight:target {
         animation: highlight-yellow 4s linear;
     }
