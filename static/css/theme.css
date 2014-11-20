@@ -27,37 +27,88 @@ section > h2 {
     text-align: center;
 }
 
-input[type="date"].date-long {
-    width: 4em;
+.indented {
+    padding-left: 5%;
 }
-input[type="date"].date-short {
-    width: 2.5em;
-}
-input[type="text"].name-long {
-    width: 16em;
-}
-input[type="text"].name-short {
-    width: 12em;
-}
-input[type="text"].address-long {
-    width: 16em;
-}
-input[type="text"].address-short {
-    width: 12em;
-}
-input[type="text"].postcode-short {
-    width: 3.5em;
-}
-input[type="text"].postcode-long {
-    width: 4.5em;
-}
-input[type="text"].cc-long {
-    width: 12em;
-}
-input[type="text"].cc-short {
-    width: 3.5em;
-}
-        
+
+    /*
+    Progress Bar
+    --------------------------------------*/
+    .form-progression {
+        margin-top: 3em;
+    }
+    ul.progress-steps {
+        list-style: none;
+        margin-bottom: 0;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    ul.progress-steps > li {
+        display: table-cell;
+        text-align: center;
+        font-weight: bold;
+    }
+    ul.progress-steps > li.progress-inactive {
+        color: #888;
+    }
+    .progress-container {
+        height: 0.4em;
+        border: 1px solid #134DA5;
+        border-radius: 2px;
+        margin-bottom: 4em;
+    }
+    .progress-bar {
+        height: 100%;
+        background-color: #134DA5;
+    }
+
+    /*
+    Forms
+    --------------------------------------*/
+    input.date-long {
+        width: 4em;
+    }
+    input.date-short {
+        width: 2.5em;
+    }
+    input.name-long {
+        width: 16em;
+    }
+    input.name-short {
+        width: 12em;
+    }
+    input.address-long {
+        width: 16em;
+    }
+    input.address-short {
+        width: 12em;
+    }
+    input.postcode-short {
+        width: 3.5em;
+    }
+    input.postcode-long {
+        width: 4.5em;
+    }
+    input.credit-card-long {
+        width: 12em;
+    }
+    input.credit-card-short {
+        width: 3.5em;
+    }
+
+    /*
+    Registration
+    --------------------------------------*/
+    form#user-registration {
+        margin-left: 4em;
+    }
+    form#user-registration input.clarified {
+        margin-bottom: 0;
+    }
+    form#user-registration input[type="submit"]{
+        margin-top: 2em;
+    }
 
     /*
     Features
