@@ -20,13 +20,11 @@
         <div class="progress-container"><div id="registration-progress" class="progress-bar" style="width:{{ =max(1, min((stage) * 50, 99)) }}%;"></div></div>
     </div>
     
-    {{ =response.flash }}
-    
     {{ include 'user/register_' + str(stage+1) + '.html' }}
     
     <h3>Session Vars</h3>
     {{ =session }}
-    <h3>Form Errors</h3>
+    <h3>Stage {{ =(stage+1) }} Form Errors:</h3>
     {{ =forms[stage].errors }}
     
 </section>
