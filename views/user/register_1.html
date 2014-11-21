@@ -34,13 +34,11 @@
     
     <div style="display:none;">
         <!-- Calculated Values -->
-            <!-- User -->
-            <input name="real_name" id="real_name" class="string" type="text" value="" >
-            <input name="birthdate" id="birthdate" class="date" type="text" value="" >
-            <!-- Address -->
-            <input name="postcode" class="string" id="postcode" type="text" value="">
-        <!-- Form Variables -->
+        <input name="real_name" id="real_name" class="string" type="text" value="" >
+        <input name="birthdate" id="birthdate" class="date" type="text" value="" >
+        <input name="postcode" class="string" id="postcode" type="text" value="">
+        <!-- Web2py Values -->
         <input name="_formkey" type="hidden" value="{{ =forms[stage].formkey }}" >
-        <input name="_formname" type="hidden" value="no_table/create" >
+        <input name="_formname" type="hidden" value="basic-info" >
     </div>
 </form>
