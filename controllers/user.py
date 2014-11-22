@@ -39,19 +39,22 @@ def new():
         if form2.vars.previous_address:
             # Use the previous address (held in session vars).
             billing_address_id = session.user_vars["address_id"]
+            session.usedPreviousAddress = True
         else:
             # Otherwise, get the address values.
             billing_address_id = db.user_address.insert(**db.user_address._filter_fields(form2.vars))
+            session.usedPreviousAddress = False
         # Captures the credit card variables.
         credit_card_vars = db.user_credit_card._filter_fields(form2.vars)
         # Adds the billing address ID to the credit card.
         credit_card_vars["billing_address_id"] = billing_address_id
         # Add the credit card to the database, and get its ID.
-        id = db.user_credit_card.insert(**credit_card_vars)
+        credit_card_id = db.user_credit_card.insert(**credit_card_vars)
         # Add the credit card to the user stored in the session.
-        session.user_vars["credit_card_id"] = id
+        session.user_vars["credit_card_id"] = credit_card_id
         # Finally add the user to the database.
-        db.user.insert(**session.user_vars)
+        user_id = db.user.insert(**session.user_vars)
+        session.logged_in_user = session.user_vars['username']
         session.flash = "You've successfully logged in!"
         # If we were going somewhere:
         if session.redirection != None:
