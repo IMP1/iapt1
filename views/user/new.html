@@ -4,8 +4,13 @@
     <p>
         In order to pledge to a project, or start a project of your own, you'll need to create an account with us.
         Just fill in the following information and you're set!
-        None of the information we keep about you will be sold to anyone (advertisers) or given away. 
-        We cannot, however, guarantee that it won't be stolen.
+        None of the information we keep about you will be sold to anyone (advertisers) or given away.
+    </p>
+    <p>
+        Registering is a simple two steps. 
+        First provide a unique username that will identify you, along with some basic information.
+        Then provide your credit card details that will be used to pledge to bootables.
+        And that's it! You're done!
     </p>
     <div class="form-progression">
         <ul class="progress-steps">
@@ -19,6 +24,12 @@
         </ul>
         <div class="progress-container"><div id="registration-progress" class="progress-bar" style="width:{{ =max(1, min((stage) * 50, 99)) }}%;"></div></div>
     </div>
+    {{ if forms[stage].errors: }}
+    <div class="alert alert-danger">
+        The values in the form had errors. See below and correct the errors before continuing.
+    </div>
+    {{ pass }}
+    
     
     {{ include 'user/register_' + str(stage+1) + '.html' }}
     
