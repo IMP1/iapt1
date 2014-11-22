@@ -1,8 +1,19 @@
 {{ extend 'layout.html' }}
-<ul class="header-tabs">
-    <li><h3><a href="#featured-new">Newest Bootables</a></h3></li>
-    <li><h3><a href="#featured-close">Closest Bootables to Funding</a></h3></li>
-    <li><h3><a href="#featured-funded">Recently Funded Bootables</a></h3></li>
+{{ if response.flash: }}
+<div class="alert alert-success">
+    {{ =response.flash }}
+</div>
+{{ pass }}
+<ul id="header-tabs">
+    <li><h3>
+        <a href="#featured-new">Newest Bootables</a>
+    </h3></li>
+    <li><h3>
+        <a href="#featured-close">Closest Bootables to Funding</a>
+    </h3></li>
+    <li><h3>
+        <a href="#featured-funded">Recently Funded Bootables</a>
+    </h3></li>
 </ul>
 <section id="featured-new" class="featured">
     <ol>
@@ -78,7 +89,31 @@
 </section>
 <!-- Show, by default, the newest features bootables (rather than nothing). -->
 <script type="text/javascript">
-    if(!window.location.hash) {
+    if (!window.location.hash) {
         window.location.hash = "featured-new";
     }
+    function showTab() {
+        document.getElementById("header-tabs").innerHTML = 
+        '    <li><h3>' + 
+        '        <a href="#featured-new">Newest Bootables</a>' + 
+        '    </h3></li>' + 
+        '    <li><h3>' + 
+        '        <a href="#featured-close">Closest Bootables to Funding</a>' + 
+        '    </h3></li>' + 
+        '    <li><h3>' + 
+        '        <a href="#featured-funded">Recently Funded Bootables</a>' + 
+        '    </h3></li>';
+        var headers = document.getElementById("header-tabs").getElementsByTagName("li");
+        var link;
+        if (window.location.hash == "#featured-new") {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else if (window.location.hash == "#featured-close") {
+            link = headers[1].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else if (window.location.hash == "#featured-funded") {
+            link = headers[2].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        }
+        link.removeAttribute("href");
+        link.classList.add("inactive");
+    }
+    window.onhashchange = showTab;
 </script>
