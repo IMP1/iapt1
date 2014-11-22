@@ -99,6 +99,16 @@ section > h2 {
     input.credit-card-short {
         width: 3.5em;
     }
+    @keyframes highlight-border-red {
+        0%   {border-color: #f00;}
+        100% {border-color: inherit;}
+    }
+    input.error {
+        animation: highlight-border-red 6s linear;
+    }
+    input.clarified {
+        margin-bottom: 0;
+    }
 
     /*
     Registration
@@ -106,29 +116,46 @@ section > h2 {
     form#user-registration {
         margin-left: 4em;
     }
-    form#user-registration input.clarified {
-        margin-bottom: 0;
-    }
     form#user-registration input[type="submit"]{
         margin-top: 2em;
+        margin-left: 6em;
+    }
+
+    /*
+    Loggin In
+    --------------------------------------*/
+    form#login-form {
+        text-align: center;
+    }
+    form#login-form input[type="text"] {
+        margin-top: 5em;
+    }
+    form#login-form input[type="submit"]{
+        margin-top: 1em;
+    }
+    form#login-form .error-message {
+        color: #f00;
     }
 
     /*
     Features
     --------------------------------------*/
-    ul.header-tabs {
+    ul#header-tabs {
         list-style: none;
         text-align: center;
     }
-    ul.header-tabs > li {
+    ul#header-tabs > li {
         display: inline-block;
         text-align: center;
         padding-left: 2em;
         padding-right: 2em;
         width: 30%;
     }
-    ul.header-tabs > li > h3 {
+    ul#header-tabs > li > h3 {
         font-size: 100%;
+    }
+    ul#header-tabs > li > h3 > a.inactive {
+        color: #222;
     }
     section.featured {
         display: none;
