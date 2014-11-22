@@ -1,4 +1,6 @@
 def dashboard():
+    if not session.logged_in_user:
+        redirect(URL('default', 'index.html'))
     return dict()
 
 # The User Registration Page.
@@ -31,8 +33,8 @@ def new():
     
     # If the second form has been submitted:
     if form2.validate(formname='billing-info'):
-        # If they checked the previous address box.
-        if form2.vars.previous_address:
+        # Check if it's the same address
+        if session.address_vars == db.user_address._filter_fields(form2.vars):
             # Use the previous address (held in session vars).
             billing_address_id = session.user_vars["address_id"]
         else:
@@ -50,7 +52,7 @@ def new():
         user_id = db.user.insert(**session.user_vars)
         # Log in the user.
         session.logged_in_user = session.user_vars['username']
-        session.flash = "You've successfully logged in!"
+        session.flash = "You've successfully registered and have been logged in!"
         ## Remove session vars no longer needed.
         del session.user_vars
         del session.address_vars
@@ -68,6 +70,8 @@ def new():
     return dict(forms = [form1, form2], stage = request.vars.stage)
 
 def profile():
+    if not session.logged_in_user:
+        redirect(URL('default', 'index.html'))
     return dict()
 
 def login():
@@ -78,6 +82,7 @@ def login():
         if db(db.user.username == form.vars.username).select():
             session.DEBUG = db(db.user.username == form.vars.username).select()
             session.logged_in_user = form.vars.username
+            session.flash = "You've successfully logged in!"
             # If we were going somewhere:
             if session.redirection != None:
                 # Then get back on track!
