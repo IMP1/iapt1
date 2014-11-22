@@ -1,20 +1,18 @@
-<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="#" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Credit Card</h3>
-        <input name="card_number" class="string credit-card-long" id="card_number" placeholder="Card Number" type="text" value="">
-        <br>
-        <input name="identifying_code" class="string credit-card-short" id="identifying_code" placeholder="CVC" type="text" value="" autocomplete="off">
-        <h5>Expiry Date</h5>
-        <input name="expiry_date_year" class="date date-short" placeholder="YY" type="text" value="" >
-        <input name="expiry_date_year" class="date date-short" placeholder="MM" type="text" value="" >
-
-        <br>
-        <section>
-            <h5>Billing Address</h5>
-            <!--
-            Use previous address 
-            <input name="previous_address" id="toggle_address_button" type="checkbox" onclick="toggle_billing_address(this);">
-            -->
+        <div class="indented">
+            <input name="card_number" class="string credit-card-long" id="card_number" placeholder="Card Number" type="text" value="">
+            <br>
+            <input name="identifying_code" class="string credit-card-short" id="identifying_code" placeholder="CVC" type="text" value="" autocomplete="off">
+            <h5>Expiry Date</h5>
+            <input name="expiry_date_year" class="date date-short" placeholder="YY" type="text" value="" >
+            <input name="expiry_date_year" class="date date-short" placeholder="MM" type="text" value="" >
+        </div>
+    </section>
+    <section>
+        <h3>Billing Address</h3>
+        <div class="indented">
             <input name="street_address" id="street_address" class="string address-long" placeholder="Street Address" type="text" value="{{ =session.address_vars['street_address'] }}">
             <br>
             <input name="city" id="city" class="string address-short" placeholder="City" type="text" value="{{ =session.address_vars['city'] }}">
@@ -23,18 +21,16 @@
             <input name="postcode2" id="postcode2" class="string postcode-short" placeholder="Code" type="text" value="{{ =session.address_vars['postcode'][-3:] }}">
             <br>
             <input name="country" id="country" class="string address-short" placeholder="Country" type="text" value="{{ =session.address_vars['country'] }}">
-        </section>
+        </div>
     </section>
     
     <input type="submit" value="Register">
     
     <div style="display:none;">
         <!-- Calculated Values -->
-            <!-- Credit Card -->
-            <input name="expiry_date" id="expiry_date" class="date" type="text" value="" >
-            <input name="billing_address" id="billing_address" class="string" type="text" value="">
-            <!-- Billing Address -->
-            <input name="postcode" id="postcode" class="string" type="text" value="">
+        <input name="expiry_date" id="expiry_date" class="date" type="text" value="" >
+        <input name="billing_address" id="billing_address" class="string" type="text" value="">
+        <input name="postcode" id="postcode" class="string" type="text" value="">
         <!-- Form Variables -->
         <input name="_formkey" type="hidden" value="{{ =forms[stage].formkey }}" >
         <input name="_formname" type="hidden" value="billing-info" >

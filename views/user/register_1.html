@@ -1,36 +1,33 @@
-<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="#" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="#form-progression" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Basic Info</h3>
         <div class="indented">
-            <input name="username" id="username" class="string clarified" placeholder="Username" type="text" value="" >
-            <br>
-            <small>Your username must be unique to you.</small>
-
+            <input name="username" id="username" class="string {{ =('error clarified' if forms[stage].errors.username else '') }}" placeholder="Username" type="text" value="{{ =request.vars.username or '' }}" >
             <h5>Full Name</h5>
-            <input name="forename" id="forename" class="string" placeholder="First Name" type="text" value="" >
-            <input name="surname" id="surname" class="string" placeholder="Surname" type="text" value="" >
+            <input name="forename" id="forename" class="string {{ =('error' if forms[stage].errors.real_name else '') }}" placeholder="First Name" type="text" value="{{ =request.vars.forename or '' }}" >
+            <input name="surname" id="surname" class="string {{ =('error clarified' if forms[stage].errors.real_name else '') }}" placeholder="Surname" type="text" value="{{ =request.vars.surname or '' }}" >
 
             <h5>Date of Birth</h5>
-            <input name="birthdate_year" id="dob_year" class="date date-long" placeholder="YYYY" type="text" value="" >
-            <input name="birthdate_month" id="dob_month" class="date date-short" placeholder="MM" type="text" value="" >
-            <input name="birthdate_day" id="dob_day" class="date date-short" placeholder="DD" type="text" value="" >
+            <input name="birthdate_year" id="dob_year" class="date date-long {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="YYYY" type="text" value="{{ =request.vars.birthdate_year or '' }}" >
+            <input name="birthdate_month" id="dob_month" class="date date-short {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="MM" type="text" value="{{ =request.vars.birthdate_month or '' }}" >
+            <input name="birthdate_day" id="dob_day" class="date date-short {{ =('error clarified' if forms[stage].errors.birthdate else '') }}" placeholder="DD" type="text" value="{{ =request.vars.birthdate_day or '' }}" >
         </div>
     </section>
     <section>
         <h3>Address</h3>
         <div class="indented">
-            <input name="street_address" id="street_address" class="string address-long" placeholder="Street Address" type="text" value="">
+            <input name="street_address" id="street_address" class="string address-long {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="Street Address" type="text" value="">
             <br>
-            <input name="city" id="city" class="string address-short" placeholder="City" type="text" value="">
+            <input name="city" id="city" class="string address-short {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="City" type="text" value="">
             <br>
-            <input name="postcode1" id="postcode1" class="string postcode-long" placeholder="Post" type="text" value="">
-            <input name="postcode2" id="postcode2" class="string postcode-short" placeholder="Code" type="text" value="">
+            <input name="postcode1" id="postcode1" class="string postcode-long {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="Post" type="text" value="">
+            <input name="postcode2" id="postcode2" class="string postcode-short {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="Code" type="text" value="">
             <br>
-            <input name="country" id="country" class="string address-short" placeholder="Country" type="text" value="">
+            <input name="country" id="country" class="string address-short {{ =('error' if forms[stage].errors.birthdate else '') }}" placeholder="Country" type="text" value="">
         </div>
     </section>
     
-    <input type="submit" value="Continue" class="middle">
+    <input type="submit" value="Continue">
     
     <div style="display:none;">
         <!-- Calculated Values -->
