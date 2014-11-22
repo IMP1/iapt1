@@ -1,1 +1,20 @@
 {{ extend 'layout.html' }}
+<section>
+    <h2>Login</h2>
+    <form id="login-form" action="#" enctype="multipart/form-data" method="post" class="central">
+        <div class="central">
+            <input name="username" id="user_username" class="string {{ =("error clarified" if form.errors.username else "") }}" placeholder="Username" type="text" value="">
+            <br>
+            {{ if form.errors.username == 'Value not in database': }}
+            <small class="error-message">There is no user with that username.</small>
+            {{ elif form.errors.username: }}
+            <small class="error-message">{{ =form.errors.username }}</small>
+            {{ pass }}
+        </div>
+        <input type="submit" value="Log in">
+        <div style="display:none;">
+            <input name="_formkey" type="hidden" value="{{ =form.formkey }}">
+            <input name="_formname" type="hidden" value="login">
+        </div>
+    </form>
+</section>
