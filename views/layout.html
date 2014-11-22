@@ -42,7 +42,7 @@
                     {{ if session.logged_in_user: }}
                     <li><a href="{{ =URL('user', 'dashboard') }}" tabindex="3"><span class="glyphicon glyphicon-list"></span> Dashboard</a></li>
                     <li><a href="{{ =URL('user', 'profile') }}" tabindex="3"><span class="glyphicon glyphicon-user"></span> {{ =session.logged_in_user }}</a></li>
-                    <li><a href="" tabindex="3"><span class=" glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                    <li><a href="{{ =URL('user', 'logout') }}" tabindex="3"><span class=" glyphicon glyphicon-log-out"></span> Log Out</a></li>
                     {{ else: }}
                     <li><a href="{{ =URL('user', 'login') }}" tabindex="3"><span class=" glyphicon glyphicon-log-in"></span> Log In</a></li>
                     <li><a href="{{ =URL('user', 'new') }}" tabindex="3"><span class=" glyphicon glyphicon-edit"></span> Register</a></li>
