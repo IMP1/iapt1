@@ -1,9 +1,6 @@
 def dashboard():
     return dict()
 
-def login():
-    return dict()
-
 # The User Registration Page.
 def new():
     # If we have come here externally, start process at the beginning.
@@ -34,16 +31,13 @@ def new():
     
     # If the second form has been submitted:
     if form2.validate(formname='billing-info'):
-        session.second_form_validation = True
         # If they checked the previous address box.
         if form2.vars.previous_address:
             # Use the previous address (held in session vars).
             billing_address_id = session.user_vars["address_id"]
-            session.usedPreviousAddress = True
         else:
             # Otherwise, get the address values.
             billing_address_id = db.user_address.insert(**db.user_address._filter_fields(form2.vars))
-            session.usedPreviousAddress = False
         # Captures the credit card variables.
         credit_card_vars = db.user_credit_card._filter_fields(form2.vars)
         # Adds the billing address ID to the credit card.
@@ -54,15 +48,19 @@ def new():
         session.user_vars["credit_card_id"] = credit_card_id
         # Finally add the user to the database.
         user_id = db.user.insert(**session.user_vars)
+        # Log in the user.
         session.logged_in_user = session.user_vars['username']
         session.flash = "You've successfully logged in!"
+        ## Remove session vars no longer needed.
+        del session.user_vars
+        del session.address_vars
         # If we were going somewhere:
         if session.redirection != None:
             # Then get back on track!
             redirect(session.redirection)
         else:
             # Otherwise go to the homepage.
-            redirect(URL('default', 'index.html'))    
+            redirect(URL('default', 'index.html'))
     elif request.vars.stage == 1 and form2.errors:
         response.flash = 'form has errors'
     
@@ -70,4 +68,26 @@ def new():
     return dict(forms = [form1, form2], stage = request.vars.stage)
 
 def profile():
+    return dict()
+
+def login():
+    form = FORM(INPUT(_name='username', requires=[IS_NOT_EMPTY(), IS_IN_DB(db, "user.username")]),
+               INPUT(_type='submit'))
+    if form.validate(formname="login"):
+        session.DEBUG = form.vars.username
+        if db(db.user.username == form.vars.username).select():
+            session.DEBUG = db(db.user.username == form.vars.username).select()
+            session.logged_in_user = form.vars.username
+            # If we were going somewhere:
+            if session.redirection != None:
+                # Then get back on track!
+                redirect(session.redirection)
+            else:
+                # Otherwise go to the homepage.
+                redirect(URL('default', 'index.html'))
+    return dict(form=form)
+
+def logout():
+    del session.logged_in_user
+    redirect(URL('default', 'index.html'))
     return dict()
