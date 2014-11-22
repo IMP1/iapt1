@@ -20,6 +20,7 @@ db.define_table('bootable',
                 )
 db.define_table('bootable_pledges', 
                     Field('bootable_id', db.bootable),
+                    Field('title', 'string', requires=IS_NOT_EMPTY()),
                     Field('cost', 'double', requires=IS_FLOAT_IN_RANGE(0, 1e100)),
                     Field('reward', 'text'),
                 )
@@ -44,7 +45,6 @@ db.define_table('user',
                     
                 )
 db.define_table('bootable_pledges_made', 
-                    Field('bootable_id', db.bootable),
                     Field('pledge_id', db.bootable_pledges),
                     Field('user_id', db.user),
                 )
