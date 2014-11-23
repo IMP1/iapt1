@@ -40,11 +40,56 @@
             </div>
             <div class="feature-info">
                 <a href="{{ ='' }}"><h3>{{ ="Sorcery 101 Omnibus Vol 1 of 2" }}</h3></a>
-                <div class="feature-author">by {{ ="Kel McDonald " }}</div>
-                <div class="feature-description">{{ ="Danny is an inept chain-smoking sorcerer learning magic from a grumpy vampire. This omnibus will be 750 pages, covering 5 years of work " }}</div>
+                <div class="feature-author">by {{ ="Kel McDonald" }}</div>
+                <div class="feature-description">{{ ="Danny is an inept chain-smoking sorcerer learning magic from a grumpy vampire. This omnibus will be 750 pages, covering 5 years of work." }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(31, 100)) }}%;"></div></div>
                 <div class="feature-completion">{{ ="31% Complete" }}</div>
                 <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Comic" }}</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1438572/photo-full.jpg?1415039535' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="Last Stop: A photo book" }}</h3></a>
+                <div class="feature-author">by {{ ="George Georgiou" }}</div>
+                <div class="feature-description">{{ ="Last Stop, a double-sided concertina book exploring London's diversity. Photographed through the windows of its double decker buses." }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(132, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="132% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Photography" }}</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1430184/photo-full.jpg?1415289669' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="SOCCER CITY, the beautiful game" }}</h3></a>
+                <div class="feature-author">by {{ ="Elege Ibérica" }}</div>
+                <div class="feature-description">{{ ="The strategy board game for soccer lovers. Soccer City is a complete soccer simulator inspired in the early twentieth century." }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(33, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="33% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Games" }}</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-image">
+                <a href="{{ ='' }}">
+                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1449049/photo-full.jpg?1416346841' }}">
+                </a>
+            </div>
+            <div class="feature-info">
+                <a href="{{ ='' }}"><h3>{{ ="I Am What’s Underneath - True Style Is Self Acceptance" }}</h3></a>
+                <div class="feature-author">by {{ ="Elisa Goodkind & Lily Mandelbaum" }}</div>
+                <div class="feature-description">{{ ="A feature-length documentary that strips us down to open us up, empowering people worldwide to accept and express their true selves." }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(40, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ ="40% Complete" }}</div>
+                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Film" }}</div>
             </div>
         </li>
     </ol>
@@ -114,6 +159,8 @@
         }
         link.removeAttribute("href");
         link.classList.add("inactive");
+        window.scrollTo(0, 0);
     }
     window.onhashchange = showTab;
+    showTab();
 </script>
