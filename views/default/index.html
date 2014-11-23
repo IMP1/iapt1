@@ -156,6 +156,8 @@
             link = headers[1].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
         } else if (window.location.hash == "#featured-funded") {
             link = headers[2].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
         }
         link.removeAttribute("href");
         link.classList.add("inactive");
