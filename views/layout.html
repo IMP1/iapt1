@@ -28,13 +28,13 @@
                     <li><a href="{{ =URL('default', 'index') }}" tabindex="1"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 </ul>
                 <form action="{{ =URL('bootable', 'search.html') }}" method="post">
-                    <select>
+                    <select name="search-category" class="prepend" tabindex="2">
+                        <option value="All">All Categories</option>
                         {{ for row in db().select(db.bootable_category.name): }}
                         <option value="{{ =row.name }}">{{ =row.name }}</option>
                         {{ pass }}
-                        
                     </select>
-                    <input type="search" name="navsearch" placeholder="Search Bootables" tabindex="2">
+                    <input type="search" name="navsearch" class="appended prepended" placeholder="Search Bootables" tabindex="2">
                     <input type="submit" value="Go" class="append search" tabindex="2">
                 </form>
                 <ul class="float-right">
