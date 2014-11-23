@@ -1,5 +1,6 @@
 def dashboard():
     if not session.logged_in_user:
+        session.redirection = URL('user', 'dashboard.html')
         session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
         redirect(URL('user', 'login.html'))
     return dict()
@@ -13,7 +14,7 @@ def new():
         request.vars.stage = int(request.vars.stage)
     session.registration_stage = request.vars.stage
     
-    # Create the forms such that they can be used across multiple instances of user/new
+    # Create the forms
     form1 = SQLFORM.factory(db.user_address, db.user)
     form2 = SQLFORM.factory(db.user_address, db.user_credit_card)
     
@@ -46,6 +47,7 @@ def new():
         if session.redirection != None:
             # Then get back on track!
             redirect(session.redirection)
+            del session.redirection
         else:
             # Otherwise go to the homepage.
             redirect(URL('default', 'index.html'))
@@ -55,7 +57,7 @@ def new():
     
     # If the first form has been submitted:
     if session.registration_stage == 0 and form1.validate(formname='basic-info'):
-        # Capture the address in case the billing address is the same.
+        # Capture the address in case the user will want the billing address to be the same.
         session.address_vars = db.user_address._filter_fields(form1.vars)
         # Capture the address ID after adding it to the database.
         address_id = db.user_address.insert(**db.user_address._filter_fields(form1.vars))
@@ -76,29 +78,34 @@ def new():
 
 def profile():
     if not session.logged_in_user:
+        session.redirection = URL('user', 'profile.html')
         session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
         redirect(URL('user', 'login.html'))
     return dict()
 
 def login():
+    # Create the form
     form = FORM(INPUT(_name='username', requires=[IS_NOT_EMPTY(), IS_IN_DB(db, "user.username")]),
                INPUT(_type='submit'))
-    if form.validate(formname="login"):
-        session.DEBUG = form.vars.username
-        if db(db.user.username == form.vars.username).select():
-            session.DEBUG = db(db.user.username == form.vars.username).select()
-            session.logged_in_user = form.vars.username
-            session.flash = "You've successfully logged in!"
-            # If we were going somewhere:
-            if session.redirection != None:
-                # Then get back on track!
-                redirect(session.redirection)
-            else:
-                # Otherwise go to the homepage.
-                redirect(URL('default', 'index.html'))
+    
+    # If the form is valid
+    if form.validate(formname="login") and db(db.user.username == form.vars.username).select():
+        # Log the user in.
+        session.logged_in_user = form.vars.username
+        # Let them know they've been successful.
+        session.flash = "You've successfully logged in!"
+        # If we were going somewhere:
+        if session.redirection != None:
+            # Then get back on track!
+            redirect(session.redirection)
+            del session.redirection
+        else:
+            # Otherwise go to the homepage.
+            redirect(URL('default', 'index.html'))
     return dict(form=form)
 
 def logout():
     del session.logged_in_user
+    session.flash = "Logged out successfully."
     redirect(URL('default', 'index.html'))
     return dict()
