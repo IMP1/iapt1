@@ -20,7 +20,6 @@ function calculateHidden(stage) {
     } else if (stage == 1) {
         document.getElementById("postcode").value = document.getElementById("postcode1").value + 
                                                     document.getElementById("postcode2").value;
-        alert("calcluated 2nd postcode.");
     }
     return true;
 }
