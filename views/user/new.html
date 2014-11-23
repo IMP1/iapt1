@@ -24,18 +24,10 @@
         </ul>
         <div class="progress-container"><div id="registration-progress" class="progress-bar" style="width:{{ =max(1, min((stage) * 50, 99)) }}%;"></div></div>
     </div>
-    {{ if forms[stage].errors: }}
+    {{ if form.errors: }}
     <div class="alert alert-danger">
         The values in the form had errors. See below and correct the errors before continuing.
     </div>
     {{ pass }}
-    
-    
     {{ include 'user/register_' + str(stage+1) + '.html' }}
-    
-    <h3>Session Vars</h3>
-    {{ =session }}
-    <h3>Stage {{ =(stage+1) }} Form Errors:</h3>
-    {{ =forms[stage].errors }}
-    
 </section>

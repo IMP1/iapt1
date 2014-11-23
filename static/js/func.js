@@ -8,18 +8,20 @@ function toggle_billing_address(checkbox) {
     }
 }
 
-function calculateHidden(stage) {
+function calculateHidden(stage, form) {
+    form = form.ownerDocument
     if (stage == 0) {
-        document.getElementById("real_name").value = document.getElementById("forename").value + " " +
-                                                     document.getElementById("surname").value;
-        document.getElementById("birthdate").value = document.getElementById("dob_year").value + "-" +
-                                                     document.getElementById("dob_month").value + "-" +
-                                                     document.getElementById("dob_day").value;
-        document.getElementById("postcode").value = document.getElementById("postcode1").value + 
-                                                    document.getElementById("postcode2").value;
+        form.getElementById("birthdate").value = form.getElementById("dob_year").value + "-" +
+                                                 form.getElementById("dob_month").value + "-" +
+                                                 form.getElementById("dob_day").value;
+        form.getElementById("postcode").value = form.getElementById("postcode1").value + 
+                                                form.getElementById("postcode2").value;
     } else if (stage == 1) {
-        document.getElementById("postcode").value = document.getElementById("postcode1").value + 
-                                                    document.getElementById("postcode2").value;
+        form.getElementById("expiry_date").value = form.getElementById("expiry_date_year").value + "-" +
+                                                   form.getElementById("expiry_date_month").value + "-" +
+                                                   "01";
+        form.getElementById("postcode").value = form.getElementById("postcode1").value + 
+                                                form.getElementById("postcode2").value;
     }
     return true;
 }

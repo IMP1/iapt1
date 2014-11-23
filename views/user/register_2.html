@@ -1,13 +1,22 @@
-<form id="user-registration" onsubmit="return calculateHidden({{=stage}});" action="" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHidden({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Credit Card</h3>
         <div class="indented">
-            <input name="card_number" class="string credit-card-long" id="card_number" placeholder="Card Number" type="text" value="">
+            <input name="card_number" class="string credit-card-long {{ =('error clarified' if form.errors.card_number else '') }}" id="card_number" placeholder="Card Number" type="text" value="{{ =request.vars.card_number or '' }}">
+            {{ if form.errors.card_number: }}
+            <br><small class="error-message">{{ =form.errors.card_number }}</small>
+            {{ pass }}
             <br>
-            <input name="identifying_code" class="string credit-card-short" id="identifying_code" placeholder="CVC" type="text" value="" autocomplete="off">
+            <input name="identifying_code" class="string credit-card-short {{ =('error clarified' if form.errors.identifying_code else '') }}" id="identifying_code" placeholder="CVC" type="text" value="" autocomplete="off">
+            {{ if form.errors.identifying_code: }}
+            <br><small class="error-message">{{ =form.errors.identifying_code }}</small>
+            {{ pass }}
             <h5>Expiry Date</h5>
-            <input name="expiry_date_year" class="date date-short" placeholder="YY" type="text" value="" >
-            <input name="expiry_date_year" class="date date-short" placeholder="MM" type="text" value="" >
+            <input name="expiry_date_year" id="expiry_date_year" class="date date-long {{ =('error clarified' if form.errors.expiry_date else '') }}" placeholder="YYYY" type="text" value="{{ =request.vars.expiry_date_year or '' }}" >
+            <input name="expiry_date_month" id="expiry_date_month" class="date date-short {{ =('error clarified' if form.errors.expiry_date else '') }}" placeholder="MM" type="text" value="{{ =request.vars.expiry_date_month or '' }}" >
+            {{ if form.errors.expiry_date == "Enter date as 1963-08-28": }}
+            <br><small class="error-message">{{ ="Enter date as 2016-01" }}</small>
+            {{ pass }}
         </div>
     </section>
     <section>
@@ -32,7 +41,7 @@
         <input name="billing_address" id="billing_address" class="string" type="text" value="">
         <input name="postcode" id="postcode" class="string" type="text" value="">
         <!-- Form Variables -->
-        <input name="_formkey" type="hidden" value="{{ =forms[stage].formkey }}" >
+        <input name="_formkey" type="hidden" value="{{ =formkey }}" >
         <input name="_formname" type="hidden" value="billing-info" >
     </div>
 </form>
