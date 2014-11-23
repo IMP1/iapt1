@@ -25,3 +25,13 @@ function calculateHidden(stage, form) {
     }
     return true;
 }
+
+$('.alert').click(function() {
+    $(".alert").hide();
+});
+$('.alert').attr('data-toggle', 'tooltip');
+$('.alert').attr('title', 'Click to dismiss.');
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
