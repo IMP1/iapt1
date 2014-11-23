@@ -128,39 +128,41 @@ section > h2 {
     /*
     Forms
     --------------------------------------*/
-    input.date-long {
+    .date-long {
         width: 4em;
     }
-    input.date-short {
+    .date-short {
         width: 2.5em;
     }
-    input.name-long {
+    .name-long {
+        width: 14rem;
+    }
+    .name-short {
+        width: 12rem;
+    }
+    .address-long {
         width: 16em;
     }
-    input.name-short {
+    .address-short {
         width: 12em;
     }
-    input.address-long {
-        width: 16em;
-    }
-    input.address-short {
-        width: 12em;
-    }
-    input.postcode-short {
+    .postcode-short {
         width: 3.5em;
     }
-    input.postcode-long {
+    .postcode-long {
         width: 4.5em;
     }
-    input.credit-card-long {
+    .credit-card-long {
         width: 12em;
     }
-    input.credit-card-short {
+    .credit-card-short {
         width: 3.5em;
     }
     @keyframes highlight-border-red {
-        0%   {border-color: #f00;}
-        100% {border-color: inherit;}
+        0%   {border-color: #F00;}
+        33%  {border-color: #A94442;}
+        66%  {border-color: #F2DEDE;}
+        100% {border-color: #CCC;}
     }
     input.error {
         animation: highlight-border-red 6s linear;
@@ -192,8 +194,9 @@ section > h2 {
     form#login-form input[type="submit"]{
         margin-top: 1em;
     }
-    form#login-form .error-message {
-        color: #f00;
+    .error-message {
+        display: inline-block;
+        color: #A94442;
     }
 
     /*
