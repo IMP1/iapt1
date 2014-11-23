@@ -4,12 +4,14 @@ def search():
 
 def create():
     if not session.logged_in_user:
-        redirect(URL('default', 'index.html'))
+        session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
+        redirect(URL('user', 'login.html'))
     return dict()
 
 def edit():
     if not session.logged_in_user:
-        redirect(URL('default', 'index.html'))
+        session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
+        redirect(URL('user', 'login.html'))
     return dict()
 
 def view():

@@ -1,5 +1,10 @@
 {{ extend 'layout.html' }}
 <section>
+    {{ if response.flash: }}
+    <div class="alert alert-info">
+        {{ =response.flash }}
+    </div>
+    {{ pass }}
     <h2>Login</h2>
     <form id="login-form" action="#" enctype="multipart/form-data" method="post" class="central">
         <div class="central">
