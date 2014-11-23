@@ -1,5 +1,7 @@
+# Create Database
 db = DAL('sqlite://store.db')
 
+# Bootable Categories
 db.define_table('bootable_category', 
                     Field('name', 'string', requires=IS_NOT_EMPTY())
                 )
@@ -15,6 +17,8 @@ db.define_table('bootable',
                     Field('image', 'upload'),
                     Field('description', 'text'),
                     Field('about', 'text'),
+                    Field('creation_date', 'date'),
+                    Field('publish_date', 'date'),
                     # Available Pledges are referenced from `bootable_pledges`.
                     # Pledges made are referenced from `bootable_pledges_made`.
                 )
@@ -48,3 +52,22 @@ db.define_table('bootable_pledges_made',
                     Field('pledge_id', db.bootable_pledges),
                     Field('user_id', db.user),
                 )
+
+# Set up Bootable categories
+if db(db.bootable_category.id > 0).count() == 0:
+    db.bootable_category.insert(name = 'Art')
+    db.bootable_category.insert(name = 'Comics')
+    db.bootable_category.insert(name = 'Crafts')
+    db.bootable_category.insert(name = 'Fashion')
+    db.bootable_category.insert(name = 'Film')
+    db.bootable_category.insert(name = 'Games')
+    db.bootable_category.insert(name = 'Music')
+    db.bootable_category.insert(name = 'Photography')
+    db.bootable_category.insert(name = 'Technology')
+    
+# Set up Bootable statuses
+if db(db.bootable_status.id > 0).count() == 0:
+    db.bootable_status.insert(name = 'Not Available')
+    db.bootable_status.insert(name = 'Open for Pledges')
+    db.bootable_status.insert(name = 'Funded')
+    db.bootable_status.insert(name = 'Not Funded')
