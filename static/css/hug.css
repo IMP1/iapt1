@@ -572,9 +572,15 @@ input[type="datetime-local"] {
 }
 textarea,
 select {
-  font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
-  font-size: 1em;
-  box-shadow: none;
+    font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+    font-size: 1em;
+    box-shadow: none;
+    padding: 0.1em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    line-height: 1.2rem;
+    vertical-align: top;
+    margin-bottom: 0.5em;
 }
 textarea,
 select[multiple], {
@@ -618,10 +624,14 @@ input:disabled {
 button:focus {
     color: #de2c3b;
 }
+label {
+    font-weight: normal;
+}
 /*-----------------------------
     Buttons
 -------------------------------*/
 button,
+input[type="button"],
 input[type="submit"] {
     display: inline-block;
     vertical-align: top;
@@ -643,6 +653,8 @@ input[type="submit"] {
 }
 button:active,
 button:focus,
+input[type="button"]:active,
+input[type="button"]:focus,
 input[type="submit"]:active,
 input[type="submit"]:focus {
     outline: none;
@@ -650,32 +662,42 @@ input[type="submit"]:focus {
     border: 1px solid #2575ed;
 }
 button:hover,
+input[type="button"]:hover,
 input[type="submit"]:hover {
     color: rgba(0, 0, 0, 0.7);
     background: #c1c1c1;
 }
 button:focus,
+input[type="button"]:focus,
 input[type="submit"]:focus {
     color: #de2b3a;
 }
 
 button.append,
+input[type="button"].append,
 input[type="submit"].append {
     float: right;
     border-left: 1px solid #e0e3e5;
 }
 button.append:hover,
+input[type="button"].append:hover,
 input[type="submit"].append:hover {
     border-left: 1px solid #c1c1c1;
 }
 button.append:focus,
+input[type="button"].append:focus,
 input[type="submit"].append:focus {
     border: 1px solid #2575ed;
 }
 
-select.prepend {
+.prepend {
+    background-color: #E0E3E5;
+    min-width: 1em;
+    height: 1.7em;
+    border: 1px solid #ccc;
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
+    border-right-color: #E0E3E5;
     float: left;
 }
 
@@ -878,8 +900,11 @@ input[type="submit"].square {
 .tools-droparea {
     position: relative;
     overflow: hidden;
-    padding: 5rem 1.5rem;
+    padding: 2em 0.5em;
     border: 3px dashed rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 0.5em;
+    width: 18em;
 }
 .tools-droparea.drag-hover {
     background: rgba(200, 222, 250, 0.75);
