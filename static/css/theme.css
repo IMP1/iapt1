@@ -32,6 +32,10 @@ section > h2 {
     padding-left: 5%;
 }
 
+div.alert {
+    text-align: center;
+}
+
     /*
     Global Nav Bar
     --------------------------------------*/
@@ -157,6 +161,13 @@ section > h2 {
     }
     .credit-card-short {
         width: 3.5em;
+    }
+    .title-long {
+        width: 20em;
+    }
+    .summary-short {
+        width: 32em;
+        height: 7em;
     }
     @keyframes highlight-border-red {
         0%   {border-color: #F00;}
