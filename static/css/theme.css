@@ -36,6 +36,10 @@ div.alert {
     text-align: center;
 }
 
+label > input[type="file"] {
+    display: none;
+}
+
     /*
     Global Nav Bar
     --------------------------------------*/
@@ -80,11 +84,7 @@ div.alert {
     nav form > select {
         background-color: #e0e3e5;
         color: #222;
-        padding: 0.1em;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        line-height: 1.2rem;
-        vertical-align: top;
+        margin-bottom: 0;
     }
     nav form > select > option {
         color: #222;
@@ -92,6 +92,28 @@ div.alert {
     nav form.float-left, nav form.float-right {
         position: relative;
         top: -0.1em;
+    }
+    input[type="search"] {
+        background: none repeat scroll 0% 0% #FFF;
+        border: 1px solid #CCC;
+        position: relative;
+        top: 0px;
+        vertical-align: text-bottom;
+        font-size: 1em;
+        line-height: 1.2rem;
+        margin-bottom: 0;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+    }
+    button.search,
+    input[type="submit"].search {
+        line-height: 1rem;
+        position: relative;
+        top: 0px;
+    }
+    button.square,
+    input[type="submit"].square {
+        border-radius: 0;
     }
 
     /*
@@ -156,6 +178,12 @@ div.alert {
     .postcode-long {
         width: 4.5em;
     }
+    .price-long {
+        width: 6em;
+    }
+    .price-short {
+        width: 4em;
+    }
     .credit-card-long {
         width: 12em;
     }
@@ -169,6 +197,10 @@ div.alert {
         width: 32em;
         height: 7em;
     }
+    .summary-long {
+        width: 32em;
+        height: 12em;
+    }
     @keyframes highlight-border-red {
         0%   {border-color: #F00;}
         33%  {border-color: #A94442;}
@@ -180,6 +212,20 @@ div.alert {
     }
     input.clarified {
         margin-bottom: 0;
+    }
+    #currency.prepend {
+        padding-left: 0.4em;
+        padding-right: 0.2em;
+        border-radius: 0;
+    }
+    .upload-droparea {
+        position: relative;
+        overflow: hidden;
+        padding: 2em 0.5em;
+        border: 3px dashed rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 0.5em;
+        width: 18em;
     }
 
     /*
@@ -194,7 +240,7 @@ div.alert {
     }
 
     /*
-    Loggin In
+    Logging In
     --------------------------------------*/
     form#login-form {
         text-align: center;
