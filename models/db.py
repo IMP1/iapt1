@@ -1,3 +1,5 @@
+import os
+
 # Create Database
 db = DAL('sqlite://store.db')
 
@@ -35,8 +37,8 @@ db.define_table('bootable',
                     Field('description', 'text'),
                     Field('status_id', db.bootable_status),
                     Field('author', db.user),
-                    Field('fundingGoal', 'double', requires=IS_FLOAT_IN_RANGE(0, 1e100)),
-                    Field('image', 'upload'),
+                    Field('funding_goal', 'double', requires=IS_FLOAT_IN_RANGE(0, None)),
+                    Field('image', 'upload', uploadfolder = os.path.join(request.folder, 'uploads')),
                     Field('about', 'text'),
                     Field('creation_date', 'date'),
                     # Available Pledges are referenced from `bootable_pledges`.
@@ -49,7 +51,7 @@ db.define_table('bootable_published',
 db.define_table('bootable_pledges', 
                     Field('bootable_id', db.bootable),
                     Field('title', 'string', requires=IS_NOT_EMPTY()),
-                    Field('cost', 'double', requires=IS_FLOAT_IN_RANGE(0, 1e100)),
+                    Field('cost', 'double', requires=IS_FLOAT_IN_RANGE(0, None)),
                     Field('reward', 'text'),
                 )
 db.define_table('bootable_pledges_made', 
