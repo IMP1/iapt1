@@ -8,7 +8,7 @@ function toggle_billing_address(checkbox) {
     }
 }
 
-function calculateHidden(stage, form) {
+function calculateHiddenRegistration(stage, form) {
     form = form.ownerDocument
     if (stage == 0) {
         form.getElementById("birthdate").value = form.getElementById("dob_year").value + "-" +
@@ -26,6 +26,18 @@ function calculateHidden(stage, form) {
     return true;
 }
 
+function calculateHiddenBootable(stage, form) {
+    form = form.ownerDocument
+    if (stage == 0) {
+        form.getElementById("category_id").value = document.getElementById("category_name").selectedIndex;
+    }
+    return true;
+}
+
+function updateFileLabel(input) {
+    document.getElementById("file-name").innerHTML = input.value;
+}
+
 $('.alert').click(function() {
     $(".alert").hide();
 });
@@ -34,4 +46,4 @@ $('.alert').attr('title', 'Click to dismiss.');
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
