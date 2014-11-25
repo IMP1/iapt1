@@ -1,4 +1,4 @@
-<form id="user-registration" onsubmit="return calculateHidden({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHiddenRegistration({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Basic Info</h3>
         <div class="indented">
@@ -111,10 +111,12 @@
     
     <div style="display:none;">
         <!-- Calculated Values -->
-        <input name="birthdate" id="birthdate" class="date" type="text" value="" >
+        <input name="birthdate" id="birthdate" class="date" type="text" value="">
         <input name="postcode" class="string" id="postcode" type="text" value="">
         <!-- Web2py Values -->
-        <input name="_formkey" type="hidden" value="{{ =formkey }}" >
-        <input name="_formname" type="hidden" value="basic-info" >
+        <input name="_formkey" type="hidden" value="{{ =formkey }}">
+        <input name="_formname" type="hidden" value="basic-info">
+        <!-- My Values -->
+        <input name="registration_stage" type="hidden" value="{{ =stage }}">
     </div>
 </form>

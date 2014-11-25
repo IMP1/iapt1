@@ -1,4 +1,4 @@
-<form id="user-registration" onsubmit="return calculateHidden({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
+<form id="user-registration" onsubmit="return calculateHiddenRegistration({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
     <section>
         <h3>Credit Card</h3>
         <div class="indented">
@@ -80,5 +80,7 @@
         <!-- Form Variables -->
         <input name="_formkey" type="hidden" value="{{ =formkey }}" >
         <input name="_formname" type="hidden" value="billing-info" >
+        <!-- My Values -->
+        <input name="registration_stage" type="hidden" value="{{ =stage }}">
     </div>
 </form>
