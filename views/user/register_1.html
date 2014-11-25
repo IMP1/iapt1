@@ -2,7 +2,11 @@
     <section>
         <h3>Basic Info</h3>
         <div class="indented">
-            <input name="username" id="username" class="string name-short {{ =('error clarified' if form.errors.username else '') }}" placeholder="Username" type="text" value="{{ =request.vars.username or '' }}" >
+            <input name="username" id="username" 
+                   class="string name-short {{ =('error clarified' if form.errors.username else '') }}" 
+                   placeholder="Username" 
+                   type="text" 
+                   value="{{ =request.vars.username or '' }}">
             {{ if form.errors.username == 'Value not in database': }}
             <br><small class="error-message">There is no user with that username.</small>
             {{ elif form.errors.username: }}
@@ -10,8 +14,16 @@
             {{ pass }}
             
             <h5>Full Name</h5>
-            <input name="forename" id="forename" class="string name-short {{ =('error clarified' if form.errors.forename else '') }}" placeholder="First Name" type="text" value="{{ =request.vars.forename or '' }}" >
-            <input name="surname" id="surname" class="string name-long {{ =('error clarified' if form.errors.surname else '') }}" placeholder="Surname" type="text" value="{{ =request.vars.surname or '' }}" >
+            <input name="forename" id="forename" 
+                   class="string name-short {{ =('error clarified' if form.errors.forename else '') }}" 
+                   placeholder="First Name" 
+                   type="text" 
+                   value="{{ =request.vars.forename or '' }}">
+            <input name="surname" id="surname" 
+                   class="string name-long {{ =('error clarified' if form.errors.surname else '') }}" 
+                   placeholder="Surname" 
+                   type="text" 
+                   value="{{ =request.vars.surname or '' }}">
             {{ if form.errors.forename or form.errors.surname: }}
             <br><small class="error-message name-short">
             {{ if form.errors.forename: }}
@@ -24,9 +36,24 @@
             {{ pass }}
             
             <h5>Date of Birth</h5>
-            <input name="birthdate_year" id="dob_year" maxlength="4" size="4" class="date date-long {{ =('error clarified' if form.errors.birthdate else '') }}" placeholder="YYYY" type="text" value="{{ =request.vars.birthdate_year or '' }}" >
-            <input name="birthdate_month" id="dob_month" maxlength="2" size="2" class="date date-short {{ =('error clarified' if form.errors.birthdate else '') }}" placeholder="MM" type="text" value="{{ =request.vars.birthdate_month or '' }}" >
-            <input name="birthdate_day" id="dob_day" maxlength="2" size="2" class="date date-short {{ =('error clarified' if form.errors.birthdate else '') }}" placeholder="DD" type="text" value="{{ =request.vars.birthdate_day or '' }}" >
+            <input name="birthdate_year" id="dob_year" 
+                   class="date date-long {{ =('error clarified' if form.errors.birthdate else '') }}" 
+                   maxlength="4" size="4" 
+                   type="text" 
+                   placeholder="YYYY" 
+                   value="{{ =request.vars.birthdate_year or '' }}">
+            <input name="birthdate_month" id="dob_month" 
+                   class="date date-short {{ =('error clarified' if form.errors.birthdate else '') }}" 
+                   maxlength="2" size="2" 
+                   type="text" 
+                   placeholder="MM" 
+                   value="{{ =request.vars.birthdate_month or '' }}">
+            <input name="birthdate_day" id="dob_day" 
+                   class="date date-short {{ =('error clarified' if form.errors.birthdate else '') }}" 
+                   maxlength="2" size="2" 
+                   placeholder="DD" 
+                   type="text" 
+                   value="{{ =request.vars.birthdate_day or '' }}">
             {{ if form.errors.birthdate: }}
             <br><small class="error-message">{{ =form.errors.birthdate }}</small>
             {{ pass }}
@@ -35,23 +62,45 @@
     <section>
         <h3>Address</h3>
         <div class="indented">
-            <input name="street_address" id="street_address" class="string address-long {{ =('error clarified' if form.errors.street_address else '') }}" placeholder="Street Address" type="text" value="{{ =request.vars.street_address or '' }}">
+            <input name="street_address" id="street_address" 
+                   class="string address-long {{ =('error clarified' if form.errors.street_address else '') }}" 
+                   placeholder="Street Address" 
+                   type="text" 
+                   value="{{ =request.vars.street_address or '' }}">
             {{ if form.errors.street_address: }}
             <br><small class="error-message">{{ =form.errors.street_address }}</small>
             {{ pass }}
             <br>
-            <input name="city" id="city" class="string address-short {{ =('error clarified' if form.errors.city else '') }}" placeholder="City" type="text" value="{{ =request.vars.city or '' }}">
+            <input name="city" id="city" 
+                   class="string address-short {{ =('error clarified' if form.errors.city else '') }}" 
+                   placeholder="City" 
+                   type="text" 
+                   value="{{ =request.vars.city or '' }}">
             {{ if form.errors.city: }}
             <br><small class="error-message">{{ =form.errors.city }}</small>
             {{ pass }}
             <br>
-            <input name="postcode1" id="postcode1" maxlength="4" size="4" class="string postcode-long {{ =('error clarified' if form.errors.postcode else '') }}" placeholder="Post" type="text" value="{{ =(request.vars.postcode or '')[0:-3] }}">
-            <input name="postcode2" id="postcode2" maxlength="3" size="3" class="string postcode-short {{ =('error clarified' if form.errors.postcode else '') }}" placeholder="Code" type="text" value="{{ =(request.vars.postcode or '')[-3:] }}">
+            <input name="postcode1" id="postcode1" 
+                   class="string postcode-long {{ =('error clarified' if form.errors.postcode else '') }}" 
+                   maxlength="4" size="4" 
+                   placeholder="Post" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or '')[0:-3] }}">
+            <input name="postcode2" id="postcode2" 
+                   class="string postcode-short {{ =('error clarified' if form.errors.postcode else '') }}" 
+                   maxlength="3" size="3" 
+                   placeholder="Code" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or '')[-3:] }}">
             {{ if form.errors.postcode: }}
             <br><small class="error-message">{{ =form.errors.postcode }}</small>
             {{ pass }}
             <br>
-            <input name="country" id="country" class="string address-short {{ =('error clarified' if form.errors.country else '') }}" placeholder="Country" type="text" value="{{ =request.vars.country or '' }}">
+            <input name="country" id="country" 
+                   class="string address-short {{ =('error clarified' if form.errors.country else '') }}" 
+                   placeholder="Country" 
+                   type="text" 
+                   value="{{ =request.vars.country or '' }}">
             {{ if form.errors.country: }}
             <br><small class="error-message">{{ =form.errors.country }}</small>
             {{ pass }}

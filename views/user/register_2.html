@@ -2,18 +2,35 @@
     <section>
         <h3>Credit Card</h3>
         <div class="indented">
-            <input name="card_number" class="string credit-card-long {{ =('error clarified' if form.errors.card_number else '') }}" id="card_number" placeholder="Card Number" type="text" value="{{ =request.vars.card_number or '' }}">
+            <input name="card_number" id="card_number" 
+                   class="string credit-card-long {{ =('error clarified' if form.errors.card_number else '') }}" 
+                   placeholder="Card Number" 
+                   type="text" 
+                   value="{{ =request.vars.card_number or '' }}">
             {{ if form.errors.card_number: }}
             <br><small class="error-message">{{ =form.errors.card_number }}</small>
             {{ pass }}
             <br>
-            <input name="identifying_code" class="string credit-card-short {{ =('error clarified' if form.errors.identifying_code else '') }}" id="identifying_code" placeholder="CVC" type="text" value="" autocomplete="off">
+            <input name="identifying_code" id="identifying_code" 
+                   class="string credit-card-short {{ =('error clarified' if form.errors.identifying_code else '') }}" 
+                   placeholder="CVC" 
+                   autocomplete="off"
+                   type="text" 
+                   value="">
             {{ if form.errors.identifying_code: }}
             <br><small class="error-message">{{ =form.errors.identifying_code }}</small>
             {{ pass }}
             <h5>Expiry Date</h5>
-            <input name="expiry_date_year" id="expiry_date_year" class="date date-long {{ =('error clarified' if form.errors.expiry_date else '') }}" placeholder="YYYY" type="text" value="{{ =request.vars.expiry_date_year or '' }}" >
-            <input name="expiry_date_month" id="expiry_date_month" class="date date-short {{ =('error clarified' if form.errors.expiry_date else '') }}" placeholder="MM" type="text" value="{{ =request.vars.expiry_date_month or '' }}" >
+            <input name="expiry_date_year" id="expiry_date_year" 
+                   class="date date-long {{ =('error clarified' if form.errors.expiry_date else '') }}" 
+                   placeholder="YYYY" 
+                   type="text" 
+                   value="{{ =request.vars.expiry_date_year or '' }}">
+            <input name="expiry_date_month" id="expiry_date_month" 
+                   class="date date-short {{ =('error clarified' if form.errors.expiry_date else '') }}" 
+                   placeholder="MM" 
+                   type="text" 
+                   value="{{ =request.vars.expiry_date_month or '' }}">
             {{ if form.errors.expiry_date == "Enter date as 1963-08-28": }}
             <br><small class="error-message">{{ ="Enter date as 2016-01" }}</small>
             {{ pass }}
@@ -22,14 +39,34 @@
     <section>
         <h3>Billing Address</h3>
         <div class="indented">
-            <input name="street_address" id="street_address" class="string address-long" placeholder="Street Address" type="text" value="{{ =session.address_vars['street_address'] }}">
+            <input name="street_address" id="street_address" 
+                   class="string address-long" 
+                   placeholder="Street Address" 
+                   type="text" 
+                   value="{{ =session.address_vars['street_address'] }}">
             <br>
-            <input name="city" id="city" class="string address-short" placeholder="City" type="text" value="{{ =session.address_vars['city'] }}">
+            <input name="city" id="city" 
+                   class="string address-short" 
+                   placeholder="City" 
+                   type="text" 
+                   value="{{ =session.address_vars['city'] }}">
             <br>
-            <input name="postcode1" id="postcode1" class="string postcode-long" placeholder="Post" type="text" value="{{ =session.address_vars['postcode'][0:-3] }}">
-            <input name="postcode2" id="postcode2" class="string postcode-short" placeholder="Code" type="text" value="{{ =session.address_vars['postcode'][-3:] }}">
+            <input name="postcode1" id="postcode1" 
+                   class="string postcode-long" 
+                   placeholder="Post" 
+                   type="text" 
+                   value="{{ =session.address_vars['postcode'][0:-3] }}">
+            <input name="postcode2" id="postcode2" 
+                   class="string postcode-short" 
+                   placeholder="Code" 
+                   type="text" 
+                   value="{{ =session.address_vars['postcode'][-3:] }}">
             <br>
-            <input name="country" id="country" class="string address-short" placeholder="Country" type="text" value="{{ =session.address_vars['country'] }}">
+            <input name="country" id="country" 
+                   class="string address-short" 
+                   placeholder="Country" 
+                   type="text" 
+                   value="{{ =session.address_vars['country'] }}">
         </div>
     </section>
     
