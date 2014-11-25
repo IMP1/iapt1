@@ -1,1 +1,39 @@
 {{ extend 'layout.html' }}
+<section>
+    {{ if response.flash and not form.errors: }}
+    <div class="alert alert-success">
+        {{ =response.flash }}
+    </div>
+    {{ pass }}
+    <h2>Create your bootable!</h2>
+    <p>
+        Creating a bootable is simple. Just enter some details to let people know what it's about, and add some information about yourself.
+        Then you can add pledge options that people can choose to fund your project.
+        Once you've created your project, you can edit its information until you publish it.
+        Publishing it releases the bootable to the public, allowing them to find and pledge to it.
+    </p>
+    <div id="form-progression" class="form-progression">
+        <ul class="progress-steps">
+            {{ if stage == 0: }}
+            <li>Basic Info</li>
+            <li class="progress-inactive">Description</li>
+            <li class="progress-inactive">Available Pledges</li>
+            {{ elif stage == 1: }}
+            <li class="progress-inactive">Basic Info</li>
+            <li>Description</li>
+            <li class="progress-inactive">Available Pledges</li>
+            {{ else: }}
+            <li class="progress-inactive">Basic Info</li>
+            <li class="progress-inactive">Description</li>
+            <li>Available Pledges</li>
+            {{ pass }}
+        </ul>
+        <div class="progress-container"><div id="registration-progress" class="progress-bar" style="width:{{ =max(1, min((stage) * 33, 100)) }}%;"></div></div>
+    </div>
+    {{ if form.errors: }}
+    <div class="alert alert-danger">
+        The values in the form had errors. See below and correct the errors before continuing.
+    </div>
+    {{ pass }}
+    {{ include 'bootable/create_' + str(stage+1) + '.html' }}
+</section>
