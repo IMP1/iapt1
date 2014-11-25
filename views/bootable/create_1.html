@@ -1,0 +1,71 @@
+<form id="bootable-creation" onsubmit="return calculateHiddenBootable({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
+    <section>
+        <h3>Basic Info</h3>
+        <div class="indented">
+            <h5>Project Title</h5>
+            <input name="title" id="title" 
+                   class="string title-long {{ =('error clarified' if form.errors.title else '') }}" 
+                   placeholder="Title" 
+                   type="text" 
+                   value="{{ =request.vars.title or '' }}">
+            {{ if form.errors.title: }}
+            <br><small class="error-message">{{ =form.errors.title }}</small>
+            {{ pass }}
+            
+            <h5>Category</h5>
+            <select name="category_name" id="category_name">
+                {{ for i, row in enumerate(db().select(db.bootable_category.name)): }}
+                <option {{ ='selected="selected"' if request.vars.category_id == str(i) else '' }} value="{{ =row.name }}">{{ =row.name }}</option>
+                {{ pass }}
+            </select>
+            
+            <h5>Project Image</h5>
+            <div class="upload-droparea">
+                <label class="{{ =('error clarified' if form.errors.image else '') }}">
+                    <input name="image" id="image" 
+                           type="file"
+                           accept="image/jpeg,image/gif,image/png"
+                           onchange="updateFileLabel(this);">
+                    <input type="button" value="Browse...">
+                </label>
+                <span class="indented" id="file-name">No file selected.</span>
+            </div>
+            {{ if form.errors.image: }}
+            <br><small class="error-message">{{ =form.errors.image }}</small>
+            {{ pass }}
+            
+            <h5>Project Target</h5>
+            <span id="currency" class="prepend">£</span>
+            <input name="funding_goal" id="funding_goal" 
+                      class="number price-long {{ =('error clarified' if form.errors.funding_goal else '') }}" 
+                      placeholder="00.00" 
+                      type="text"
+                      value="{{ =request.vars.funding_goal or '' }}">
+            {{ if form.errors.funding_goal: }}
+            <br><small class="error-message">{{ =form.errors.funding_goal }}</small>
+            {{ pass }}
+            
+            <h5>Project Summary</h5>
+            <textarea name="summary" id="summary" 
+                      class="string summary-short {{ =('error clarified' if form.errors.summary else '') }}" 
+                      maxlength="{{ =db.bootable.summary.requires.maxsize }}" 
+                      placeholder="{{ =db.bootable.summary.requires.maxsize }} characters or fewer.">{{ =request.vars.summary or '' }}</textarea>
+            {{ if form.errors.summary: }}
+            <br><small class="error-message">{{ =form.errors.summary }}</small>
+            {{ pass }}
+            
+        </div>
+    </section>
+    
+    <input type="submit" value="Continue">
+    
+    <div style="display:none;">
+        <!-- Calculated Values -->
+        <input name="category_id" id="category_id" class="" type="number" value="">
+        <!-- Web2py Values -->
+        <input name="_formkey" type="hidden" value="{{ =formkey }}">
+        <input name="_formname" type="hidden" value="basic-info">
+        <!-- My Values -->
+        <input name="creation_stage" type="hidden" value="{{ =stage }}">
+    </div>
+</form>

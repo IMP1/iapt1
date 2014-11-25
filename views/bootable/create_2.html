@@ -1,0 +1,32 @@
+<form id="bootable-creation" onsubmit="return calculateHiddenBootable({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
+    <section>
+        <h3>Project Descriptions</h3>
+        <div class="indented">
+            <h5>About the Bootable</h5>
+            <textarea name="description" id="description" 
+                      class="string summary-long {{ =('error clarified' if form.errors.description else '') }}">{{ =request.vars.description or '' }}</textarea>
+            {{ if form.errors.description: }}
+            <br><small class="error-message">{{ =form.errors.description }}</small>
+            {{ pass }}
+            
+            <h5>About You</h5>
+            <textarea name="about" id="about" 
+                      class="string summary-long {{ =('error clarified' if form.errors.summary else '') }}">{{ =request.vars.about or '' }}</textarea>
+            {{ if form.errors.about: }}
+            <br><small class="error-message">{{ =form.errors.about }}</small>
+            {{ pass }}
+        </div>
+    </section>
+    
+    <input type="submit" value="Continue">
+    
+    <div style="display:none;">
+        <!-- Calculated Values -->
+        <input name="category_id" id="category_id" class="" type="number" value="">
+        <!-- Web2py Values -->
+        <input name="_formkey" type="hidden" value="{{ =formkey }}">
+        <input name="_formname" type="hidden" value="description">
+        <!-- My Values -->
+        <input name="creation_stage" type="hidden" value="{{ =stage }}">
+    </div>
+</form>

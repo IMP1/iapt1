@@ -1,0 +1,23 @@
+<form id="bootable-creation" onsubmit="return calculateHiddenBootable({{=stage}}, this);" action="" enctype="multipart/form-data" method="post" class="central">
+    <section>
+        <h3>Project Pledges</h3>
+        <div class="indented">
+            <h5>Pledges Added</h5>
+            
+        </div>
+    </section>
+    
+    <input type="submit" value="Finish">
+    
+    <div style="display:none;">
+        <!-- Calculated Values -->
+        <input name="category_id" id="category_id" class="" type="number" value="">
+        <!-- Web2py Values -->
+        <input name="_formkey" type="hidden" value="{{ =formkey }}">
+        <input name="_formname" type="hidden" value="pledges">
+        <!-- My Values -->
+        <input name="creation_stage" type="hidden" value="{{ =stage }}">
+    </div>
+    
+    {{ =form.errors }}
+</form>
