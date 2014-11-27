@@ -18,7 +18,28 @@ def create():
     
     # If the third form has been submitted:
     if form3.validate(formname='pledges') and request.vars.creation_stage == 2:
-        session.flash = "You've successfully created a bootable. Don't forget to publish it when it's ready!"
+        # If the button pressed was the finish button:
+        if request.vars.finish:
+            session.flash = "You've successfully created a bootable. Edit to your heart's content and then publish it when it's ready!"
+            # If we were going somewhere:
+            if session.redirection != None:
+                # Then get back on track!
+                target = session.redirection
+                del session.redirection
+                redirect(target)
+            else:
+                # Otherwise go to the homepage.
+                target = session.bootable_id
+                del session.bootable_id
+                redirect(URL('bootable', 'edit.html', vars = dict(bootable=target)))
+        else:
+            session.flash = "Pledge added!"
+            # Add the pledge.
+            db.bootable_pledges.insert(**db.bootable_pledges._filter_fields(form3.vars))
+            # Don't go anywhere because more pledges can be added.
+    # If we've clicked on finish, we don't need the form to be filled out.
+    elif request.vars.finish and db(db.bootable_pledges.bootable_id == session.bootable_id).select() and request.vars.creation_stage == 2:
+        session.flash = "You've successfully created a bootable. Edit to your heart's content and then publish it when it's ready!"
         # If we were going somewhere:
         if session.redirection != None:
             # Then get back on track!
@@ -33,6 +54,9 @@ def create():
         
     # If the second form has been submitted:
     if form2.validate(formname='description') and request.vars.creation_stage == 1:
+        # Update the bootable with the description and about information
+        record = db.bootable(session.bootable_id)
+        record.update_record(**db.bootable._filter_fields(form2.vars))
         # Go to the next stage.
         request.vars.creation_stage = 2
         response.flash = "Nearly done!"
