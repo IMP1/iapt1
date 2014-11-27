@@ -20,7 +20,7 @@
             </select>
             
             <h5>Project Image</h5>
-            <div class="upload-droparea">
+            <div>
                 <label class="{{ =('error clarified' if form.errors.image else '') }}">
                     <input name="image" id="image" 
                            type="file"
@@ -53,7 +53,6 @@
             {{ if form.errors.summary: }}
             <br><small class="error-message">{{ =form.errors.summary }}</small>
             {{ pass }}
-            
         </div>
     </section>
     
@@ -61,7 +60,10 @@
     
     <div style="display:none;">
         <!-- Calculated Values -->
-        <input name="category_id" id="category_id" class="" type="number" value="">
+        <input name="category_id" id="category_id" type="number" value="">
+        <input name="status_id" id="status_id" type="number" value="1">
+        <input name="author" id="author" type="number" value="{{ =session.logged_in_user }}">
+        <input name="creation_date" id="creation_date" type="datetime" value="">
         <!-- Web2py Values -->
         <input name="_formkey" type="hidden" value="{{ =formkey }}">
         <input name="_formname" type="hidden" value="basic-info">

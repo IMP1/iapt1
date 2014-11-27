@@ -3,21 +3,68 @@
         <h3>Project Pledges</h3>
         <div class="indented">
             <h5>Pledges Added</h5>
-            
+            {{ for row in db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
+            <strong>{{ =row.title }}</strong>
+            <br>
+            {{ =row.cost }}
+            <br>
+            {{ =row.reward }}
+            {{ pass }}
+            {{ if not db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
+            You haven't added any pledges yet.
+            {{ pass }}
+            <h5>New Pledge</h5>
+            <div class="indented">
+                <input name="title" id="title" 
+                       class="string title-short {{ =('error clarified' if form.errors.title else '') }}" 
+                       placeholder="Title" 
+                       type="text" 
+                       value="{{ =request.vars.title or '' }}">
+                {{ if form.errors.title: }}
+                <br><small class="error-message">{{ =form.errors.title }}</small>
+                {{ pass }}
+
+                <h5>Cost</h5>
+                <span id="currency" class="prepend">£</span>
+                <input name="cost" id="cost" 
+                          class="number price-long {{ =('error clarified' if form.errors.cost else '') }}" 
+                          placeholder="00.00" 
+                          type="text"
+                          value="{{ =request.vars.cost or '' }}">
+                {{ if form.errors.cost: }}
+                <br><small class="error-message">{{ =form.errors.cost }}</small>
+                {{ pass }}
+
+                <h5>Reward</h5>
+                <textarea name="reward" id="reward" 
+                          class="string summary-short {{ =('error clarified' if form.errors.reward else '') }}">{{ =request.vars.reward or '' }}</textarea>
+                {{ if form.errors.reward: }}
+                <br><small class="error-message">{{ =form.errors.reward }}</small>
+                {{ pass }}
+                Include previous rewards: <input name="include_previous_rewards" id="include_previous_rewards" 
+                      class="{{ =('error clarified' if form.errors.include_previous_rewards else '') }}" 
+                      placeholder="00.00" 
+                      type="checkbox"
+                      value="{{ =request.vars.include_previous_rewards or '' }}">
+
+                <br>
+                <input type="submit" value="Add Pledge">
+            </div>
         </div>
     </section>
     
-    <input type="submit" value="Finish">
+    <br>
+    
+    <input type="submit" onclick="finishUp();" value="Finish">
     
     <div style="display:none;">
         <!-- Calculated Values -->
-        <input name="category_id" id="category_id" class="" type="number" value="">
+        <input name="bootable_id" id="bootable_id" type="number" value="{{ =session.bootable_id }}">
         <!-- Web2py Values -->
         <input name="_formkey" type="hidden" value="{{ =formkey }}">
         <input name="_formname" type="hidden" value="pledges">
         <!-- My Values -->
         <input name="creation_stage" type="hidden" value="{{ =stage }}">
+        <input name="finish" id="finish" type="hidden" value="">
     </div>
-    
-    {{ =form.errors }}
 </form>
