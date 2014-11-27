@@ -40,19 +40,20 @@ db.define_table('bootable',
                     Field('funding_goal', 'double', requires=IS_FLOAT_IN_RANGE(0, None)),
                     Field('image', 'upload', uploadfolder = os.path.join(request.folder, 'uploads')),
                     Field('about', 'text'),
-                    Field('creation_date', 'date'),
+                    Field('creation_date', 'datetime'),
                     # Available Pledges are referenced from `bootable_pledges`.
                     # Pledges made are referenced from `bootable_pledges_made`.
                 )
 db.define_table('bootable_published',
                     Field('bootable_id', db.bootable),
-                    Field('publish_date', 'date'),
+                    Field('publish_date', 'datetime'),
                 )
 db.define_table('bootable_pledges', 
                     Field('bootable_id', db.bootable),
                     Field('title', 'string', requires=IS_NOT_EMPTY()),
                     Field('cost', 'double', requires=IS_FLOAT_IN_RANGE(0, None)),
                     Field('reward', 'text'),
+                    Field('include_previous_rewards', 'boolean'),
                 )
 db.define_table('bootable_pledges_made', 
                     Field('pledge_id', db.bootable_pledges),
