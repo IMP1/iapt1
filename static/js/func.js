@@ -1,13 +1,7 @@
-function toggle_billing_address(checkbox) {
-    var inputs = checkbox.parentElement.getElementsByTagName("input");
-    var i;
-    for (i = 0; i < inputs.length; i ++) {
-        if (inputs[i] !== checkbox) {
-            inputs[i].disabled = checkbox.checked;
-        }
-    }
-}
-
+/**
+    Calculates hidden variables for user registration.
+    Hidden variables are those the user shouldn't be entering themselves.
+*/
 function calculateHiddenRegistration(stage, form) {
     form = form.ownerDocument
     if (stage == 0) {
@@ -26,16 +20,40 @@ function calculateHiddenRegistration(stage, form) {
     return true;
 }
 
+/**
+    Calculates hidden variables for bootable creation.
+    Hidden variables are those the user shouldn't be entering themselves.
+*/
 function calculateHiddenBootable(stage, form) {
     form = form.ownerDocument
     if (stage == 0) {
-        form.getElementById("category_id").value = document.getElementById("category_name").selectedIndex;
+        // Get the time and date now.
+        creation_date = new Date();
+        // Get into web2py format.
+        creation_date = creation_date.getFullYear() + "-" + creation_date.getMonth() + "-" + creation_date.getDate() + " " + creation_date.toLocaleString().split(" ")[1];
+        // Insert the values into the fields.
+        form.getElementById("category_id").value = document.getElementById("category_name").selectedIndex + 1; // + 1 because database IDs start at 1
+        form.getElementById("creation_date").value = creation_date;
     }
     return true;
 }
 
+/**
+    Updates the upload label to match the filename.
+*/
 function updateFileLabel(input) {
     document.getElementById("file-name").innerHTML = input.value;
+}
+
+/** 
+    Used in bootable creation.
+    Distinguished between adding another pledge, and finishing adding pledges.
+    Setting the value of this field to 'finished' is interpreted by the controller
+    as a sign that the user has pressed the Finish button and is finished.
+*/
+function finishUp() {
+    // Set the value to finished (interpreted by the controller to move on).
+    document.getElementById('finish').value = 'finished';
 }
 
 $('.alert').click(function() {
