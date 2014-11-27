@@ -47,7 +47,7 @@ def new():
         # Finally add the user to the database.
         user_id = db.user.insert(**session.user_vars)
         # Log in the user.
-        session.logged_in_user = session.user_vars['username']
+        session.logged_in_user = user_id
         session.flash = "You've successfully registered and have been logged in!"
         ## Remove session vars no longer needed.
         del session.user_vars
@@ -105,7 +105,8 @@ def login():
     # If the form is valid
     if form.validate(formname="login") and db(db.user.username == form.vars.username).select():
         # Log the user in.
-        session.logged_in_user = form.vars.username
+        user = db(db.user.username == form.vars.username).select(db.user.id)[0]
+        session.logged_in_user = user.id
         # Let them know they've been successful.
         session.flash = "You've successfully logged in!"
         # If we were going somewhere:
