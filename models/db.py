@@ -38,7 +38,7 @@ db.define_table('bootable',
                     Field('status_id', db.bootable_status),
                     Field('author', db.user),
                     Field('funding_goal', 'double', requires=IS_FLOAT_IN_RANGE(0, None)),
-                    Field('image', 'upload', uploadfolder = os.path.join(request.folder, 'uploads')),
+                    Field('image', 'upload', uploadfolder = os.path.join(request.folder, 'static/uploads')),
                     Field('about', 'text'),
                     Field('creation_date', 'datetime'),
                     # Available Pledges are referenced from `bootable_pledges`.
@@ -74,7 +74,7 @@ if db(db.bootable_category.id > 0).count() == 0:
     
 # Set up Bootable statuses
 if db(db.bootable_status.id > 0).count() == 0:
-    db.bootable_status.insert(name = 'Not Available')
+    db.bootable_status.insert(name = 'Not Available for Pledges')
     db.bootable_status.insert(name = 'Open for Pledges')
     db.bootable_status.insert(name = 'Funded')
     db.bootable_status.insert(name = 'Not Funded')
