@@ -20,11 +20,11 @@
                 </li>
                 {{ pass }}
             </ol>
-                {{ if not db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
-                <div class="bordered">
+            {{ if not db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
+            <div class="bordered">
                 You haven't added any pledges yet.
-                </div>
-                {{ pass }}
+            </div>
+            {{ pass }}
             <hr>
             <h5>Add a Pledge</h5>
             <div class="indented">
@@ -77,6 +77,6 @@
         <!-- My Values -->
         <input name="creation_stage" type="hidden" value="{{ =stage }}">
         <input name="finish" id="finish" type="hidden" value="">
-        <input name="deletion" id="deletion" type="hidden" value="">
+        <input name="pledge_deletion" id="pledge_deletion" type="hidden" value="">
     </div>
 </form>
