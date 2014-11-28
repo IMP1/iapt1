@@ -38,6 +38,23 @@ function calculateHiddenBootable(stage, form) {
     return true;
 }
 
+function deletePledge(pledge_id) {
+    document.getElementById("deletion").value = pledge_id;
+}
+
+function editBootable(bootable_id) {
+    document.getElementById("edit").value = bootable_id;
+}
+function publishBootable(bootable_id) {
+    document.getElementById("publish").value = bootable_id;
+}
+function closeBootable(bootable_id) {
+    document.getElementById("close").value = bootable_id;
+}
+function deleteBootable(bootable_id) {
+    document.getElementById("deletion").value = bootable_id;
+}
+
 /**
     Updates the upload label to match the filename.
 */
