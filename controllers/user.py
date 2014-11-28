@@ -31,8 +31,10 @@ def dashboard():
             updates = {'status_id': 3}
         # Update the database.
         record.update_record(**db.bootable._filter_fields(updates))
-    elif request.vars.deletion:
-        db(db.bootable.id == int(request.vars.deletion)).delete()
+    elif request.vars.bootable_deletion:
+        response.flash = "'" + str(db.bootable(request.vars.bootable_deletion).title) + "' deleted."
+        # Delete the bootable.
+        db(db.bootable.id == int(request.vars.bootable_deletion)).delete()
     
     return dict()
 
