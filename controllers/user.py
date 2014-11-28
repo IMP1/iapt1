@@ -5,6 +5,35 @@ def dashboard():
         session.redirection = URL('user', 'dashboard.html')
         session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
         redirect(URL('user', 'login.html'))
+        
+    if request.vars.edit:
+        # Redirect to the edit page for this bootable.
+        redirect(URL('bootable', 'edit.html', vars={'bootable_id': request.vars.edit}))
+    elif request.vars.publish:
+        # Edit the status of the variable.
+        record = db.bootable(request.vars.publish)
+        updates = {'status_id': 2}
+        record.update_record(**db.bootable._filter_fields(updates))
+    elif request.vars.close:
+        # Edit the status of the variable.
+        record = db.bootable(request.vars.close)
+        pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == record.id)).select()
+        # Get the total amount funded.
+        total = 0
+        for p in pledges:
+            total += p.cost
+        # If it's unsuccessful:
+        if total < record.funding_goal:
+            # Set the status to Not Funded.
+            updates = {'status_id': 4}
+        else:
+            # Else, set the status to Funded.
+            updates = {'status_id': 3}
+        # Update the database.
+        record.update_record(**db.bootable._filter_fields(updates))
+    elif request.vars.deletion:
+        db(db.bootable.id == int(request.vars.deletion)).delete()
+    
     return dict()
 
 # The User Registration Page.
