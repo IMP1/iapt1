@@ -171,7 +171,7 @@
                         onclick="publishBootable({{ =project.id }});" 
                         type="submit"><span class="glyphicon glyphicon-bullhorn"></span> Save & Publish</button></li>
             <li><button form="bootable-edit" 
-                        onclick="deleteBootable(0);" 
+                        onclick="deleteBootable({{ =project.id }});" 
                         type="submit" 
                         class="delete-button"><span class="glyphicon glyphicon-trash"></span> Delete Bootable</button></li>
         </ul>
