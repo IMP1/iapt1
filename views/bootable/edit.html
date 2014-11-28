@@ -1,1 +1,179 @@
 {{ extend 'layout.html' }}
+<section>
+    {{ if response.flash and not form1.errors and not form2.errors: }}
+    <div class="alert alert-success">
+        {{ =response.flash }}
+    </div>
+    {{ pass }}
+    {{ if form1.errors or form2.errors: }}
+    <div class="alert alert-danger">
+        The values in the form had errors. See below and correct the errors before continuing.
+    </div>
+    {{ pass }}
+    <h2>Edit your bootable</h2>
+    <p>
+        This page is where you can edit your bootable. 
+        When you're happy with how it is, you can publish it so people can pledge to it!
+    </p>
+    {{ project = db.bootable(request.vars.bootable_id) }}
+    <hr>
+    <form id="bootable-edit" action="" enctype="multipart/form-data" method="post">
+        <div class="edit-bootable">
+            <!-- Image -->
+            <div class="edit-image">
+                <img src="{{ =URL('static/uploads', project.image) }}">
+            </div>
+            <div class="edit-info">
+                <!-- Title -->
+                <input name="title" id="title" 
+                       class="string title-long {{ =('error clarified' if form1.errors.title else '') }}" 
+                       placeholder="{{ =project.title }}" 
+                       type="text" 
+                       value="{{ =request.vars.title or project.title }}">
+                {{ if form1.errors.title: }}
+                <br><small class="error-message">{{ =form1.errors.title }}</small>
+                {{ pass }}
+                <br>
+                <!-- Currency -->
+                <span id="currency" class="prepend">£</span>
+                <input name="funding_goal" id="funding_goal" 
+                          class="number price-long {{ =('error clarified' if form1.errors.funding_goal else '') }}" 
+                          placeholder="{{ ='%.2f' % project.funding_goal }}" 
+                          type="text"
+                          value="{{ =request.vars.funding_goal or '%.2f' % project.funding_goal }}">
+                {{ if form1.errors.funding_goal: }}
+                <br><small class="error-message">{{ =form1.errors.funding_goal }}</small>
+                {{ pass }}
+                <!-- Category -->
+                <select name="category_name" id="category_name" 
+                        class="category-long">
+                    {{ for i, row in enumerate(db().select(db.bootable_category.name)): }}
+                    <option {{ ='selected="selected"' if project.category_id == i+1 else '' }} value="{{ =row.name }}">{{ =row.name }}</option>
+                    {{ pass }}
+                </select>
+                <br>
+                <!-- Summary -->
+                <textarea name="summary" id="summary" 
+                          class="string summary-small {{ =('error clarified' if form1.errors.summary else '') }}" 
+                          maxlength="{{ =db.bootable.summary.requires.maxsize }}" 
+                          placeholder="{{ =project.summary }}">{{ =request.vars.summary or project.summary }}</textarea>
+                {{ if form1.errors.summary: }}
+                <br><small class="error-message">{{ =form1.errors.summary }}</small>
+                {{ pass }}
+            </div>
+            <br>
+            <!-- Image Button -->
+            <label class="{{ =('error clarified' if form1.errors.image else '') }}">
+                <input name="image" id="image" 
+                       type="file"
+                       accept="image/jpeg,image/gif,image/png"
+                       onchange="updateFileLabel(this);">
+                <input type="button" value="Update Image">
+            </label>
+            <span class="indented" id="file-name">No file selected.</span>
+            {{ if form1.errors.image: }}
+            <br><small class="error-message">{{ =form1.errors.image }}</small>
+            {{ pass }}
+            <!-- Description -->
+            <h5>About the Bootable</h5>
+            <textarea name="description" id="description" 
+                      class="string description-long {{ =('error clarified' if form1.errors.description else '') }}">{{ =request.vars.description or '' }}</textarea>
+            {{ if form1.errors.description: }}
+            <br><small class="error-message">{{ =form1.errors.description }}</small>
+            {{ pass }}
+            <!-- About -->
+            <h5>About You</h5>
+            <textarea name="about" id="about" 
+                      class="string description-long {{ =('error clarified' if form1.errors.summary else '') }}">{{ =request.vars.about or '' }}</textarea>
+            {{ if form1.errors.about: }}
+            <br><small class="error-message">{{ =form1.errors.about }}</small>
+            {{ pass }}
+        </div>
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey1 }}">
+            <input name="_formname" type="hidden" value="bootable">
+            <!-- My Values -->
+            <input name="publish" id="publish" type="hidden" value="">
+            <input name="bootable_deletion" id="bootable_deletion" type="hidden" value="">
+        </div>
+    </form>
+    <form id="pledge-edit" action="" enctype="multipart/form-data" method="post">
+        <div class="edit-pledges">
+            <ol class="unlabled">
+                {{ for row in db(db.bootable_pledges.bootable_id == project.id).select(): }}
+                <li>
+                    <div class="bordered pledge">
+                        <strong>{{ =row.title }}</strong>
+                        <span style="float:right;"><span id="currency">£</span>{{ ="%.2f" % row.cost }}</span>
+                        <div class="pledge-reward">{{ =row.reward }}</div>
+                        {{ if row.include_previous_rewards: }}
+                        <div class="small centre-align">Includes all previous rewards.</div>
+                        {{ pass }}
+                    </div>
+                    <br>
+                    <button class="delete-button" type="submit" onclick="deletePledge({{ =row.id }});">
+                    <span class="glyphicon glyphicon-remove"></span> Delete
+                    </button>
+                </li>
+                {{ pass }}
+            </ol>
+            <section class="clear pledge-addition">
+                <h5>Add a Pledge</h5>
+                <div class="indented">
+                    <input name="title" id="title" 
+                           class="string title-short {{ =('error clarified' if form2.errors.title else '') }}" 
+                           placeholder="Title" 
+                           type="text" 
+                           value="{{ =request.vars.title or '' }}">
+                    {{ if form2.errors.title: }}
+                    <br><small class="error-message">{{ =form2.errors.title }}</small>
+                    {{ pass }}
+
+                    <h6>Cost</h6>
+                    <span id="currency" class="prepend">£</span>
+                    <input name="cost" id="cost" 
+                              class="number price-long {{ =('error clarified' if form2.errors.cost else '') }}" 
+                              placeholder="00.00" 
+                              type="text"
+                              value="{{ =request.vars.cost or '' }}">
+                    {{ if form2.errors.cost: }}
+                    <br><small class="error-message">{{ =form2.errors.cost }}</small>
+                    {{ pass }}
+
+                    <h6>Reward</h6>
+                    <textarea name="reward" id="reward" 
+                              class="string summary-small {{ =('error clarified' if form2.errors.reward else '') }}">{{ =request.vars.reward or '' }}</textarea>
+                    {{ if form2.errors.reward: }}
+                    <br><small class="error-message">{{ =form2.errors.reward }}</small>
+                    {{ pass }}
+                    Include previous rewards: <input name="include_previous_rewards" id="include_previous_rewards" 
+                          type="checkbox"
+                          {{ ='checked="checked"' if request.vars.include_previous_rewards else '' }}>
+                    <br>
+                    <input class="btn btn-default" type="submit" value="Add Pledge">
+                </div>
+            </section>
+        </div>
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey2 }}">
+            <input name="_formname" type="hidden" value="pledge">
+            <!-- My Values -->
+            <input name="pledge_deletion" id="pledge_deletion" type="number" value="">
+        </div>
+    </form>
+    <div class="clear">
+        <ul class="project-options unlabled">
+            <li><button form="bootable-edit" 
+                        type="submit"><span class="glyphicon glyphicon-check"></span> Save Changes</button></li>
+            <li><button form="bootable-edit" 
+                        onclick="publishBootable({{ =project.id }});" 
+                        type="submit"><span class="glyphicon glyphicon-bullhorn"></span> Save & Publish</button></li>
+            <li><button form="bootable-edit" 
+                        onclick="deleteBootable(0);" 
+                        type="submit" 
+                        class="delete-button"><span class="glyphicon glyphicon-trash"></span> Delete Bootable</button></li>
+        </ul>
+    </div>
+</section>
