@@ -47,19 +47,28 @@
                                 type="submit"><span class="glyphicon glyphicon-lock"></span> Close ({{ ='Not Funded' if progress < 100 else 'Funded' }})</button></li>
                     {{ pass }}
                     {{ if project.status_id != 2: }}
-                    <li><button form="dashboard-actions" onclick="deleteBootable({{ =project.id }});" type="submit" class="delete-button"><span class="glyphicon glyphicon-trash"></span> Delete</button></li>
+                    <li><button form="dashboard-actions" 
+                                onclick="deleteBootable({{ =project.id }});" 
+                                type="submit" 
+                                class="delete-button"><span class="glyphicon glyphicon-trash"></span> Delete</button></li>
                     {{ pass }}
                 </ul>
             </div>
         </li>
         {{ pass }}
     </ul>
+    {{ if not db(db.bootable.author == session.logged_in_user).select(): }}
+    <div class="centre-align">
+        <br><br><br>
+        You haven't created any bootables yet. Why not <a href="{{ =URL('bootable', 'create.html') }}">create one now</a>?
+    </div>
+    {{ pass }}
     <form id="dashboard-actions" action="" enctype="multipart/form-data" method="post">
         <div style="display:none;">
             <input name="edit" id="edit" type="hidden" value="">
             <input name="publish" id="publish" type="hidden" value="">
             <input name="close" id="close" type="hidden" value="">
-            <input name="deletion" id="deletion" type="hidden" value="">
+            <input name="bootable_deletion" id="bootable_deletion" type="hidden" value="">
         </div>
     </form>
 </section>
