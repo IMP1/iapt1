@@ -35,6 +35,10 @@ Funcionality
     user-select: none;
 }
 
+.clear {
+    clear: both;
+}
+
 /*
 Layout
 ----------------------------------------------*/
@@ -286,7 +290,7 @@ Centralised Things
         width: 4.5em;
     }
     .price-long {
-        width: 6em;
+        width: 7em;
     }
     .price-short {
         width: 4em;
@@ -300,6 +304,14 @@ Centralised Things
     .title-long {
         width: 20em;
     }
+    .category-long {
+        width: 11em;
+        margin-left: 0.4em;
+    }
+    .summary-small {
+        width: 20em;
+        height: 9.3em;
+    }
     .summary-short {
         width: 32em;
         height: 7em;
@@ -307,6 +319,10 @@ Centralised Things
     .summary-long {
         width: 32em;
         height: 12em;
+    }
+    .description-long {
+        width: 39.3em;
+        height: 10em;
     }
     @keyframes highlight-border-red {
         0%   {border-color: #F00;}
@@ -412,22 +428,19 @@ Centralised Things
     section.featured div {
         margin-bottom: 0;
     }
-    #project-list div.feature-image,
-    section.featured div.feature-image {
+    div.feature-image {
         display: inline-block;
         width: 30%;
         height: 100%;
         margin-right: 1em;
     }
-    #project-list div.feature-image img,
-    section.featured div.feature-image img {
+    div.feature-image img {
         width: 18rem;
         height: 100%;
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
     }
-    #project-list div.feature-info,
-    section.featured div.feature-info {
+    div.feature-info {
         display: inline-block;
         vertical-align: top;
         width: 65%;
@@ -506,15 +519,6 @@ Centralised Things
     #project-list > li {
         margin-bottom: 4rem;
     }
-    #project-list a > h3 {
-        color: #134DA5;
-    }
-    #project-list a:focus > h3,
-    #project-list a:hover > h3 {
-        color: #DE2C3B;
-        text-decoration: underline;
-    }
-
     ol.project-options,
     ul.project-options {
         display: inline-block;
@@ -530,6 +534,62 @@ Centralised Things
         margin-bottom: 0;
         position: static;
     }
+
+    form#bootable-edit,
+    form#pledge-edit {
+        display: inline-block;
+    }
+    form#bootable-edit {
+        float: left;
+    }
+    form#pledge-edit {
+        float: right;
+    }
+
+    div.edit-bootable {
+        display: inline-block;
+    }
+    div.edit-pledges {
+        display: inline-block;
+        padding-left: 1.2em;
+        border-left: 1px solid #ccc;
+        vertical-align: top;
+        float: right;
+    }
+    div.edit-pledges .pledge {
+        width: 20em;
+        margin-bottom: 0.4em;
+    }
+    div.edit-pledges .delete-button {
+        float: right;
+        margin-bottom: 0.5em;
+    }
+    div.edit-pledges section.pledge-addition {
+        margin-top: 3em;
+    }
+    div.edit-pledges section.pledge-addition h6 {
+        margin-top: 0;
+    }
+    div.edit-pledges > ol > li > div.pledge {
+        float: right;
+    }
+    div.edit-info {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 0;
+    }
+    div.edit-image {
+        display: inline-block;
+        height: 14em;
+        margin-right: 1em;
+        margin-bottom: 0;
+    }
+    div.edit-image img {
+        width: 18rem;
+        height: 100%;
+        border-radius: 0;
+    }
+
     /*
     Bootable View
     --------------------------------------*/
