@@ -262,3 +262,25 @@ div.controls .error {
         margin-left: -20px;
     }
 }
+
+
+ /* right folder for bootstrap black images/icons */
+[class^="icon-"],[class*=" icon-"]{
+    background-image:url("../images/glyphicons-halflings.png")
+}
+/* right folder for bootstrap white images/icons */
+.icon-white,
+.nav-tabs > .active > a > [class^="icon-"],
+.nav-tabs > .active > a > [class*=" icon-"],
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"] {
+    background-image:url("../images/glyphicons-halflings-white.png");
+} 
