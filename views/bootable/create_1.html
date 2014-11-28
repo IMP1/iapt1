@@ -15,7 +15,7 @@
             <h5>Category</h5>
             <select name="category_name" id="category_name">
                 {{ for i, row in enumerate(db().select(db.bootable_category.name)): }}
-                <option {{ ='selected="selected"' if request.vars.category_id == str(i) else '' }} value="{{ =row.name }}">{{ =row.name }}</option>
+                <option {{ ='selected="selected"' if request.vars.category_id == str(i+1) else '' }} value="{{ =row.name }}">{{ =row.name }}</option>
                 {{ pass }}
             </select>
             
