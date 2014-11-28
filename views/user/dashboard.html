@@ -1,1 +1,66 @@
 {{ extend 'layout.html' }}
+<section>
+    {{ if response.flash: }}
+    <div class="alert alert-success">
+        {{ =response.flash }}
+    </div>
+    {{ pass }}
+    <h2>Your Bootables</h2>
+    <ul id="project-list">
+        {{ for project in db(db.bootable.author == session.logged_in_user).select(): }}
+        
+        {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == project.id)).select() }}
+        {{ total = 0 }}
+        {{ for p in pledges: }}
+        {{ total += p.cost }}
+        {{ pass }}
+        {{ progress = int(100 * total / project.funding_goal) }}
+        {{ backers = len(pledges) }}
+        <li>
+            <div class="feature-image">
+                <img src="{{ =URL('static/uploads', project.image) }}">
+            </div>
+            <div class="feature-info">
+                <span class="project-status">{{ =db.bootable_status(project.status_id).name }}</span>
+                <h3><a href="{{ =URL('bootable', 'view', vars={'id': project.id}) }}">{{ =project.title }}</a></h3>
+                <div class="feature-author">Created on {{ =project.creation_date }}</div>
+                <div class="feature-description">{{ =project.summary }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ =str(progress) + "% Complete" }}</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.category_id).name }}</div>
+                <div class="feature-backers">{{ =backers }} Backers</div>
+                <div class="feature-total"><span id="currency">£</span>{{ =total }} Backed</div>
+            </div>
+            <div>
+                <ul class="project-options unlabled float-right">
+                    {{ if project.status_id == 1: }}
+                    <li><button form="dashboard-actions" 
+                                onclick="editBootable({{ =project.id }});" 
+                                type="submit"><span class="glyphicon glyphicon-pencil"></span> Edit</button></li>
+                    <li><button form="dashboard-actions" 
+                                onclick="publishBootable({{ =project.id }});" 
+                                type="submit"><span class="glyphicon glyphicon-bullhorn"></span> Publish</button></li>
+                    {{ pass }}
+                    {{ if project.status_id == 2: }}
+                    <li><button form="dashboard-actions" 
+                                onclick="closeBootable({{ =project.id }});" 
+                                type="submit"><span class="glyphicon glyphicon-lock"></span> Close ({{ ='Not Funded' if progress < 100 else 'Funded' }})</button></li>
+                    {{ pass }}
+                    {{ if project.status_id != 2: }}
+                    <li><button form="dashboard-actions" onclick="deleteBootable({{ =project.id }});" type="submit" class="delete-button"><span class="glyphicon glyphicon-trash"></span> Delete</button></li>
+                    {{ pass }}
+                </ul>
+            </div>
+        </li>
+        {{ pass }}
+    </ul>
+    <form id="dashboard-actions" action="" enctype="multipart/form-data" method="post">
+        <div style="display:none;">
+            <input name="edit" id="edit" type="hidden" value="">
+            <input name="publish" id="publish" type="hidden" value="">
+            <input name="close" id="close" type="hidden" value="">
+            <input name="deletion" id="deletion" type="hidden" value="">
+        </div>
+    </form>
+</section>
+
