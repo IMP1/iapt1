@@ -3,17 +3,30 @@
         <h3>Project Pledges</h3>
         <div class="indented">
             <h5>Pledges Added</h5>
-            {{ for row in db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
-            <strong>{{ =row.title }}</strong>
-            <br>
-            {{ =row.cost }}
-            <br>
-            {{ =row.reward }}
-            {{ pass }}
-            {{ if not db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
-            You haven't added any pledges yet.
-            {{ pass }}
-            <h5>New Pledge</h5>
+            <ol class="indented unlabled">
+                {{ for row in db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
+                <li>
+                    <div class="bordered pledge">
+                        <strong>{{ =row.title }}</strong>
+                        <span style="float:right;"><span id="currency">£</span>{{ ="%.2f" % row.cost }}</span>
+                        <div class="pledge-reward">{{ =row.reward }}</div>
+                        {{ if row.include_previous_rewards: }}
+                        <div class="small centre-align">Includes all previous rewards.</div>
+                        {{ pass }}
+                    </div>
+                    <button class="delete-button" type="submit" onclick="deletePledge({{ =row.id }});">
+                    <span class="glyphicon glyphicon-remove"></span> Delete
+                    </button>
+                </li>
+                {{ pass }}
+            </ol>
+                {{ if not db(db.bootable_pledges.bootable_id == session.bootable_id).select(): }}
+                <div class="bordered">
+                You haven't added any pledges yet.
+                </div>
+                {{ pass }}
+            <hr>
+            <h5>Add a Pledge</h5>
             <div class="indented">
                 <input name="title" id="title" 
                        class="string title-short {{ =('error clarified' if form.errors.title else '') }}" 
@@ -42,20 +55,18 @@
                 <br><small class="error-message">{{ =form.errors.reward }}</small>
                 {{ pass }}
                 Include previous rewards: <input name="include_previous_rewards" id="include_previous_rewards" 
-                      class="{{ =('error clarified' if form.errors.include_previous_rewards else '') }}" 
-                      placeholder="00.00" 
                       type="checkbox"
-                      value="{{ =request.vars.include_previous_rewards or '' }}">
-
+                      {{ ='checked="checked"' if request.vars.include_previous_rewards else '' }}>
                 <br>
-                <input type="submit" value="Add Pledge">
+                <input class="btn btn-default" type="submit" value="Add Pledge">
             </div>
+            <hr>
         </div>
     </section>
     
     <br>
     
-    <input type="submit" onclick="finishUp();" value="Finish">
+    <input class="btn btn-default" type="submit" onclick="finishUp();" value="Finish">
     
     <div style="display:none;">
         <!-- Calculated Values -->
@@ -66,5 +77,6 @@
         <!-- My Values -->
         <input name="creation_stage" type="hidden" value="{{ =stage }}">
         <input name="finish" id="finish" type="hidden" value="">
+        <input name="deletion" id="deletion" type="hidden" value="">
     </div>
 </form>

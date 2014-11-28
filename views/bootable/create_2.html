@@ -18,11 +18,12 @@
         </div>
     </section>
     
-    <input type="submit" value="Continue">
+    <input class="btn btn-default" type="submit" value="Continue">
     
     <div style="display:none;">
         <!-- Calculated Values -->
         <input name="category_id" id="category_id" type="number" value="">
+        <input name="author" id="author" type="number" value="{{ =db.bootable(session.bootable_id).author }}">
         <!-- Web2py Values -->
         <input name="_formkey" type="hidden" value="{{ =formkey }}">
         <input name="_formname" type="hidden" value="description">
