@@ -135,15 +135,22 @@ def edit():
             db.bootable_pledges.insert(**db.bootable_pledges._filter_fields(form2.vars))
     
     # If we're updating the bootable:
-    if form1.validate(formname="bootable") and not request.vars.bootable_deletion:
-        # Update
-        response.flash = "Bootable updated!"
-        # If we're updating and publishing:
-        if request.vars.publish:
-            # Publish
-            record = db.bootable(request.vars.publish)
-            updates = {'status_id': 2}
-            record.update_record(**db.bootable._filter_fields(updates))
+    if form1.validate(formname="bootable"):
+        if request.vars.bootable_deletion:
+            session.flash = "'" + str(db.bootable(request.vars.bootable_deletion).title) + "' deleted."
+            # Delete the bootable.
+            db(db.bootable.id == int(request.vars.bootable_deletion)).delete()
+            # Redirect as there's nothing left here now.
+            redirect(URL('user', 'dashboard.html'))
+        else:
+            # Update
+            response.flash = "Bootable updated!"
+            # If we're updating and publishing:
+            if request.vars.publish:
+                # Publish
+                record = db.bootable(request.vars.publish)
+                updates = {'status_id': 2}
+                record.update_record(**db.bootable._filter_fields(updates))
         
     # If we've used placeholders, put them back.
     for key in placeholders:
