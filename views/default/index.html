@@ -28,7 +28,9 @@
                 <div class="feature-description">{{ ="A groundbreaking 619-page, full-color book that envisions a sustainable future through the emerging technologies of Vertical Cities." }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(80, 100)) }}%;"></div></div>
                 <div class="feature-completion">{{ ="80% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Technology" }}</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Technology" }}</div>
+                <div class="feature-backers">{{ ='521' }} Backers</div>
+                <div class="feature-total"><span id="currency">£</span>{{ ='9000' }} Backed</div>
             </div>
         </li>
         </a>
@@ -43,7 +45,7 @@
                 <div class="feature-description">{{ ="Danny is an inept chain-smoking sorcerer learning magic from a grumpy vampire. This omnibus will be 750 pages, covering 5 years of work." }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(31, 100)) }}%;"></div></div>
                 <div class="feature-completion">{{ ="31% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Comic" }}</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Comic" }}</div>
             </div>
         </li>
         </a>
@@ -58,7 +60,7 @@
                 <div class="feature-description">{{ ="Last Stop, a double-sided concertina book exploring London's diversity. Photographed through the windows of its double decker buses." }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(132, 100)) }}%;"></div></div>
                 <div class="feature-completion">{{ ="132% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Photography" }}</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Photography" }}</div>
             </div>
         </li>
         </a>
@@ -96,14 +98,13 @@
 </section>
 <section id="featured-close" class="featured">
     <ol>
+        <a href="{{ ='' }}">
         <li>
             <div class="feature-image">
-                <a href="{{ ='' }}">
-                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
-                </a>
+                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
             </div>
             <div class="feature-info">
-                <a href="{{ ='' }}"><h3>{{ ="Wired, Wild and Alive" }}</h3></a>
+                <h3>{{ ="Wired, Wild and Alive" }}</h3>
                 <div class="feature-author">by {{ ="Amanda Beck-McKim" }}</div>
                 <div class="feature-description">{{ ="A textile environment installation, animated with storytelling, puppetry and digital projections that children aged 4 - 11 can explore." }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(161, 100)) }}%;"></div></div>
@@ -111,6 +112,7 @@
                 <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Art" }}</div>
             </div>
         </li>
+        </a>
     </ol>
 </section>
 <section id="featured-funded" class="featured">
