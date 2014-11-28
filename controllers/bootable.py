@@ -47,7 +47,7 @@ def create():
                     # Otherwise go to the homepage.
                     target = session.bootable_id
                     del session.bootable_id
-                    redirect(URL('user', 'dashboard.html'))
+                    redirect(URL('bootable', 'edit.html', vars={'bootable_id': target}))
             else:
                 response.flash = "Pledge added!"
                 # Add the pledge.
@@ -99,7 +99,13 @@ def edit():
         session.redirection = URL('bootable', 'edit.html')
         session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
         redirect(URL('user', 'login.html'))
-    return dict()
+        
+    form = SQLFORM.factory(db.bootable, db.bootable_pledges)
+
+    if form.validate():
+        pass
+    
+    return dict(form = form, formkey = form.formkey)
 
 def view():
     return dict()
