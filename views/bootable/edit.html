@@ -29,7 +29,7 @@
                        class="string title-long {{ =('error clarified' if form1.errors.title else '') }}" 
                        placeholder="{{ =project.title }}" 
                        type="text" 
-                       value="{{ =request.vars.title or project.title }}">
+                       value="{{ =form1.vars.title or project.title }}">
                 {{ if form1.errors.title: }}
                 <br><small class="error-message">{{ =form1.errors.title }}</small>
                 {{ pass }}
@@ -77,14 +77,14 @@
             <!-- Description -->
             <h5>About the Bootable</h5>
             <textarea name="description" id="description" 
-                      class="string description-long {{ =('error clarified' if form1.errors.description else '') }}">{{ =request.vars.description or '' }}</textarea>
+                      class="string description-long {{ =('error clarified' if form1.errors.description else '') }}">{{ =request.vars.description or project.description }}</textarea>
             {{ if form1.errors.description: }}
             <br><small class="error-message">{{ =form1.errors.description }}</small>
             {{ pass }}
             <!-- About -->
             <h5>About You</h5>
             <textarea name="about" id="about" 
-                      class="string description-long {{ =('error clarified' if form1.errors.summary else '') }}">{{ =request.vars.about or '' }}</textarea>
+                      class="string description-long {{ =('error clarified' if form1.errors.summary else '') }}">{{ =request.vars.about or project.about }}</textarea>
             {{ if form1.errors.about: }}
             <br><small class="error-message">{{ =form1.errors.about }}</small>
             {{ pass }}
@@ -96,6 +96,10 @@
             <!-- My Values -->
             <input name="publish" id="publish" type="hidden" value="">
             <input name="bootable_deletion" id="bootable_deletion" type="hidden" value="">
+            <input name="category_id" id="category_id" type="number" value="{{ =project.category_id }}">
+            <input name="status_id" id="status_id" type="number" value="{{ =project.status_id }}">
+            <input name="author" id="author" type="number" value="{{ =project.author }}">
+            <input name="creation_date" id="creation_date" type="text" value="{{ =project.creation_date }}">
         </div>
     </form>
     <form id="pledge-edit" action="" enctype="multipart/form-data" method="post">
@@ -125,7 +129,7 @@
                            class="string title-short {{ =('error clarified' if form2.errors.title else '') }}" 
                            placeholder="Title" 
                            type="text" 
-                           value="{{ =request.vars.title or '' }}">
+                           value="{{ =form2.vars.title or '' }}">
                     {{ if form2.errors.title: }}
                     <br><small class="error-message">{{ =form2.errors.title }}</small>
                     {{ pass }}
