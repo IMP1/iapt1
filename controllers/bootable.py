@@ -109,12 +109,8 @@ def edit():
     
     # If we're deleting we don't need the form to be filled out, but it needs to pass validation for a formkey to be created.
     placeholders = {}
-    # If we're deleting the bootable:
-    if request.vars.bootable_deletion:
-        # Delete the bootable.
-        pass
     # If we're deleting a pledge:
-    elif request.vars.pledge_deletion:
+    if request.vars.pledge_deletion:
         # Delete the pledge.
         db(db.bootable_pledges.id == int(request.vars.pledge_deletion)).delete()
         # If we used placeholder field values to placate web2py's form validation (we don't need it to delete pledges).
@@ -134,17 +130,26 @@ def edit():
             # Add the new pledge to the database.
             db.bootable_pledges.insert(**db.bootable_pledges._filter_fields(form2.vars))
     
-    # If we're updating the bootable:
+    # If one of the bootable buttons was pressed:
     if form1.validate(formname="bootable"):
+        # If the delete button was pressed.
         if request.vars.bootable_deletion:
             session.flash = "'" + str(db.bootable(request.vars.bootable_deletion).title) + "' deleted."
             # Delete the bootable.
-            db(db.bootable.id == int(request.vars.bootable_deletion)).delete()
+            db(db.bootable.id == int(request.vars.bootable_id)).delete()
             # Redirect as there's nothing left here now.
             redirect(URL('user', 'dashboard.html'))
+        # Otherwise, we need to update.
         else:
-            # Update
             response.flash = "Bootable updated!"
+            # Update the bootable.
+            record = db.bootable(request.vars.bootable_id)
+            # Since files can't be set up to be automatically selected in the input,
+            # If the file is empty (hasn't been changed):
+            if not form1.vars['image']:
+                # Change it to what it is currently in the database.
+                form1.vars['image'] = record.image
+            record.update_record(**db.bootable._filter_fields(form1.vars))
             # If we're updating and publishing:
             if request.vars.publish:
                 # Publish
