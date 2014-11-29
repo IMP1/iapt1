@@ -11,7 +11,7 @@
             
             <h5>About You</h5>
             <textarea name="about" id="about" 
-                      class="string summary-long {{ =('error clarified' if form.errors.summary else '') }}">{{ =request.vars.about or '' }}</textarea>
+                      class="string summary-long {{ =('error clarified' if form.errors.about else '') }}">{{ =request.vars.about or '' }}</textarea>
             {{ if form.errors.about: }}
             <br><small class="error-message">{{ =form.errors.about }}</small>
             {{ pass }}
