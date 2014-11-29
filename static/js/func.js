@@ -39,9 +39,8 @@ function calculateHiddenBootable(stage, form) {
 }
 
 function deletePledge(pledge_id) {
-    document.getElementById("deletion").value = pledge_id;
+    document.getElementById("pledge_deletion").value = pledge_id;
 }
-
 function editBootable(bootable_id) {
     document.getElementById("edit").value = bootable_id;
 }
@@ -52,7 +51,7 @@ function closeBootable(bootable_id) {
     document.getElementById("close").value = bootable_id;
 }
 function deleteBootable(bootable_id) {
-    document.getElementById("deletion").value = bootable_id;
+    document.getElementById("bootable_deletion").value = bootable_id;
 }
 
 /**
