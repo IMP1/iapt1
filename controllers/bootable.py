@@ -156,6 +156,8 @@ def edit():
                 record = db.bootable(request.vars.publish)
                 updates = {'status_id': 2}
                 record.update_record(**db.bootable._filter_fields(updates))
+                redirect(URL('user', 'dashboard.html'))
+                
         
     # If we've used placeholders, put them back.
     for key in placeholders:
@@ -165,5 +167,9 @@ def edit():
 
 ## BOOTABLE PAGE VIEW
 def view():
+    # If this bootable isn't available for pledging:
+    if db.bootable(request.vars.bootable_id).status_id != 2:
+        # redirect to the homepage.
+        redirect(URL('default', 'index.html'))
     return dict()
 
