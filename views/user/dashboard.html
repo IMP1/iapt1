@@ -22,7 +22,7 @@
             </div>
             <div class="feature-info">
                 <span class="project-status">{{ =db.bootable_status(project.status_id).name }}</span>
-                <h3><a href="{{ =URL('bootable', 'view', vars={'id': project.id}) }}">{{ =project.title }}</a></h3>
+                <h3><a href="{{ =URL('bootable', 'view', vars={'bootable_id': project.id}) }}">{{ =project.title }}</a></h3>
                 <div class="feature-author">Created on {{ =project.creation_date }}</div>
                 <div class="feature-description">{{ =project.summary }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
