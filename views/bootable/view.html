@@ -1,1 +1,148 @@
 {{ extend 'layout.html' }}
+{{ project = db.bootable(request.vars.bootable_id) }}
+{{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == project.id)).select() }}
+{{ user_pledge = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges_made.user_id == session.logged_in_user) & (db.bootable_pledges.bootable_id == project.id)).select() }}
+{{ if user_pledge: }}
+    {{ user_pledge = user_pledge[0].bootable_pledges }}
+{{ pass }}
+{{ author = db.user(project.author) }}
+{{ total = 0 }}
+{{ for p in pledges: }}
+{{ total += p.bootable_pledges.cost }}
+{{ pass }}
+{{ progress = int(100 * total / project.funding_goal) }}
+{{ backers = len(pledges) }}
+
+<!-- Title and author -->
+<h1 class="centre-align">{{ =project.title }}</h1>
+<h6 class="centre-align">
+    <span class="bootable-author">by {{ =db.user(project.author).forename + " " + db.user(project.author).surname }}</span>
+    <span class="bootable-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.category_id).name }}</span>
+</h6>
+<!-- Image -->
+<div class="picture-big">
+    <img src="{{ =URL('static/uploads', project.image) }}">
+</div>
+<!-- Funding-related information -->
+<div class="funding-information">
+    <!-- Total pledged amount -->
+    <div class="big-number"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else "%.2f" % total }}</div>
+    <!-- Funding goal -->
+    <p>pledged of <span id="currency">£</span>{{ =int(project.funding_goal) if project.funding_goal % 1 == 0 else "%.2f" % project.funding_goal }}.</p>
+    <!-- If this user has pledged, tell them that -->
+    {{ if user_pledge: }}
+    <p>You have backed <span class="big-number"><span id="currency">£</span>{{ =int(user_pledge.cost) if user_pledge.cost % 1 == 0 else "%.2f" % user_pledge.cost }}</span>.</p>
+    {{ pass }}
+    <!-- Number of backers -->
+    <p><span class="big-number">{{ =backers }}</span> backers.</p>
+    <!-- Progress bar -->
+    <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
+    <div class="feature-completion">{{ =str(progress) + "% Complete" }}</div>
+</div>
+<hr>
+<div class="float-left">
+    <ul id="header-tabs" class="big-headers">
+        <li><h3>
+            <a href="#view-bootable">Bootable</a>
+        </h3></li>
+        <li><h3>
+            <a href="#view-backers">Pledgers</a>
+        </h3></li>
+    </ul>
+    <!-- Bootable tab -->
+    <section id="view-bootable" class="featured">
+        <div class="bordered">
+            <h5>About {{ =project.title }}</h5>
+            <hr>
+            <p>{{ =project.description }}</p>
+        </div>
+        <br>
+        <div class="bordered">
+            <h5>About {{ =author.forename + " " + author.surname }}</h5>
+            <hr>
+            <p>{{ =project.about }}</p>
+        </div>
+    </section>
+    <!-- Pledges tab -->
+    <section id="view-backers" class="featured">
+        {{ for p in pledges: }}
+        {{ amount = p.bootable_pledges.cost }}
+        <div class="bordered">
+            <!-- Backer and amount backed -->
+            <strong>{{ =db.user(p.bootable_pledges_made.user_id).username }}</strong> backed 
+            <strong><span id="currency">£</span>{{ =int(amount) if amount % 1 == 0 else "%.2f" % amount }}</strong>.
+            <!-- Reward info -->
+            <div>{{ =p.bootable_pledges.reward }}</div>
+            {{ if p.bootable_pledges.include_previous_rewards: }}
+            <small>This reward also includes all the previous rewards.</small>
+            {{ pass }}
+        </div>
+        <br>
+        {{ pass }}
+        {{ if not pledges: }}
+        <p class="centre-align small">
+            There have been no pledges made for this bootable.
+        </p>
+        {{ pass }}
+    </section>
+</div>
+<!-- Right hand column with all the available pledges -->
+<form id="view-pledges" class="float-right" action="{{ =URL('bootable', 'confirm') }}" enctype="multipart/form-data" method="post">
+    <ol class="unlabled">
+        {{ for row in db(db.bootable_pledges.bootable_id == project.id).select(): }}
+        <li>
+            <div class="bordered pledge">
+                <strong>{{ =row.title }}</strong>
+                <span style="float:right;"><span id="currency">£</span>{{ ="%.2f" % row.cost }}</span>
+                <div class="pledge-reward">{{ =row.reward }}</div>
+                {{ if row.include_previous_rewards: }}
+                <div class="small centre-align">Includes all previous rewards.</div>
+                {{ pass }}
+                <button type="submit" onclick="choosePledge({{ =row.id }});" {{ ='disabled="disabled' if user_pledge and user_pledge.id == row.id else ''}}>
+                    {{ if user_pledge and user_pledge.id == row.id: }}
+                    Current Pledge
+                    {{ elif user_pledge: }}
+                    Change Pledge
+                    {{ else: }}
+                    Pledge
+                    {{ pass }}
+                </button>
+            </div>
+        </li>
+        {{ pass }}
+    </ol>
+    <div style="display:none;">
+        <!-- My Values -->
+        <input name="pledge_selection" id="pledge_selection" type="number" value="">
+        <input name="bootable_id" id="bootable_id" type="number" value="{{ =project.id }}">
+    </div>
+</form>
+<div class="clear"></div>
+<!-- Show, by default, the newest features bootables (rather than nothing). -->
+<script type="text/javascript">
+    if (!window.location.hash) {
+        window.location.hash = "view-bootable";
+    }
+    function showTab() {
+        document.getElementById("header-tabs").innerHTML = 
+        '    <li><h3>' + 
+        '        <a href="#view-bootable">Bootable</a>' + 
+        '    </h3></li>' + 
+        '    <li><h3>' + 
+        '        <a href="#view-backers">Pledgers</a>' + 
+        '    </h3></li>';
+        var headers = document.getElementById("header-tabs").getElementsByTagName("li");
+        var link;
+        if (window.location.hash == "#view-bootable") {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else if (window.location.hash == "#view-backers") {
+            link = headers[1].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        }
+        link.removeAttribute("href");
+        link.classList.add("inactive");
+    }
+    window.onhashchange = showTab;
+    showTab();
+</script>
