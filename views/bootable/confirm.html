@@ -1,0 +1,40 @@
+{{ extend 'layout.html' }}
+{{ user_pledges = db((db.bootable_pledges_made.user_id == session.logged_in_user) & 
+                      (db.bootable_pledges.bootable_id == request.vars.bootable_id) & 
+                      (db.bootable_pledges_made.pledge_id == db.bootable_pledges.id)).select() }}
+<section class="centre-align">
+<h2>Pledge Confirmation</h2>
+    {{ if user_pledges: }}
+    <p>Are you sure you want to change your pledge for this bootable?</p>
+    <h4>Current Pledge</h4>
+    <h5>
+        {{ =user_pledges[0].bootable_pledges.title }}
+        (<span id="currency">£</span>{{ =int(user_pledges[0].bootable_pledges.cost) if user_pledges[0].bootable_pledges.cost.is_integer() else "%.2f" % user_pledges[0].bootable_pledges.cost }})
+    </h5>
+    {{ =user_pledges[0].bootable_pledges.reward }}
+    {{ else: }}
+    <p>Are you sure you want to pledge to this bootable?</p>
+    {{ pass }}
+    {{ pledges = db(db.bootable_pledges.bootable_id == db.bootable_pledges(request.vars.pledge_selection).bootable_id).select() }}
+    <form id="pledge-confirmation" action="" enctype="multipart/form-data" method="post">
+        {{ if user_pledges: }}
+        <h4>New Pledge</h4>
+        {{ else: }}
+        <h4>Chosen Pledge</h4>
+        {{ pass }}
+        <select name="pledge_selection" onchange="updatePledgeInfo();">
+            {{ for p in pledges: }}
+            <option {{ ='selected="selected"' if int(p.id) == int(request.vars.pledge_selection) else '' }} value="{{ =p.id }}">{{ =p.title }} (<span id="currency">£</span>{{ ="%.2f" % p.cost }})</option>
+            {{ pass }}
+        </select>
+        <br>
+        <button type="submit">Confirm Pledge</button>
+        <div style="display:none">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey }}">
+            <input name="_formname" type="hidden" value="confirm">
+            <!-- My Values -->
+            <input name="bootable_id" type="number" value="{{ =request.vars.bootable_id }}">
+        </div>
+    </form>
+</section>
