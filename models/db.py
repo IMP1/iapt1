@@ -76,5 +76,5 @@ if db(db.bootable_category.id > 0).count() == 0:
 if db(db.bootable_status.id > 0).count() == 0:
     db.bootable_status.insert(name = 'Not Available for Pledges')
     db.bootable_status.insert(name = 'Open for Pledges')
-    db.bootable_status.insert(name = 'Funded')
-    db.bootable_status.insert(name = 'Not Funded')
+    db.bootable_status.insert(name = 'Closed (Funded)')
+    db.bootable_status.insert(name = 'Closed (Not Funded)')
