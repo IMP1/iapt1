@@ -2,9 +2,11 @@
 Funcionality
 ----------------------------------------------*/
 .float-left {
+    display: inline-block;
     float: left;
 }
 .float-right {
+    display: inline-block;
     float: right;
 }
 
@@ -37,6 +39,22 @@ Funcionality
 
 .clear {
     clear: both;
+}
+
+button.delete-button {
+    margin-bottom: 1rem;
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    background-color: #D9534F;
+    border-color: #D43F3A;
+    color: #fff;
+}
+button.delete-button:focus,
+button.delete-button:hover {
+    background-color: #C9302C;
+    border-color: #650300;
 }
 
 /*
@@ -404,7 +422,14 @@ Centralised Things
     }
     section.featured:target,
     section.featured.active {
-        display: block;
+        display: inline-block;
+    }
+    ul#header-tabs.big-headers > li {
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+    ul#header-tabs.big-headers > li > h3 {
+        font-size: 140%;
     }
 
     /*
@@ -535,17 +560,6 @@ Centralised Things
         position: static;
     }
 
-    form#bootable-edit,
-    form#pledge-edit {
-        display: inline-block;
-    }
-    form#bootable-edit {
-        float: left;
-    }
-    form#pledge-edit {
-        float: right;
-    }
-
     div.edit-bootable {
         display: inline-block;
     }
@@ -591,7 +605,7 @@ Centralised Things
     }
 
     /*
-    Bootable View
+    Bootable Editing
     --------------------------------------*/
     div.pledge {
         display: inline-block;
@@ -603,20 +617,68 @@ Centralised Things
     .pledge-reward {
         margin-bottom: 0.3em;
     }
-    button.delete-button {
-        margin-bottom: 1rem;
+
+    /*
+    Bootable View
+    --------------------------------------*/
+    div.picture-big {
         display: inline-block;
-        vertical-align: bottom;
-        position: relative;
-        top: -1px;
-        background-color: #D9534F;
-        border-color: #D43F3A;
-        color: #fff;
+        width: 36rem;
+        height: 27rem;
     }
-    button.delete-button:focus,
-    button.delete-button:hover {
-        background-color: #C9302C;
-        border-color: #650300;
+    div.picture-big img {
+        width: 100%;
+        height: 100%;
+    }
+    div.funding-information {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 6rem;
+        width: 23rem;
+    }
+    .bootable-author {
+        margin-right: 3rem;
+    }
+    .bootable-category {
+        margin-left: 3rem;
+    }
+    .funding-information .big-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    #view-bootable,
+    #view-backers {
+        width: 40em;
+    }
+    #view-backers > p.centre-align {
+        margin-top: 2rem;
+    }
+    #view-pledges {
+        padding-top: 1.3em;
+        padding-left: 1.2em;
+        border-left: 1px solid #ccc;
+        width: 20em;
+        min-height: 20em;
+        position: relative;
+        top: -1.8em;
+    }
+    #view-pledges > ol {
+        margin-bottom: 0;
+    }
+    #view-pledges .pledge {
+        width: 100%;
+        padding: 1em;
+    }
+    #view-pledges .pledge button {
+        float: right;
+    }
+
+    form#pledge-confirmation {
+        margin-top: 4rem;
+    }
+    form#pledge-confirmation button {
+        margin-top: 1rem;
     }
 
     /*
