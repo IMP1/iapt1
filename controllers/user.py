@@ -1,5 +1,3 @@
-import time
-
 def dashboard():
     if not session.logged_in_user:
         session.redirection = URL('user', 'dashboard.html')
