@@ -38,6 +38,9 @@ function calculateHiddenBootable(stage, form) {
     return true;
 }
 
+function choosePledge(pledge_id) {
+    document.getElementById("pledge_selection").value = pledge_id;
+}
 function deletePledge(pledge_id) {
     document.getElementById("pledge_deletion").value = pledge_id;
 }
