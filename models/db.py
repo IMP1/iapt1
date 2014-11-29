@@ -44,10 +44,6 @@ db.define_table('bootable',
                     # Available Pledges are referenced from `bootable_pledges`.
                     # Pledges made are referenced from `bootable_pledges_made`.
                 )
-db.define_table('bootable_published',
-                    Field('bootable_id', db.bootable),
-                    Field('publish_date', 'datetime'),
-                )
 db.define_table('bootable_pledges', 
                     Field('bootable_id', db.bootable),
                     Field('title', 'string', requires=IS_NOT_EMPTY()),
