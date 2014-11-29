@@ -71,9 +71,10 @@ def create():
             redirect(URL('bootable', 'edit.html', vars = dict(bootable=target)))
         
     # If the second form has been submitted:
-    if form2.validate(formname='description') and request.vars.creation_stage == 1:
+    if form2.validate(formname='description') and request.vars.creation_stage == 1:        
         # Update the bootable with the description and about information
         record = db.bootable(session.bootable_id)
+        form2.vars.about = request.vars.about
         record.update_record(**db.bootable._filter_fields(form2.vars))
         # Go to the next stage.
         request.vars.creation_stage = 2
@@ -156,8 +157,8 @@ def edit():
                 record = db.bootable(request.vars.publish)
                 updates = {'status_id': 2}
                 record.update_record(**db.bootable._filter_fields(updates))
+                # Redirect to the the dashboard as it's no longer editable.
                 redirect(URL('user', 'dashboard.html'))
-                
         
     # If we've used placeholders, put them back.
     for key in placeholders:
@@ -173,3 +174,33 @@ def view():
         redirect(URL('default', 'index.html'))
     return dict()
 
+## BOOTABLE PLEDGE CONFIRMATION
+def confirm():
+    if not session.logged_in_user:
+        session.redirection = URL('bootable', 'confirm.html', vars=request.vars)
+        session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
+        redirect(URL('user', 'login.html'))
+    
+    form = FORM(INPUT(_name='pledge_selection', _type='number'), INPUT(_name='bootable_id', _type='number'))
+    if form.validate(formname="confirm"):
+        user_pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges_made.user_id == session.logged_in_user) & (db.bootable_pledges.bootable_id == request.vars.bootable_id)).select()
+        
+        debug = open("DEBUG.txt", 'a')
+        debug.write("Form submitted!\n")
+        
+        # If the user has already pledged to this bootable:
+        if user_pledges:
+            debug.write(str(user_pledges) + "\n")
+            # Update the pledge.
+            pledge = {'pledge_id': request.vars.pledge_selection, 'user_id': session.logged_in_user}
+            db.bootable_pledges_made(user_pledges[0].bootable_pledges_made.id).update_record(**pledge)
+        else:
+            debug.write("User Pledges is falsey\n" + str(user_pledges) + "\n")
+            # Add the pledge made to the database.
+            pledge = {'pledge_id': request.vars.pledge_selection, 'user_id': session.logged_in_user}
+            db.bootable_pledges_made.insert(**pledge)
+            
+        debug.close()
+        # Redirect back to the bootable
+        redirect(URL('bootable', 'view', vars={'bootable_id': db.bootable_pledges(request.vars.pledge_selection).bootable_id}))
+    return dict(form=form, formkey=form.formkey)
