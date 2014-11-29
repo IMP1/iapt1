@@ -7,12 +7,11 @@
     {{ pass }}
     <h2>Your Bootables</h2>
     <ul id="project-list">
-        {{ for project in db(db.bootable.author == session.logged_in_user).select(): }}
-        
+    {{ for project in db(db.bootable.author == session.logged_in_user).select(): }}
         {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == project.id)).select() }}
         {{ total = 0 }}
         {{ for p in pledges: }}
-        {{ total += p.cost }}
+            {{ total += p.bootable_pledges.cost }}
         {{ pass }}
         {{ progress = int(100 * total / project.funding_goal) }}
         {{ backers = len(pledges) }}
@@ -55,7 +54,7 @@
                 </ul>
             </div>
         </li>
-        {{ pass }}
+    {{ pass }}
     </ul>
     {{ if not db(db.bootable.author == session.logged_in_user).select(): }}
     <div class="centre-align">
