@@ -1,1 +1,50 @@
 {{ extend 'layout.html' }}
+<h2 class="centre-align">Search Results</h2>
+<div class="centre-align">
+    Searching for
+    {{ ="'" + request.vars.search_text + "'" if request.vars.search_text else "all open bootables" }} in
+    {{ ="all categories" if request.vars.search_category == '0' else "the %s category" % db.bootable_category(request.vars.search_category).name }}.
+</div>
+<ul id="search-results">
+    {{ query = db.bootable.status_id == 2 }}
+    
+    {{ if request.vars.search_text: }}
+    {{ text_search  = db.bootable.title.contains(request.vars.search_text) }}
+    {{ text_search |= db.bootable.summary.contains(request.vars.search_text) }}
+    {{ text_search |= db.bootable.description.contains(request.vars.search_text) }}
+    {{ text_search |= db.bootable.about.contains(request.vars.search_text) }}
+    {{ query &= text_search }}
+    {{ pass }}    
+
+    {{ if request.vars.search_category != '0': }}
+    {{ category_search = db.bootable.category_id == request.vars.search_category }}
+    {{ query &= category_search }}
+    {{ pass }}
+    
+    {{ for bootable in db(query).select(): }}
+    {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == bootable.id)).select() }}
+    {{ total = 0 }}
+    {{ for p in pledges: }}
+        {{ total += p.bootable_pledges.cost }}
+    {{ pass }}
+    {{ progress = int(100 * total / bootable.funding_goal) }}
+    {{ backers = len(pledges) }}
+    <a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
+    <li class="unlabled bootable">
+        <div class="feature-image">
+            <img src="{{ =URL('static/uploads', bootable.image) }}">
+        </div>
+        <div class="feature-info">
+            <h3>{{ =bootable.title }}</h3>
+            <div class="feature-author">by {{ =db.user(bootable.author).forename + " " + db.user(bootable.author).surname }}</div>
+            <div class="feature-description">{{ =bootable.summary }}</div>
+            <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(progress, 100)) }}%;"></div></div>
+            <div class="feature-completion">{{ =progress }}% Complete</div>
+            <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(bootable.category_id).name }}</div>
+            <div class="feature-backers">{{ =backers }} Backer {{ ='s' if backers != 1 else ''}}</div>
+            <div class="feature-total"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else "%.2f" % total }} Backed</div>
+        </div>
+    </li>
+    </a>
+    {{ pass }}
+</ul>
