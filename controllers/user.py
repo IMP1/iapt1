@@ -125,7 +125,41 @@ def profile():
         session.redirection = URL('user', 'profile.html')
         session.flash = SPAN('You are not currently signed in. Sign in or ', A('Register', _href=URL('user', 'new.html')), '!')
         redirect(URL('user', 'login.html'))
-    return dict()
+        
+    form1 = SQLFORM(db.user, db.user(session.logged_in_user))
+    form2 = SQLFORM(db.user_address)
+    form3 = SQLFORM(db.user_credit_card)
+    form4 = SQLFORM(db.user_address)
+    
+    if form1.validate(formname="info"):
+        response.flash = "User information updated!"
+        # Update basic information.
+        user = db.user(session.logged_in_user)
+        user.update_record(**db.user._filter_fields(form1.vars))
+    
+    if form2.validate(formname="address"):
+        response.flash = "Address updated!"
+        # Update address.
+        user = db.user(session.logged_in_user)
+        address = db.user_address(user.address_id)
+        address.update_record(**db.user_address._filter_fields(form2.vars))
+    
+    if form3.validate(formname="payment"):
+        response.flash = "Credit card information updated!"
+        # Update credit card information.
+        user = db.user(session.logged_in_user)
+        credit_card = db.user_credit_card(user.credit_card_id)
+        credit_card.update_record(**db.user_credit_card._filter_fields(form3.vars))
+    
+    if form4.validate(formname="billing_address"):
+        response.flash = "Billing address updated!"
+        # Update billing address.
+        user = db.user(session.logged_in_user)
+        credit_card = db.user_credit_card(user.credit_card_id)
+        address = db.user_address(credit_card.billing_address_id)
+        address.update_record(**db.user_address._filter_fields(form4.vars))
+    
+    return dict(form1 = form1, form2 = form2, form3 = form3, form4 = form4, formkey1 = form1.formkey, formkey2 = form2.formkey, formkey3 = form3.formkey, formkey4 = form4.formkey)
 
 def login():
     # Create the form
