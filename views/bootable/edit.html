@@ -17,7 +17,7 @@
     </p>
     {{ project = db.bootable(request.vars.bootable_id) }}
     <hr>
-    <form id="bootable-edit" action="" enctype="multipart/form-data" method="post">
+    <form id="bootable-edit" class="float-left" action="" enctype="multipart/form-data" method="post">
         <div class="edit-bootable">
             <!-- Image -->
             <div class="edit-image">
@@ -84,7 +84,7 @@
             <!-- About -->
             <h5>About You</h5>
             <textarea name="about" id="about" 
-                      class="string description-long {{ =('error clarified' if form1.errors.summary else '') }}">{{ =request.vars.about or project.about }}</textarea>
+                      class="string description-long {{ =('error clarified' if form1.errors.about else '') }}">{{ =request.vars.about or project.about }}</textarea>
             {{ if form1.errors.about: }}
             <br><small class="error-message">{{ =form1.errors.about }}</small>
             {{ pass }}
@@ -102,7 +102,7 @@
             <input name="creation_date" id="creation_date" type="text" value="{{ =project.creation_date }}">
         </div>
     </form>
-    <form id="pledge-edit" action="" enctype="multipart/form-data" method="post">
+    <form id="pledge-edit" class="float-right" action="" enctype="multipart/form-data" method="post">
         <div class="edit-pledges">
             <ol class="unlabled">
                 {{ for row in db(db.bootable_pledges.bootable_id == project.id).select(): }}
