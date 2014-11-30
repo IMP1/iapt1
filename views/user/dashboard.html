@@ -21,11 +21,20 @@
             </div>
             <div class="feature-info">
                 <span class="project-status">{{ =db.bootable_status(project.status_id).name }}</span>
-                <h3><a href="{{ =URL('bootable', 'view', vars={'bootable_id': project.id}) }}">{{ =project.title }}</a></h3>
+                {{ if project.status_id == 2: }}
+                {{ link = URL('bootable', 'view', vars={'bootable_id': project.id}) }}
+                {{ elif project.status_id == 1:}}
+                {{ link = URL('bootable', 'edit', vars={'bootable_id': project.id}) }}
+                {{ else: }}
+                {{ link = URL('default', 'index') }}
+                {{ pass }}
+                <h3><a href="{{ =link }}">
+                    {{ =project.title }}
+                </a></h3>
                 <div class="feature-author">Created on {{ =project.creation_date }}</div>
                 <div class="feature-description">{{ =project.summary }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ =str(progress) + "% Complete" }}</div>
+                <div class="feature-completion">{{ =str(progress) }}% Complete</div>
                 <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.category_id).name }}</div>
                 <div class="feature-backers">{{ =backers }} Backers</div>
                 <div class="feature-total"><span id="currency">£</span>{{ =total }} Backed</div>
