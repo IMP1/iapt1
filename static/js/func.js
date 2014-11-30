@@ -3,7 +3,7 @@
     Hidden variables are those the user shouldn't be entering themselves.
 */
 function calculateHiddenRegistration(stage, form) {
-    form = form.ownerDocument
+    form = form.ownerDocument;
     if (stage == 0) {
         form.getElementById("birthdate").value = form.getElementById("dob_year").value + "-" +
                                                  form.getElementById("dob_month").value + "-" +
@@ -25,7 +25,7 @@ function calculateHiddenRegistration(stage, form) {
     Hidden variables are those the user shouldn't be entering themselves.
 */
 function calculateHiddenBootable(stage, form) {
-    form = form.ownerDocument
+    form = form.ownerDocument;
     if (stage == 0) {
         // Get the time and date now.
         creation_date = new Date();
