@@ -39,6 +39,7 @@ Funcionality
 
 .clear {
     clear: both;
+    margin: 0;
 }
 
 button.delete-button {
@@ -435,12 +436,7 @@ Centralised Things
     /*
     Features & Dashboard
     --------------------------------------*/
-    #project-list,
-    section.featured > ol {
-        list-style: none;
-    }
-    #project-list > li,
-    section.featured > ol > a > li {
+    .bootable {
         display: block;
         margin-top: 2em;
         margin-bottom: 2em;
@@ -448,11 +444,52 @@ Centralised Things
         border-radius: 8px;
         padding: 0;
         height: 14rem;
+        color: #222;
     }
-    #project-list div,
-    section.featured div {
+    a:focus > .bootable,
+    a > .bootable:hover {
+        border-color: #de2c3b;
+        background-color: #f0f0f0;
+        box-shadow: 0 0 2px #de2c3b;
+    }
+    .bootable .feature-author {
+        font-size: 90%;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 1.5em;
+    }
+    .bootable .feature-description {
+        margin-bottom: 1em;
+        min-height: 3.6rem;
+    }
+    .bootable .progress-container {
+        border-color: #888;
+        margin-bottom: 0.5em;
+    }
+    .bootable .progress-bar {
+        background-color: #888;
+    }
+    a:focus > .bootable .progress-container,
+    a > .bootable:hover .progress-container {
+        border-color: #134DA5;
+        box-shadow: 0 0 2px #134DA5;
+        background-color: #fff;
+    }
+    a:focus > .bootable .progress-bar,
+    a > .bootable:hover .progress-bar {
+        background-color: #134DA5;
+    }
+    .bootable .feature-completion,
+    .bootable .feature-category,
+    .bootable .feature-backers,
+    .bootable .feature-total {
+        color: #888;
+        display: inline-block;
+        width: 24%;
+    }
+    .bootable div {
         margin-bottom: 0;
     }
+
     div.feature-image {
         display: inline-block;
         width: 30%;
@@ -470,64 +507,11 @@ Centralised Things
         vertical-align: top;
         width: 65%;
     }
-    section.featured > ol > a:focus > li,
-    section.featured > ol > a > li:hover {
-        border-color: #de2c3b;
-        background-color: #f0f0f0;
-        box-shadow: 0 0 2px #de2c3b;
-    }
-    section.featured > ol > a {
-        color: inherit;
-        width: 100%;
-        height 100%;
-    }
     div.feature-info h3 {
         margin-top: 1em;
         margin-bottom: 0em;
     }
-    #project-list div.feature-info .feature-author,
-    section.featured div.feature-info .feature-author {
-        font-size: 90%;
-        color: rgba(0, 0, 0, 0.5);
-        margin-bottom: 1.5em;
-    }
-    #project-list div.feature-info .feature-description,
-    section.featured div.feature-info .feature-description {
-        margin-bottom: 1em;
-    }
-    #project-list div.feature-info .progress-container,
-    section.featured div.feature-info .progress-container {
-        border-color: #888;
-        margin-bottom: 0.5em;
-    }
-    #project-list div.feature-info .progress-bar,
-    section.featured div.feature-info .progress-bar {
-        background-color: #888;
-    }
-    #project-list div.feature-info .feature-completion,
-    section.featured div.feature-info .feature-completion {
-        color: #888;
-        display: inline-block;
-        width: 24%;
-    }
-    #project-list div.feature-info .feature-category,
-    section.featured div.feature-info .feature-category {
-        color: #888;
-        display: inline-block;
-        width: 24%;
-    }
-    #project-list div.feature-info .feature-backers,
-    section.featured div.feature-info .feature-backers {
-        color: #888;
-        display: inline-block;
-        width: 24%;
-    }
-    #project-list div.feature-info .feature-total,
-    section.featured div.feature-info .feature-total {
-        color: #888;
-        display: inline-block;
-        width: 24%;
-    }
+   
     #project-list div.feature-info .project-status {
         color: #888;
         display: inline-block;
@@ -536,6 +520,8 @@ Centralised Things
         float: right;
         text-align: right;
     }
+
+    /* Leave room for the buttons */
     #project-list > li {
         margin-bottom: 4rem;
     }
@@ -693,12 +679,17 @@ Centralised Things
     }
     #profile-pledges #pledge-bootable {
         width: 60%;
-        padding-right: 2rem;
+        padding-right: 1rem;
+        margin-bottom: 0;
+    }
+    #profile-pledges #pledge-bootable h3 {
+        margin-top: 0;
     }
     #profile-pledges #pledge-pledge {
         width: 40%;
         padding-top: 1em;
         padding-left: 2rem;
+        margin-bottom: 0;
         border-left: 1px solid #ccc;
         min-height: 12em;
     }
@@ -714,8 +705,13 @@ Centralised Things
         text-align: center;
         font-weight: bold;
     }
+    #profile-pledges .feature-category {
+        float: right;
+        font-size: 80%;
+        color: #888;
+    }
     #profile-pledges .feature-total {
-        margin-top: 1em;
+        margin: 0;
         width: 100%;
         text-align: center;
     }

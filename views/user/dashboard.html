@@ -6,7 +6,7 @@
     </div>
     {{ pass }}
     <h2>Your Bootables</h2>
-    <ul id="project-list">
+    <ul id="project-list" class="unlabled">
     {{ for project in db(db.bootable.author == session.logged_in_user).select(): }}
         {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == project.id)).select() }}
         {{ total = 0 }}
@@ -15,22 +15,27 @@
         {{ pass }}
         {{ progress = int(100 * total / project.funding_goal) }}
         {{ backers = len(pledges) }}
-        <li>
+        <li class="bootable">
             <div class="feature-image">
                 <img src="{{ =URL('static/uploads', project.image) }}">
             </div>
             <div class="feature-info">
                 <span class="project-status">{{ =db.bootable_status(project.status_id).name }}</span>
-                {{ if project.status_id == 2: }}
-                {{ link = URL('bootable', 'view', vars={'bootable_id': project.id}) }}
-                {{ elif project.status_id == 1:}}
-                {{ link = URL('bootable', 'edit', vars={'bootable_id': project.id}) }}
-                {{ else: }}
-                {{ link = URL('default', 'index') }}
-                {{ pass }}
-                <h3><a href="{{ =link }}">
-                    {{ =project.title }}
-                </a></h3>
+                {{ link = None }}
+                <h3>
+                    {{ if project.status_id == 2: }}
+                    {{ link = URL('bootable', 'view', vars={'bootable_id': project.id}) }}
+                    {{ elif project.status_id == 1:}}
+                    {{ link = URL('bootable', 'edit', vars={'bootable_id': project.id}) }}
+                    {{ pass }}
+                    {{ if link: }}
+                    <a href="{{ =link }}">
+                    {{ pass }}
+                        {{ =project.title }}
+                    {{ if link: }}
+                    </a>
+                    {{ pass }}
+                </h3>
                 <div class="feature-author">Created on {{ =project.creation_date }}</div>
                 <div class="feature-description">{{ =project.summary }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
