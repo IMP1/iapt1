@@ -7,7 +7,6 @@
             {{ block title }}Bootup Crowdfunding{{ end }}
         </title>
         
-        
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Free Web tutorials">
@@ -29,13 +28,13 @@
                     <li><a href="{{ =URL('default', 'index') }}" tabindex="1"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 </ul>
                 <form action="{{ =URL('bootable', 'search.html') }}" method="post">
-                    <select name="search-category" class="prepend" tabindex="2">
-                        <option value="All">All Categories</option>
-                        {{ for row in db().select(db.bootable_category.name): }}
-                        <option value="{{ =row.name }}">{{ =row.name }}</option>
+                    <select name="search_category" class="prepend" tabindex="2">
+                        <option value="0">All Categories</option>
+                        {{ for row in db().select(db.bootable_category.id, db.bootable_category.name): }}
+                        <option value="{{ =row.id }}">{{ =row.name }}</option>
                         {{ pass }}
                     </select>
-                    <input type="search" name="navsearch" class="appended prepended" placeholder="Search Bootables" tabindex="2">
+                    <input type="search" name="search_text" class="appended prepended" placeholder="Search Bootables" tabindex="2">
                     <input type="submit" value="Go" class="append search" tabindex="2">
                 </form>
                 <ul class="float-right">
