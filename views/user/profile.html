@@ -1,1 +1,90 @@
 {{ extend 'layout.html' }}
+<ul id="header-tabs" class="big-headers">
+    <li><h3>
+        <a href="#profile-pledges">Your Pledges</a>
+    </h3></li>
+    <li><h3>
+        <a href="#profile-info">Your Information</a>
+    </h3></li>
+</ul>
+<!-- Pledges made tab -->
+<section id="profile-pledges" class="featured">
+    <ul class="unlabled">
+        {{ for p in db(db.bootable_pledges_made.user_id == session.logged_in_user).select(): }}
+        <li class="bordered">
+            {{ pledge = db.bootable_pledges(p.pledge_id) }}
+            {{ bootable = db.bootable(pledge.bootable_id) }}
+            {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == bootable.id)).select() }}
+            {{ total = 0 }}
+            {{ for p in pledges: }}
+                {{ total += p.bootable_pledges.cost }}
+            {{ pass }}
+            {{ progress = int(100 * total / bootable.funding_goal) }}
+            {{ backers = len(pledges) }}
+            <div id="pledge-bootable" class="float-left">
+                <h3><a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
+                    {{ =bootable.title }}
+                </a></h3>
+                <div class="feature-description">{{ =bootable.summary }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
+                <div class="feature-completion"><span>{{ =str(progress) }}%</span> Complete.</div>
+                <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else '' }}</div>
+                <div class="feature-total"><span id="currency">£</span>{{ =total }} Backed</div>
+            </div>
+            <div id="pledge-pledge" class="float-right">
+                <p>
+                    You have pledged <span class="big-number"><span id="currency">£</span>{{ =int(pledge.cost) if pledge.cost % 1 == 0 else "%.2f" % pledge.cost }}</span>
+                    <br>
+                    Your current pledge is the <span class="big-number">{{ =pledge.title }}</span> pledge.
+                </p>
+                <p>{{ =pledge.reward }}</p>
+            </div>
+            <div class="clear"></div>
+            {{ #=pledge }}
+            {{ #=bootable }}
+        </li>
+        {{ pass }}
+    </ul>
+</section>
+<!-- Profile info tab -->
+<section id="profile-info" class="featured">
+    {{ if response.flash and (form1.errors or form2.errors or form3.errors or form4.errors): }}
+    <div class="alert alert-danger">
+        {{ =response.flash }}
+    </div>
+    {{ elif response.flash: }}
+    <div class="alert alert-success">
+        {{ =response.flash }}
+    </div>
+    {{ pass }}
+    <br>
+    {{ include 'user/profile_update.html' }}
+</section>
+<!-- Show, by default, the newest features bootables (rather than nothing). -->
+<script type="text/javascript">
+    if (!window.location.hash) {
+        window.location.hash = "profile-pledges";
+    }
+    function showTab() {
+        document.getElementById("header-tabs").innerHTML = 
+        '    <li><h3>' + 
+        '        <a href="#profile-pledges">Your Pledges</a>' + 
+        '    </h3></li>' + 
+        '    <li><h3>' + 
+        '        <a href="#profile-info">Your Information</a>' + 
+        '    </h3></li>';
+        var headers = document.getElementById("header-tabs").getElementsByTagName("li");
+        var link;
+        if (window.location.hash == "#profile-pledges") {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else if (window.location.hash == "#profile-info") {
+            link = headers[1].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        } else {
+            link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
+        }
+        link.removeAttribute("href");
+        link.classList.add("inactive");
+    }
+    window.onhashchange = showTab;
+    showTab();
+</script>

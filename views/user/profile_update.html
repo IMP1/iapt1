@@ -1,0 +1,286 @@
+<section id="profile-personal" class="bordered float-left">
+    <h3 class="centre-align">Personal Information</h3>
+    <!-- Basic information -->
+    <form onsubmit="return inputBirthdate();" action="" enctype="multipart/form-data" method="post">
+        {{ user = db.user(session.logged_in_user) }}
+        <!-- Name -->
+        <h5>Username</h5>
+        <span class="indented">{{ =user.username }}</span>
+        <h5>Full Name</h5>
+        <div class="indented">
+            <input name="forename" id="forename" 
+                   class="string name-short {{ =('error clarified' if form1.errors.forename else '') }}" 
+                   placeholder="First Name" 
+                   type="text" 
+                   value="{{ =request.vars.forename or user.forename }}">
+            <input name="surname" id="surname" 
+                   class="string name-long {{ =('error clarified' if form1.errors.surname else '') }}" 
+                   placeholder="Surname" 
+                   type="text" 
+                   value="{{ =request.vars.surname or user.surname }}">
+            {{ if form1.errors.forename or form1.errors.surname: }}
+            <br><small class="error-message name-short">
+            {{ if form1.errors.forename: }}
+            {{ =form1.errors.forename }}
+            {{ pass }}
+            </small>
+            {{ if form1.errors.surname: }}
+            <small class="error-message name-long">{{ =form1.errors.surname }}</small>
+            {{ pass }}
+            {{ pass }}
+        </div>
+        <!-- D.O.B -->
+        <h5>Date of Birth</h5>
+        <div class="indented">
+            <input name="birthdate_year" id="dob_year" 
+                   class="date date-long {{ =('error clarified' if form1.errors.birthdate else '') }}" 
+                   maxlength="4" size="4" 
+                   type="text" 
+                   placeholder="YYYY" 
+                   value="{{ =request.vars.birthdate_year or user.birthdate.year }}">
+            <input name="birthdate_month" id="dob_month" 
+                   class="date date-short {{ =('error clarified' if form1.errors.birthdate else '') }}" 
+                   maxlength="2" size="2" 
+                   type="text" 
+                   placeholder="MM" 
+                   value="{{ =request.vars.birthdate_month or user.birthdate.month }}">
+            <input name="birthdate_day" id="dob_day" 
+                   class="date date-short {{ =('error clarified' if form1.errors.birthdate else '') }}" 
+                   maxlength="2" size="2" 
+                   placeholder="DD" 
+                   type="text" 
+                   value="{{ =request.vars.birthdate_day or user.birthdate.day }}">
+            {{ if form1.errors.birthdate: }}
+            <br><small class="error-message">{{ =form1.errors.birthdate }}</small>
+            {{ pass }}
+        </div>
+        <input class="btn btn-default" type="submit" value="Update Information">
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey1 }}">
+            <input name="_formname" type="hidden" value="info">
+            <!-- My Values -->
+            <input name="birthdate" id="birthdate" type="date" value="">
+            <input name="username" id="username" type="date" value="{{ =user.username }}">
+            <input name="address_id" id="address_id" type="date" value="{{ =user.address_id }}">
+            <input name="credit_card_id" id="credit_card_id" type="date" value="{{ =user.credit_card_id }}">
+        </div>
+    </form>
+    <hr>
+    <!-- Address -->
+    <form onsubmit="return inputAddress();" action="" enctype="multipart/form-data" method="post">
+        {{ address = db.user_address(user.address_id) }}
+        
+        {{ debug = open("DEBUG.txt", 'a') }}
+        {{ debug.write(str(user) + "\n") }}
+        {{ debug.write(str(address) + "\n") }}
+        {{ debug.close() }}
+        
+        <h5>Address</h5>
+        <div class="indented">
+            <input name="street_address" id="street_address" 
+                   class="string address-long {{ =('error clarified' if form2.errors.street_address else '') }}" 
+                   placeholder="Street Address" 
+                   type="text" 
+                   value="{{ =request.vars.street_address or address.street_address }}">
+            {{ if form2.errors.street_address: }}
+            <br><small class="error-message">{{ =form2.errors.street_address }}</small>
+            {{ pass }}
+            <br>
+            <input name="city" id="city" 
+                   class="string address-short {{ =('error clarified' if form2.errors.city else '') }}" 
+                   placeholder="City" 
+                   type="text" 
+                   value="{{ =request.vars.city or address.city }}">
+            {{ if form2.errors.city: }}
+            <br><small class="error-message">{{ =form2.errors.city }}</small>
+            {{ pass }}
+            <br>
+            <input name="postcode1" id="postcode1" 
+                   class="string postcode-long {{ =('error clarified' if form2.errors.postcode else '') }}" 
+                   maxlength="4" size="4" 
+                   placeholder="Post" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or address.postcode)[0:-3] }}">
+            <input name="postcode2" id="postcode2" 
+                   class="string postcode-short {{ =('error clarified' if form2.errors.postcode else '') }}" 
+                   maxlength="3" size="3" 
+                   placeholder="Code" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or address.postcode)[-3:] }}">
+            {{ if form2.errors.postcode: }}
+            <br><small class="error-message">{{ =form2.errors.postcode }}</small>
+            {{ pass }}
+            <br>
+            <input name="country" id="country" 
+                   class="string address-short {{ =('error clarified' if form2.errors.country else '') }}" 
+                   placeholder="Country" 
+                   type="text" 
+                   value="{{ =request.vars.country or address.country }}">
+            {{ if form2.errors.country: }}
+            <br><small class="error-message">{{ =form2.errors.country }}</small>
+            {{ pass }}
+        </div>
+        <input class="btn btn-default" type="submit" value="Update Address">
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey2 }}">
+            <input name="_formname" type="hidden" value="address">
+            <!-- My Values -->
+            <input name="postcode" id="postcode" type="string" value="">
+        </div>
+    </form>
+</section>
+
+<section id="profile-billing" class="bordered float-right">
+    <h3 class="centre-align">Billing Information</h3>
+    <!-- Credit card -->
+    <form onsubmit="return inputExpiryDate();" action="" enctype="multipart/form-data" method="post">
+        {{ credit_card = db.user_credit_card(user.credit_card_id) }}
+        <h5>Credit Card</h5>
+        <div class="indented">
+            <input name="card_number" id="card_number" 
+                   class="string credit-card-long {{ =('error clarified' if form3.errors.card_number else '') }}" 
+                   placeholder="Card Number" 
+                   type="text" 
+                   value="{{ =request.vars.card_number or credit_card.card_number }}">
+            {{ if form3.errors.card_number: }}
+            <br><small class="error-message">{{ =form3.errors.card_number }}</small>
+            {{ pass }}
+            <br>
+            <input name="identifying_code" id="identifying_code" 
+                   class="string credit-card-short {{ =('error clarified' if form3.errors.identifying_code else '') }}" 
+                   placeholder="CVC" 
+                   autocomplete="off"
+                   type="text" 
+                   value="{{ =credit_card.identifying_code }}">
+            {{ if form3.errors.identifying_code: }}
+            <br><small class="error-message">{{ =form3.errors.identifying_code }}</small>
+            {{ pass }}
+            <h6>Expiry Date</h6>
+            <input name="expiry_date_year" id="expiry_date_year" 
+                   class="date date-long {{ =('error clarified' if form3.errors.expiry_date else '') }}" 
+                   placeholder="YYYY" 
+                   type="text" 
+                   value="{{ =request.vars.expiry_date_year or credit_card.expiry_date.year }}">
+            <input name="expiry_date_month" id="expiry_date_month" 
+                   class="date date-short {{ =('error clarified' if form3.errors.expiry_date else '') }}" 
+                   placeholder="MM" 
+                   type="text" 
+                   value="{{ =request.vars.expiry_date_month or credit_card.expiry_date.month }}">
+            {{ if form3.errors.expiry_date == "Enter date as 1963-08-28": }}
+            <br><small class="error-message">{{ ="Enter date as 2016-01 for January 2016" }}</small>
+            {{ pass }}
+        </div>
+        <input class="btn btn-default" type="submit" value="Update Credit Card">
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey3 }}">
+            <input name="_formname" type="hidden" value="payment">
+            <!-- My Values -->
+            <input name="expiry_date" id="expiry_date" type="date" value="">
+            <input name="billing_address_id" id="billing_address_id" type="number" value="{{ =credit_card.billing_address_id }}">
+        </div>
+    </form>
+    <hr>
+    <!-- Billing address -->
+    <form onsubmit="return inputBillingAddress();" action="" enctype="multipart/form-data" method="post">
+        <h5>Billing Address</h5>
+        {{ address = db.user_address(credit_card.billing_address_id) }}
+        
+        {{ debug = open("DEBUG.txt", 'a') }}
+        {{ debug.write(str(credit_card) + "\n") }}
+        {{ debug.write(str(address) + "\n\n\n") }}
+        {{ debug.close() }}
+        
+        <div class="indented">
+            <input name="street_address" id="street_address" 
+                   class="string address-long {{ =('error clarified' if form4.errors.street_address else '') }}" 
+                   placeholder="Street Address" 
+                   type="text" 
+                   value="{{ =request.vars.street_address or address.street_address }}">
+            {{ if form4.errors.street_address: }}
+            <br><small class="error-message">{{ =form4.errors.street_address }}</small>
+            {{ pass }}
+            <br>
+            <input name="city" id="city" 
+                   class="string address-short {{ =('error clarified' if form4.errors.city else '') }}" 
+                   placeholder="City" 
+                   type="text" 
+                   value="{{ =request.vars.city or address.city }}">
+            {{ if form4.errors.city: }}
+            <br><small class="error-message">{{ =form4.errors.city }}</small>
+            {{ pass }}
+            <br>
+            <input name="postcode1" id="billing-postcode1" 
+                   class="string postcode-long {{ =('error clarified' if form4.errors.postcode else '') }}" 
+                   maxlength="4" size="4" 
+                   placeholder="Post" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or address.postcode)[0:-3] }}">
+            <input name="postcode2" id="billing-postcode2" 
+                   class="string postcode-short {{ =('error clarified' if form4.errors.postcode else '') }}" 
+                   maxlength="3" size="3" 
+                   placeholder="Code" 
+                   type="text" 
+                   value="{{ =(request.vars.postcode or address.postcode)[-3:] }}">
+            {{ if form4.errors.postcode: }}
+            <br><small class="error-message">{{ =form4.errors.postcode }}</small>
+            {{ pass }}
+            <br>
+            <input name="country" id="country" 
+                   class="string address-short {{ =('error clarified' if form4.errors.country else '') }}" 
+                   placeholder="Country" 
+                   type="text" 
+                   value="{{ =request.vars.country or address.country }}">
+            {{ if form4.errors.country: }}
+            <br><small class="error-message">{{ =form4.errors.country }}</small>
+            {{ pass }}
+        </div>
+        <input class="btn btn-default" type="submit" value="Update Billing Address">
+        <div style="display:none;">
+            <!-- Web2py Values -->
+            <input name="_formkey" type="hidden" value="{{ =formkey4 }}">
+            <input name="_formname" type="hidden" value="billing_address">
+            <!-- My Values -->
+            <input name="postcode" id="billing-postcode" type="string" value="">
+        </div>
+    </form>
+</section>
+<script type="text/javascript">
+    /**
+    Concatenates date, month and year into web2py-friendly format and puts it into a 
+    single input value.
+    */
+    function inputBirthdate() {
+        document.getElementById("birthdate").value = document.getElementById("dob_year").value + "-" +
+                                                     document.getElementById("dob_month").value + "-" +
+                                                     document.getElementById("dob_day").value;
+    }
+    /**
+    Concatenates postcode outward code and inward code into web2py-friendly format and 
+    puts it into a single input value.
+    */
+    function inputAddress() {
+        document.getElementById("postcode").value = document.getElementById("postcode1").value + 
+                                                    document.getElementById("postcode2").value;
+    }
+    /**
+    Concatenates date, month and year into web2py-friendly format and puts it into a 
+    single input value.
+    */
+    function inputExpiryDate() {
+        document.getElementById("expiry_date").value = document.getElementById("expiry_date_year").value + "-" +
+                                                       document.getElementById("expiry_date_month").value + "-" +
+                                                       "01";
+    }
+    /**
+    Concatenates postcode outward code and inward code into web2py-friendly format and 
+    puts it into a single input value.
+    */
+    function inputBillingAddress() {
+        document.getElementById("billing-postcode").value = document.getElementById("billing-postcode1").value + 
+                                                            document.getElementById("billing-postcode2").value;
+    }
+
+</script>
