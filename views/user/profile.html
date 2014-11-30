@@ -29,7 +29,18 @@
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
                 <div class="feature-completion"><span>{{ =str(progress) }}%</span> Complete.</div>
                 <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else '' }}</div>
-                <div class="feature-total"><span id="currency">£</span>{{ =total }} Backed</div>
+                <div class="feature-status">
+                    {{ if bootable.status_id == 2: }}
+                    Open for pledges
+                    {{ elif bootable.status_id > 2: }}
+                    Closed
+                    {{ pass }}
+                </div>
+                <br>
+                <div class="feature-total">
+                    <span class="big-number"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else '%.2f' % total }}</span> backed of
+                    <span class="big-number"><span id="currency">£</span>{{ =int(bootable.funding_goal) if bootable.funding_goal % 1 == 0 else '%.2f' % bootable.funding_goal }}</span> goal.
+                </div>
             </div>
             <div id="pledge-pledge" class="float-right">
                 <p>
@@ -40,8 +51,6 @@
                 <p>{{ =pledge.reward }}</p>
             </div>
             <div class="clear"></div>
-            {{ #=pledge }}
-            {{ #=bootable }}
         </li>
         {{ pass }}
     </ul>

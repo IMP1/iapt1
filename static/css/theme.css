@@ -111,7 +111,7 @@ label > input[type="file"] {
     display: none;
 }
 
-div.bordered {
+.bordered {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 1em;
@@ -481,11 +481,6 @@ Centralised Things
         width: 100%;
         height 100%;
     }
-    section.featured a:focus,
-    section.featured a:hover {
-        color: inherit;
-        border-bottom: none;
-    }
     div.feature-info h3 {
         margin-top: 1em;
         margin-bottom: 0em;
@@ -679,6 +674,54 @@ Centralised Things
     }
     form#pledge-confirmation button {
         margin-top: 1rem;
+    }
+
+    /*
+    Profile
+    --------------------------------------*/
+    #profile-pledges,
+    #profile-info {
+        width: 100%;
+    }
+    #profile-pledges > ul > li {
+        min-height: 12em;
+        overflow: hidden;
+    }
+    #profile-pledges .big-number {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+    #profile-pledges #pledge-bootable {
+        width: 60%;
+        padding-right: 2rem;
+    }
+    #profile-pledges #pledge-pledge {
+        width: 40%;
+        padding-top: 1em;
+        padding-left: 2rem;
+        border-left: 1px solid #ccc;
+        min-height: 12em;
+    }
+    #profile-pledges .progress-container {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    #profile-pledges .feature-completion, 
+    #profile-pledges .feature-backers, 
+    #profile-pledges .feature-status {
+        display: inline-block;
+        width: 32%;
+        text-align: center;
+        font-weight: bold;
+    }
+    #profile-pledges .feature-total {
+        margin-top: 1em;
+        width: 100%;
+        text-align: center;
+    }
+    #profile-info #profile-personal,
+    #profile-info #profile-billing {
+        width: 47.5%;
     }
 
     /*
