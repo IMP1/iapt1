@@ -22,12 +22,15 @@
             {{ progress = int(100 * total / bootable.funding_goal) }}
             {{ backers = len(pledges) }}
             <div id="pledge-bootable" class="float-left">
-                <h3><a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
-                    {{ =bootable.title }}
-                </a></h3>
+                <h3>
+                    <a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
+                        {{ =bootable.title }}
+                    </a>
+                    <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(bootable.category_id).name }}</div>
+                </h3>
                 <div class="feature-description">{{ =bootable.summary }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
-                <div class="feature-completion"><span>{{ =str(progress) }}%</span> Complete.</div>
+                <div class="feature-completion">{{ =str(progress) }}% Complete.</div>
                 <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else '' }}</div>
                 <div class="feature-status">
                     {{ if bootable.status_id == 2: }}
@@ -93,6 +96,7 @@
         }
         link.removeAttribute("href");
         link.classList.add("inactive");
+        window.scrollTo(0, 0);
     }
     window.onhashchange = showTab;
     showTab();
