@@ -47,8 +47,10 @@
     {{ query  = db.bootable.status_id == 2 }}
     {{ query &= db.bootable.id == db.bootable_pledges.bootable_id }}
     {{ query &= db.bootable_pledges.id == db.bootable_pledges_made.pledge_id }}
+    {{ rows = db(query).select(db.bootable.ALL, 'sum(bootable_pledges.cost)', 'bootable.funding_goal - sum(bootable_pledges.cost)', 
+                                   groupby='bootable.id', orderby='bootable.funding_goal - sum(bootable_pledges.cost)', limitby=(0, 5)) }}
     <ol class="unlabled">
-    {{ for row in db(query).select(db.bootable.ALL, db.bootable_pledges.ALL, db.bootable_pledges_made.ALL, 'sum(bootable_pledges.cost)', 'count(bootable_pledges.id)', 'bootable.funding_goal - sum(bootable_pledges.cost)', orderby='bootable.funding_goal - sum(bootable_pledges.cost)'): }}
+    {{ for row in rows: }}
         {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == row.bootable.id)).select() }}
         {{ total = row._extra['sum(bootable_pledges.cost)'] }}
         {{ bootable = row.bootable }}
