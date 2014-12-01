@@ -19,6 +19,7 @@
     <span class="bootable-author">by {{ =db.user(project.author).forename + " " + db.user(project.author).surname }}</span>
     <span class="bootable-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.category_id).name }}</span>
 </h6>
+<hr>
 <!-- Image -->
 <div class="picture-big">
     <img src="{{ =URL('static/uploads', project.image) }}">

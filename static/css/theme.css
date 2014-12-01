@@ -425,10 +425,6 @@ Centralised Things
     section.featured.active {
         display: inline-block;
     }
-    ul#header-tabs.big-headers > li {
-        margin-left: 2em;
-        margin-right: 2em;
-    }
     ul#header-tabs.big-headers > li > h3 {
         font-size: 140%;
     }
@@ -614,7 +610,8 @@ Centralised Things
     div.funding-information {
         display: inline-block;
         vertical-align: top;
-        padding-top: 6rem;
+        padding-left: 1rem;
+        padding-top: 4rem;
         width: 23rem;
     }
     .bootable-author {
