@@ -35,7 +35,7 @@
     <p>You have backed <span class="big-number"><span id="currency">£</span>{{ =int(user_pledge.cost) if user_pledge.cost % 1 == 0 else "%.2f" % user_pledge.cost }}</span>.</p>
     {{ pass }}
     <!-- Number of backers -->
-    <p><span class="big-number">{{ =backers }}</span> backers.</p>
+    <p><span class="big-number">{{ =backers }}</span> backer{{ ='s' if backers != 1 else '' }}.</p>
     <!-- Progress bar -->
     <div class="progress-container"><div class="progress-bar" style="width:{{ =max(1, min(progress, 100)) }}%;"></div></div>
     <div class="feature-completion">{{ =str(progress) + "% Complete" }}</div>
