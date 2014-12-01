@@ -14,102 +14,65 @@
 </ul>
 <section id="featured-new" class="featured">
     <ol class="unlabled">
-        <a href="{{ ='' }}">
+    {{ for bootable in db(db.bootable.status_id == 2).select(orderby=~db.bootable.creation_date, limitby=(0, 5)): }}
+        {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == bootable.id)).select() }}
+        {{ total = 0 }}
+        {{ for p in pledges: }}
+            {{ total += p.bootable_pledges.cost }}
+        {{ pass }}
+        {{ progress = int(100 * total / bootable.funding_goal) }}
+        {{ backers = len(pledges) }}
+        <a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
         <li class="bootable">
             <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1312817/photo-full.jpg?1414347813' }}">
+                <img src="{{ =URL('static/uploads', bootable.image) }}">
             </div>
             <div class="feature-info">
-                <h3>{{ ="Vertical City : A Solution for Sustainable Living" }}</h3>
-                <div class="feature-author">by {{ ="Raymond King" }}</div>
-                <div class="feature-description">{{ ="A groundbreaking 619-page, full-color book that envisions a sustainable future through the emerging technologies of Vertical Cities." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(80, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="80% Complete" }}</div>
-                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Technology" }}</div>
-                <div class="feature-backers">{{ ='521' }} Backers</div>
-                <div class="feature-total"><span id="currency">£</span>{{ ='9000' }} Backed</div>
+                <h3>{{ =bootable.title }}</h3>
+                <div class="feature-author">by {{ =db.user(bootable.author).forename + " " + db.user(bootable.author).surname }}</div>
+                <div class="feature-description">{{ =bootable.summary }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(progress, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ =progress }}% Complete</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(bootable.category_id).name }}</div>
+                <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else ''}}</div>
+                <div class="feature-total"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else "%.2f" % total }} Backed</div>
             </div>
         </li>
         </a>
-        <a href="{{ ='' }}">
-        <li class="bootable">
-            <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/876287/photo-full.jpg?1408338461' }}">
-            </div>
-            <div class="feature-info">
-                <h3>{{ ="Sorcery 101 Omnibus Vol 1 of 2" }}</h3>
-                <div class="feature-author">by {{ ="Kel McDonald" }}</div>
-                <div class="feature-description">{{ ="Danny is an inept chain-smoking sorcerer learning magic from a grumpy vampire. This omnibus will be 750 pages, covering 5 years of work." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(31, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="31% Complete" }}</div>
-                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Comic" }}</div>
-            </div>
-        </li>
-        </a>
-        <a href="{{ ='' }}">
-        <li>
-            <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1438572/photo-full.jpg?1415039535' }}">
-            </div>
-            <div class="feature-info">
-                <h3>{{ ="Last Stop: A photo book" }}</h3>
-                <div class="feature-author">by {{ ="George Georgiou" }}</div>
-                <div class="feature-description">{{ ="Last Stop, a double-sided concertina book exploring London's diversity. Photographed through the windows of its double decker buses." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(132, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="132% Complete" }}</div>
-                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ ="Photography" }}</div>
-            </div>
-        </li>
-        </a>
-        <a href="{{ ='' }}">
-        <li>
-            <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1430184/photo-full.jpg?1415289669' }}">
-            </div>
-            <div class="feature-info">
-                <h3>{{ ="SOCCER CITY, the beautiful game" }}</h3>
-                <div class="feature-author">by {{ ="Elege Ibérica" }}</div>
-                <div class="feature-description">{{ ="The strategy board game for soccer lovers. Soccer City is a complete soccer simulator inspired in the early twentieth century." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(33, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="33% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Games" }}</div>
-            </div>
-        </li>
-        </a>
-        <a href="{{ ='' }}">
-        <li>
-            <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1449049/photo-full.jpg?1416346841' }}">
-            </div>
-            <div class="feature-info">
-                <h3>{{ ="I Am What’s Underneath - True Style Is Self Acceptance" }}</h3>
-                <div class="feature-author">by {{ ="Elisa Goodkind & Lily Mandelbaum" }}</div>
-                <div class="feature-description">{{ ="A feature-length documentary that strips us down to open us up, empowering people worldwide to accept and express their true selves." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(40, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="40% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Film" }}</div>
-            </div>
-        </li>
-        </a>
+    {{ pass }}
     </ol>
 </section>
+
 <section id="featured-close" class="featured">
-    <ol>
-        <a href="{{ ='' }}">
-        <li>
+    <ol class="unlabled">
+        
+        
+    {{ query  = db.bootable.status_id == 2 }}
+    {{ query &= db.bootable.id == db.bootable_pledges.bootable_id }}
+    {{ query &= db.bootable_pledges.id == db.bootable_pledges_made.pledge_id }}
+    {{ rows = db(query).select(db.bootable.ALL, db.bootable_pledges.ALL, db.bootable_pledges_made.ALL, 'sum(bootable_pledges.cost)', 'bootable.funding_goal - sum(bootable_pledges.cost)', orderby='bootable.funding_goal - sum(bootable_pledges.cost)') }}
+    {{ for project in rows: }}
+        {{ total = project._extra['sum(bootable_pledges.cost)'] }}
+        {{ progress = int(100 * total / project.bootable.funding_goal) }}
+        {{ backers = len(pledges) }}
+        <a href="{{ =URL('bootable', 'view', vars={'bootable_id': project.bootable.id}) }}">
+        <li class="bootable">
             <div class="feature-image">
-                <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
+                <img src="{{ =URL('static/uploads', project.bootable.image) }}">
             </div>
-            <div class="feature-info">
-                <h3>{{ ="Wired, Wild and Alive" }}</h3>
-                <div class="feature-author">by {{ ="Amanda Beck-McKim" }}</div>
-                <div class="feature-description">{{ ="A textile environment installation, animated with storytelling, puppetry and digital projections that children aged 4 - 11 can explore." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(161, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="161% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Art" }}</div>
+            <div class="feature-info">  
+                <h3>{{ =project.bootable.title }}</h3>
+                <div class="feature-author">by {{ =db.user(project.bootable.author).forename + " " + db.user(project.bootable.author).surname }}</div>
+                <div class="feature-description">{{ =project.bootable.summary }}</div>
+                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(progress, 100)) }}%;"></div></div>
+                <div class="feature-completion">{{ =progress }}% Complete</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.bootable.category_id).name }}</div>
+                <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else ''}}</div>
+                <div class="feature-total"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else "%.2f" % total }} Backed</div>
             </div>
         </li>
         </a>
+    {{ pass }}
     </ol>
 </section>
 <!-- Show, by default, the newest features bootables (rather than nothing). -->
