@@ -1,6 +1,5 @@
 ## BOOTABLE SEARCH PAGE
 def search():
-    session.clear()
     search_vars = request.vars
     return dict(search_vars = search_vars)
 
@@ -109,27 +108,42 @@ def edit():
     form2 = SQLFORM.factory(db.bootable_pledges)
     
     # If we're deleting we don't need the form to be filled out, but it needs to pass validation for a formkey to be created.
+    # So we use placeholder values, and then restore them after validation.
     placeholders = {}
+    
     # If we're deleting a pledge:
     if request.vars.pledge_deletion:
-        # Delete the pledge.
-        db(db.bootable_pledges.id == int(request.vars.pledge_deletion)).delete()
-        # If we used placeholder field values to placate web2py's form validation (we don't need it to delete pledges).
-        placeholders['title'] = request.vars['title']
-        request.vars['title'] = "Placeholder Title"
-        placeholders['cost'] = request.vars['cost']
-        request.vars['cost'] = 0
+        # Use placeholder field values to placate web2py's form validation (we don't need it to delete pledges).
+        placeholders['title'] = request.vars.title
+        request.vars.title = "Placeholder Title"
+        placeholders['cost'] = request.vars.cost
+        request.vars.cost = '0'
     
     # If we are adding a pledge:
     if form2.validate(formname="pledge"):
         if request.vars.pledge_deletion:
-            response.flash = "Pledge deleted!"
+            if len(db(db.bootable_pledges.bootable_id == request.vars.bootable_id).select()) == 1:
+                response.flash = "You must have at least one pledge."
+            else:
+                response.flash = "Pledge deleted!"
+                # Delete the pledge.
+                db(db.bootable_pledges.id == int(request.vars.pledge_deletion)).delete()
         else:
             response.flash = "Pledge added!"
             # Add the id to the pledge.
             form2.vars.bootable_id = request.vars.bootable_id
             # Add the new pledge to the database.
             db.bootable_pledges.insert(**db.bootable_pledges._filter_fields(form2.vars))
+    
+    # If we're deleting we don't need the form to be filled out, but it needs to pass validation for a formkey to be created.
+    for key in placeholders:
+        request.vars[key] = placeholders[key]
+    if request.vars.bootable_deletion:
+        # Use placeholder field values to placate web2py's form validation (we don't need it to delete pledges).
+        placeholders['title'] = request.vars.title
+        request.vars.title = "Placeholder Title"
+        placeholders['funding_goal'] = request.vars.funding_goal
+        request.vars.funding_goal = '0'
     
     # If one of the bootable buttons was pressed:
     if form1.validate(formname="bootable"):
@@ -170,6 +184,8 @@ def edit():
 def view():
     # If this bootable isn't available for pledging:
     if db.bootable(request.vars.bootable_id).status_id != 2:
+        if db.bootable(request.vars.bootable_id).status_id > 2:
+            session.flash = "This bootable has been closed."
         # redirect to the homepage.
         redirect(URL('default', 'index.html'))
     return dict()
@@ -184,23 +200,16 @@ def confirm():
     form = FORM(INPUT(_name='pledge_selection', _type='number'), INPUT(_name='bootable_id', _type='number'))
     if form.validate(formname="confirm"):
         user_pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges_made.user_id == session.logged_in_user) & (db.bootable_pledges.bootable_id == request.vars.bootable_id)).select()
-        
-        debug = open("DEBUG.txt", 'a')
-        debug.write("Form submitted!\n")
-        
         # If the user has already pledged to this bootable:
         if user_pledges:
-            debug.write(str(user_pledges) + "\n")
             # Update the pledge.
             pledge = {'pledge_id': request.vars.pledge_selection, 'user_id': session.logged_in_user}
             db.bootable_pledges_made(user_pledges[0].bootable_pledges_made.id).update_record(**pledge)
         else:
-            debug.write("User Pledges is falsey\n" + str(user_pledges) + "\n")
             # Add the pledge made to the database.
             pledge = {'pledge_id': request.vars.pledge_selection, 'user_id': session.logged_in_user}
             db.bootable_pledges_made.insert(**pledge)
             
-        debug.close()
         # Redirect back to the bootable
         redirect(URL('bootable', 'view', vars={'bootable_id': db.bootable_pledges(request.vars.pledge_selection).bootable_id}))
     return dict(form=form, formkey=form.formkey)
