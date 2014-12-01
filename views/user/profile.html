@@ -55,6 +55,7 @@
             </div>
             <div class="clear"></div>
         </li>
+        <br>
         {{ pass }}
         {{ if not db(db.bootable_pledges_made.user_id == session.logged_in_user).select(): }}
         <div class="centre-align">
