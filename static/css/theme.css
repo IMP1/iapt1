@@ -1,4 +1,49 @@
 /*
+Resets
+----------------------------------------------*/
+a[onclick] {
+    cursor: pointer;
+}
+a:active,
+a:hover,
+a:focus {
+    outline:none;
+}
+/* To prevent some browsers from inserting quotes on q and p */
+blockquote,
+q {
+    quotes: none;
+}
+blockquote p:before,
+blockquote p:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+/* Table reset */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+caption,
+th,
+td {
+    text-align: left;
+    vertical-align: top;
+}
+thead th,
+thead td {
+    font-weight: bold;
+    vertical-align: bottom;
+}
+a img,
+th img,
+td img {
+    vertical-align: top;
+}
+
+/*
 Funcionality
 ----------------------------------------------*/
 .float-left {
@@ -57,6 +102,374 @@ button.delete-button:hover {
     background-color: #C9302C;
     border-color: #650300;
 }
+
+/*
+Typography
+----------------------------------------------*/
+body {
+    font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+    font-size: 1rem;
+    line-height: 1.65rem;
+    background: #ffffff;
+    color: #222222;
+}
+/* Links */
+a {
+    color: #134da5;
+    text-decoration: none;
+}
+a, 
+a:hover, 
+a:link, 
+a:visited {
+    text-decoration: none;
+}
+a:focus,
+a:hover {
+    color: #de2c3b;
+    border-bottom: 1px solid rgba(222, 44, 59, 0.4);
+}
+a.inactive, 
+a.inactive:hover, 
+a.inactive:link, 
+a.inactive:visited,
+a.inactive:focus,
+a.inactive:hover {
+    color: #888;
+    text-decoration: none;
+    border-bottom: none;
+}
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+    font-weight: bold;
+    color: #000000;
+    text-rendering: optimizeLegibility;
+    margin: 0.5em 0 0.5em 0;
+}
+h1 {
+    line-height: 110%;
+    font-size: 2.25em;
+}
+h2 {
+    line-height: 110%;
+    font-size: 1.5em;
+    margin-bottom: 0.7em;
+}
+h3 {
+    line-height: 130%;
+    font-size: 1.3125em;
+}
+h4 {
+    line-height: 130%;
+    font-size: 1.125em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+    font-size: 0.9em;
+}
+header {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+header h1 {
+    text-align: center;
+}
+/* Blockquote */
+blockquote {
+    position: relative;
+    font-style: italic;
+    font-size: 1.125em;
+    margin-left: 2.5em;
+    padding-left: 1.65em;
+    border-left: 2px solid #ccc;
+}
+blockquote p {
+    margin-bottom: .5em;
+}
+blockquote small,
+blockquote cite {
+    color: rgba(0, 0, 0, 0.4);
+    font-style: italic;
+    font-size: 0.8em;
+    line-height: 100%;
+}
+blockquote em,
+blockquote i {
+    font-style: normal;
+}
+/* Address */
+address {
+    font-style: normal;
+}
+/* Text */
+s,
+del {
+    text-decoration: line-through;
+}
+abbr[title],
+dfn[title] {
+    border-bottom: 1px dotted #0f0f0f;
+    cursor: help;
+}
+strong,
+b {
+    font-weight: bold;
+}
+em,
+i {
+    font-style: italic;
+}
+sub,
+sup {
+    font-size: 0.7em;
+    line-height: 0;
+    position: relative;
+}
+sup {
+    top: -0.5em;
+}
+sub {
+    bottom: -0.25em;
+}
+figcaption {
+    margin: 0.3em 0;
+    font-size: 0.8em;
+    font-style: italic;
+}
+ins,
+u {
+    text-decoration: underline;
+}
+mark {
+    background-color: #ffc800;
+    color: #0f0f0f;
+    text-decoration: none;
+}
+p,
+ul,
+ol,
+dl,
+blockquote,
+hr,
+pre,
+table,
+form,
+fieldset,
+figure,
+address {
+    margin-bottom: 1.65em;
+}
+
+/*
+Inputs
+----------------------------------------------*/
+    select, 
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="phone"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="datetime"],
+    input[type="date"],
+    input[type="month"],
+    input[type="color"],
+    input[type="time"],
+    input[type="search"],
+    input[type="datetime-local"] {
+        font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+        font-size: 1em;
+        line-height: 1.1rem;
+        height: 1.8rem;
+        box-shadow: none;
+        outline: none;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 0;
+        padding: 0.25rem 0.4rem;
+    }
+    select[multiple],
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="phone"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="datetime"],
+    input[type="date"],
+    input[type="month"],
+    input[type="color"],
+    input[type="time"],
+    input[type="search"],
+    input[type="datetime-local"] {
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        position: relative;
+        z-index: 2;
+        -webkit-appearance: none;
+        margin-bottom: 0.5rem;
+    }
+    textarea,
+    select {
+        font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+        font-size: 1em;
+        box-shadow: none;
+        padding: 0.1rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        line-height: 1.2rem;
+        vertical-align: top;
+        margin-bottom: 0.5rem;
+    }
+    textarea {
+        padding: 0.3rem 0.35rem;
+        line-height: 1.35em;
+        width: 100%;
+    }
+
+    select:focus,
+    input[type="checkbox"]:focus,
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="phone"]:focus,
+    input[type="tel"]:focus,
+    input[type="number"]:focus,
+    input[type="datetime"]:focus,
+    input[type="date"]:focus,
+    input[type="month"]:focus,
+    input[type="color"]:focus,
+    input[type="time"]:focus,
+    input[type="search"]:focus,
+    input[type="datetime-local"]:focus,
+    textarea:focus {
+        outline: 0;
+        border-color: #2575ed;
+        box-shadow: 0 0 2px rgba(37, 117, 237, 0.3), 0 0 2px rgba(37, 117, 237, 0.3) inset;
+    }
+    input[type="checkbox"]:-moz-focusring,
+    select:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+    input::-moz-focus-inner,
+    button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+    input:disabled {
+        color: #ccc;
+    }
+    input[type="button"]:focus,
+    button:focus {
+        color: #de2c3b;
+    }
+    label {
+        font-weight: normal;
+    }
+
+    /*
+    Buttons
+    ----------------------------------------------*/
+    button,
+    input[type="button"],
+    input[type="submit"] {
+        display: inline-block;
+        font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+        font-size: 100%;
+        line-height: 100%;
+        text-align: center;
+        text-decoration: none;
+        color: #222222;
+        -webkit-appearance: none;
+        outline: none;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+        box-shadow: none;
+        cursor: pointer;
+        background-color: #e0e3e5;
+    }
+    button:active,
+    button:focus,
+    input[type="button"]:active,
+    input[type="button"]:focus,
+    input[type="submit"]:active,
+    input[type="submit"]:focus {
+        outline: none;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+        border: 1px solid #2575ed;
+    }
+    button:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        color: rgba(0, 0, 0, 0.7);
+        background: #c1c1c1;
+    }
+    button:focus,
+    input[type="button"]:focus,
+    input[type="submit"]:focus {
+        color: #de2b3a;
+    }
+    button:disabled, button:disabled:hover,
+    input[type="button"]:disabled, input[type="button"]:disabled:hover,
+    input[type="submit"]:disabled, input[type="submit"]:disabled:hover {
+        color: rgba(0, 0, 0, 0.4);
+        background: #bbb;
+        border: 1px solid #aaa;
+        box-shadow: none;
+    }
+
+    button.append,
+    input[type="button"].append,
+    input[type="submit"].append {
+        float: right;
+        border-left: 1px solid #e0e3e5;
+    }
+    button.append:hover,
+    input[type="button"].append:hover,
+    input[type="submit"].append:hover {
+        border-left: 1px solid #c1c1c1;
+    }
+    button.append:focus,
+    input[type="button"].append:focus,
+    input[type="submit"].append:focus {
+        border: 1px solid #2575ed;
+    }
+
+    /*
+    Search Bar
+    ----------------------------------------------*/
+    input[type="search"] {
+        background: none repeat scroll 0% 0% #FFF;
+        border: 1px solid #CCC;
+        vertical-align: text-bottom;
+        font-size: 1em;
+        line-height: 1.1rem;
+        margin-bottom: 0;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+    button.search,
+    input[type="submit"].search {
+        line-height: 1rem;
+        position: relative;
+        top: 0px;
+    }
+
 
 /*
 Layout
@@ -441,6 +854,7 @@ Centralised Things
         padding: 0;
         height: 14rem;
         color: #222;
+        width: 1024px;
     }
     a:focus > .bootable,
     a > .bootable:hover {
@@ -651,6 +1065,10 @@ Centralised Things
     #view-pledges .pledge {
         width: 100%;
         padding: 1em;
+    }
+    #view-pledges .pledge > strong {
+        width: 80%;
+        display: inline-block;
     }
     #view-pledges .pledge button {
         float: right;
