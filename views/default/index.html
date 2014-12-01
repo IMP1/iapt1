@@ -44,29 +44,28 @@
 </section>
 
 <section id="featured-close" class="featured">
-    <ol class="unlabled">
-        
-        
     {{ query  = db.bootable.status_id == 2 }}
     {{ query &= db.bootable.id == db.bootable_pledges.bootable_id }}
     {{ query &= db.bootable_pledges.id == db.bootable_pledges_made.pledge_id }}
-    {{ rows = db(query).select(db.bootable.ALL, db.bootable_pledges.ALL, db.bootable_pledges_made.ALL, 'sum(bootable_pledges.cost)', 'bootable.funding_goal - sum(bootable_pledges.cost)', orderby='bootable.funding_goal - sum(bootable_pledges.cost)') }}
-    {{ for project in rows: }}
-        {{ total = project._extra['sum(bootable_pledges.cost)'] }}
-        {{ progress = int(100 * total / project.bootable.funding_goal) }}
+    <ol class="unlabled">
+    {{ for row in db(query).select(db.bootable.ALL, db.bootable_pledges.ALL, db.bootable_pledges_made.ALL, 'sum(bootable_pledges.cost)', 'count(bootable_pledges.id)', 'bootable.funding_goal - sum(bootable_pledges.cost)', orderby='bootable.funding_goal - sum(bootable_pledges.cost)'): }}
+        {{ pledges = db((db.bootable_pledges_made.pledge_id == db.bootable_pledges.id) & (db.bootable_pledges.bootable_id == row.bootable.id)).select() }}
+        {{ total = row._extra['sum(bootable_pledges.cost)'] }}
+        {{ bootable = row.bootable }}
+        {{ progress = int(100 * total / bootable.funding_goal) }}
         {{ backers = len(pledges) }}
-        <a href="{{ =URL('bootable', 'view', vars={'bootable_id': project.bootable.id}) }}">
+        <a href="{{ =URL('bootable', 'view', vars={'bootable_id': bootable.id}) }}">
         <li class="bootable">
             <div class="feature-image">
-                <img src="{{ =URL('static/uploads', project.bootable.image) }}">
+                <img src="{{ =URL('static/uploads', bootable.image) }}">
             </div>
-            <div class="feature-info">  
-                <h3>{{ =project.bootable.title }}</h3>
-                <div class="feature-author">by {{ =db.user(project.bootable.author).forename + " " + db.user(project.bootable.author).surname }}</div>
-                <div class="feature-description">{{ =project.bootable.summary }}</div>
+            <div class="feature-info">
+                <h3>{{ =bootable.title }}</h3>
+                <div class="feature-author">by {{ =db.user(bootable.author).forename + " " + db.user(bootable.author).surname }}</div>
+                <div class="feature-description">{{ =bootable.summary }}</div>
                 <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(progress, 100)) }}%;"></div></div>
                 <div class="feature-completion">{{ =progress }}% Complete</div>
-                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(project.bootable.category_id).name }}</div>
+                <div class="feature-category"><span class="glyphicon glyphicon-tag"></span> {{ =db.bootable_category(bootable.category_id).name }}</div>
                 <div class="feature-backers">{{ =backers }} Backer{{ ='s' if backers != 1 else ''}}</div>
                 <div class="feature-total"><span id="currency">£</span>{{ =int(total) if total % 1 == 0 else "%.2f" % total }} Backed</div>
             </div>
