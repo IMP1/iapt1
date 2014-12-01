@@ -3,7 +3,7 @@
 <div class="centre-align">
     Searching for
     {{ ="'" + request.vars.search_text + "'" if request.vars.search_text else "all open bootables" }} in
-    {{ ="all categories" if request.vars.search_category == '0' else "the %s category" % db.bootable_category(request.vars.search_category).name }}.
+    {{ ="all categories" if request.vars.search_category == '0' or not request.vars.search_category else "the %s category" % db.bootable_category(request.vars.search_category).name }}.
 </div>
 <ul id="search-results">
     {{ query = db.bootable.status_id == 2 }}
@@ -16,7 +16,7 @@
     {{ query &= text_search }}
     {{ pass }}    
 
-    {{ if request.vars.search_category != '0': }}
+    {{ if request.vars.search_category and request.vars.search_category != '0': }}
     {{ category_search = db.bootable.category_id == request.vars.search_category }}
     {{ query &= category_search }}
     {{ pass }}
