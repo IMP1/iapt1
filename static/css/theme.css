@@ -516,6 +516,10 @@ Centralised Things
         float: right;
         text-align: right;
     }
+    #project-list div.feature-info > h3, 
+    #project-list div.feature-info > h3 > a {
+        white-space: nowrap;
+    }
 
     /* Leave room for the buttons */
     #project-list > li {
