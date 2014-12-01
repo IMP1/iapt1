@@ -11,9 +11,6 @@
     <li><h3>
         <a href="#featured-close">Closest Bootables to Funding</a>
     </h3></li>
-    <li><h3>
-        <a href="#featured-funded">Recently Funded Bootables</a>
-    </h3></li>
 </ul>
 <section id="featured-new" class="featured">
     <ol class="unlabled">
@@ -115,25 +112,6 @@
         </a>
     </ol>
 </section>
-<section id="featured-funded" class="featured">
-    <ol>
-        <li>
-            <div class="feature-image">
-                <a href="{{ ='' }}">
-                    <img src="{{ ='https://s3.amazonaws.com/ksr/projects/1414771/photo-full.jpg?1413530166' }}">
-                </a>
-            </div>
-            <div class="feature-info">
-                <a href="{{ ='' }}"><h3>{{ ="Wired, Wild and Alive" }}</h3></a>
-                <div class="feature-author">by {{ ="Amanda Beck-McKim" }}</div>
-                <div class="feature-description">{{ ="A textile environment installation, animated with storytelling, puppetry and digital projections that children aged 4 - 11 can explore." }}</div>
-                <div class="progress-container"><div class="progress-bar" style="width:{{ =max(0, min(161, 100)) }}%;"></div></div>
-                <div class="feature-completion">{{ ="161% Complete" }}</div>
-                <div class="feature-category"><span class="fa fa-tag"></span> {{ ="Art" }}</div>
-            </div>
-        </li>
-    </ol>
-</section>
 <!-- Show, by default, the newest features bootables (rather than nothing). -->
 <script type="text/javascript">
     if (!window.location.hash) {
@@ -146,9 +124,6 @@
         '    </h3></li>' + 
         '    <li><h3>' + 
         '        <a href="#featured-close">Closest Bootables to Funding</a>' + 
-        '    </h3></li>' + 
-        '    <li><h3>' + 
-        '        <a href="#featured-funded">Recently Funded Bootables</a>' + 
         '    </h3></li>';
         var headers = document.getElementById("header-tabs").getElementsByTagName("li");
         var link;
@@ -156,8 +131,6 @@
             link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
         } else if (window.location.hash == "#featured-close") {
             link = headers[1].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
-        } else if (window.location.hash == "#featured-funded") {
-            link = headers[2].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
         } else {
             link = headers[0].getElementsByTagName("h3")[0].getElementsByTagName("a")[0];
         }
